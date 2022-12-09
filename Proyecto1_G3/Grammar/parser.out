@@ -1,0 +1,183 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    ID
+
+Grammar
+
+Rule 0     S' -> init
+Rule 1     init -> instrucciones
+Rule 2     instrucciones -> instrucciones instruccion
+Rule 3     instrucciones -> instruccion
+Rule 4     instruccion -> print_instr finins
+Rule 5     finins -> SALTOLINEA
+Rule 6     finins -> <empty>
+Rule 7     instruccion -> error SALTOLINEA
+Rule 8     print_instr -> RPRINT PARIZQ expresion PARDER
+Rule 9     expresion -> CADENA
+
+Terminals, with rules where they appear
+
+CADENA               : 9
+ID                   : 
+PARDER               : 8
+PARIZQ               : 8
+RPRINT               : 8
+SALTOLINEA           : 5 7
+error                : 7
+
+Nonterminals, with rules where they appear
+
+expresion            : 8
+finins               : 4
+init                 : 0
+instruccion          : 2 3
+instrucciones        : 1 2
+print_instr          : 4
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . init
+    (1) init -> . instrucciones
+    (2) instrucciones -> . instrucciones instruccion
+    (3) instrucciones -> . instruccion
+    (4) instruccion -> . print_instr finins
+    (7) instruccion -> . error SALTOLINEA
+    (8) print_instr -> . RPRINT PARIZQ expresion PARDER
+
+    error           shift and go to state 5
+    RPRINT          shift and go to state 6
+
+    init                           shift and go to state 1
+    instrucciones                  shift and go to state 2
+    instruccion                    shift and go to state 3
+    print_instr                    shift and go to state 4
+
+state 1
+
+    (0) S' -> init .
+
+
+
+state 2
+
+    (1) init -> instrucciones .
+    (2) instrucciones -> instrucciones . instruccion
+    (4) instruccion -> . print_instr finins
+    (7) instruccion -> . error SALTOLINEA
+    (8) print_instr -> . RPRINT PARIZQ expresion PARDER
+
+    $end            reduce using rule 1 (init -> instrucciones .)
+    error           shift and go to state 5
+    RPRINT          shift and go to state 6
+
+    instruccion                    shift and go to state 7
+    print_instr                    shift and go to state 4
+
+state 3
+
+    (3) instrucciones -> instruccion .
+
+    error           reduce using rule 3 (instrucciones -> instruccion .)
+    RPRINT          reduce using rule 3 (instrucciones -> instruccion .)
+    $end            reduce using rule 3 (instrucciones -> instruccion .)
+
+
+state 4
+
+    (4) instruccion -> print_instr . finins
+    (5) finins -> . SALTOLINEA
+    (6) finins -> .
+
+    SALTOLINEA      shift and go to state 9
+    error           reduce using rule 6 (finins -> .)
+    RPRINT          reduce using rule 6 (finins -> .)
+    $end            reduce using rule 6 (finins -> .)
+
+    finins                         shift and go to state 8
+
+state 5
+
+    (7) instruccion -> error . SALTOLINEA
+
+    SALTOLINEA      shift and go to state 10
+
+
+state 6
+
+    (8) print_instr -> RPRINT . PARIZQ expresion PARDER
+
+    PARIZQ          shift and go to state 11
+
+
+state 7
+
+    (2) instrucciones -> instrucciones instruccion .
+
+    error           reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    RPRINT          reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    $end            reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+
+
+state 8
+
+    (4) instruccion -> print_instr finins .
+
+    error           reduce using rule 4 (instruccion -> print_instr finins .)
+    RPRINT          reduce using rule 4 (instruccion -> print_instr finins .)
+    $end            reduce using rule 4 (instruccion -> print_instr finins .)
+
+
+state 9
+
+    (5) finins -> SALTOLINEA .
+
+    error           reduce using rule 5 (finins -> SALTOLINEA .)
+    RPRINT          reduce using rule 5 (finins -> SALTOLINEA .)
+    $end            reduce using rule 5 (finins -> SALTOLINEA .)
+
+
+state 10
+
+    (7) instruccion -> error SALTOLINEA .
+
+    error           reduce using rule 7 (instruccion -> error SALTOLINEA .)
+    RPRINT          reduce using rule 7 (instruccion -> error SALTOLINEA .)
+    $end            reduce using rule 7 (instruccion -> error SALTOLINEA .)
+
+
+state 11
+
+    (8) print_instr -> RPRINT PARIZQ . expresion PARDER
+    (9) expresion -> . CADENA
+
+    CADENA          shift and go to state 13
+
+    expresion                      shift and go to state 12
+
+state 12
+
+    (8) print_instr -> RPRINT PARIZQ expresion . PARDER
+
+    PARDER          shift and go to state 14
+
+
+state 13
+
+    (9) expresion -> CADENA .
+
+    PARDER          reduce using rule 9 (expresion -> CADENA .)
+
+
+state 14
+
+    (8) print_instr -> RPRINT PARIZQ expresion PARDER .
+
+    SALTOLINEA      reduce using rule 8 (print_instr -> RPRINT PARIZQ expresion PARDER .)
+    error           reduce using rule 8 (print_instr -> RPRINT PARIZQ expresion PARDER .)
+    RPRINT          reduce using rule 8 (print_instr -> RPRINT PARIZQ expresion PARDER .)
+    $end            reduce using rule 8 (print_instr -> RPRINT PARIZQ expresion PARDER .)
+
