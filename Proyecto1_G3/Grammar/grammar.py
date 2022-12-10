@@ -1,5 +1,6 @@
 import sys
-
+import os
+import re 
 reserved = {
     'print' : 'RPRINT'
 }
@@ -10,13 +11,53 @@ tokens = [
     "PARDER",
     "CADENA",
     'ID',
+    ### arithmetics tokens     
+    'EQUALS',
+    'PLUS',
+    'MINUS',
+    'POR',
+    'DIVIDE',
+    'MODULATE',
+    ### arithmetics tokens type date
+    'FLOAT',
+    'INTEGER',
+    
+
 ] + list(reserved.values())
 
 # Tokens Definitions
 t_SALTOLINEA = r'\n'
 t_PARIZQ = r'\('
 t_PARDER = r'\)'
+### arithmetics tokens init 
+t_EQUALS    = r'\='
+t_PLUS      = r'\+'
+t_MINUS     = r'\-'
+t_POR       = r'\*'
+t_DIVIDE    = r'\/'
+t_MODULATE  = r'\%'
 
+### methods for tokens INTEGER , DECIMAL  
+def t_FLOAT(t):
+    r'\d+\.\d+'
+    try:
+        t.value = float(t.value)
+    except ValueError:
+        print("FLOAT VALUE ERROR TO LARGE %d",t.value)
+        t.value = 0
+    return t
+
+def t_INTEGER(t):
+    r'\d+'
+    try:
+        t.value = int(t.value)
+    except ValueError:
+        print("INTEGER VALUE ERROR %d",t.value)
+        t.value = 0
+    return t
+
+
+### end methods for arithmetics 
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
     t.type = reserved.get(t.value.lower(), 'ID')  # revisar en la lista de reservadas
@@ -54,6 +95,10 @@ import ply.lex as lex
 lexer = lex.lex()
 
 
+### end lexical format
+### init imports grammar
+
+### end imports grammar 
 # Grammar definition
 
 def p_init(t):
@@ -99,14 +144,30 @@ def p_expresion_cadena(t):
     t[0] = "Cadena Reconocida: " + t[1]
 
 # Instructions Productions
+### Arithmetic Options 
+def p_expresion_binaria(t):
+    '''
+    expresion   :   expresion PLUS      expresion
+                |   expresion MINUS     expresion
+                |   expresion POR       expresion
+                |   expresion DIVIDE    expresion
+                |   expresion MODULATE  expresion
+    '''
+    if   t[2] == '+': t[0] = t[1] + t[3]
+    elif t[2] == '-': t[0] = t[1] - t[3]
+    elif t[2] == '*': t[0] = t[1] * t[3]
+    elif t[2] == '/': t[0] = t[1] / t[3]    
+    elif t[2] == '%': t[0] = t[1] % t[3]
 
+
+### END Arithmetic Options
 
 import ply.yacc as yacc
 parser = yacc.yacc()
 
 input = ''
 s = ''
-with open('./Proyecto1_G3/ArchivosPrueba/archivo.txt', 'r') as f:
+with open('ArchivosPrueba/archivo.txt', 'r') as f:
     content = f.readlines()
     for element in content:
         s += element
