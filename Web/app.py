@@ -30,8 +30,12 @@ class CODEMIRROR_MY_FORM(FlaskForm):
             'autocorrect'    : 'true'
             })
     submit = SubmitField('Submit')
+
+@app.route('/')
+def Home():
+    return render_template('Home.html')
     
-@app.route('/', methods = ['GET', 'POST'])
+@app.route('/analisis', methods = ['GET', 'POST'])
 def index():
     source_form = CODEMIRROR_MY_FORM()
     out = ""
@@ -56,10 +60,6 @@ def index():
     else:
         out = ""
     return render_template('index.html', source_form=source_form, out=out, data_error=data_error)
-
-@app.route('/Home')
-def Home():
-    return render_template('Home.html')
 
 @app.route('/Reporte')
 def Reporte():
