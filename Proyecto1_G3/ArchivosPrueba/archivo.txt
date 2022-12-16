@@ -1,1 +1,1 @@
-print(45+45)
+print("hola"+"mundo")

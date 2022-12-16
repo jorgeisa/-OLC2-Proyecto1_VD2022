@@ -99,6 +99,7 @@ lexer = lex.lex()
 ### end lexical format
 ### init imports grammar
 from expressions.expressions import *
+from instruction.asignacion import Asignacion
 ### end imports grammar 
 # Grammar definition
 ### precedence
@@ -127,7 +128,9 @@ def p_instrucciones_instruccion(t):
 # Instructions Options
 
 def p_instruccion(t):
-    'instruccion      : print_instr finins'
+    '''instruccion      : print_instr finins
+                        | asignacion_instr  finins
+    '''
     t[0] = t[1]
 
 def p_finins(t):
@@ -150,6 +153,12 @@ def p_expresion_cadena(t):
     t[0] = "Cadena Reconocida: " + t[1]
 
 # Instructions Productions
+### declaration options 
+
+def p_asignacion_instr(t):
+    'asignacion_instr  : ID EQUALS expresion' 
+    t[0] = Asignacion(t[1],t[3])
+### end declaration options 
 ### Arithmetic Options 
 def p_expresion_binaria(t):
     '''
