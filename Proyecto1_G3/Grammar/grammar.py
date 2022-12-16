@@ -18,6 +18,7 @@ tokens = [
     'POR',
     'DIVIDE',
     'MODULATE',
+    'POT',
     ### arithmetics tokens type date
     'FLOAT',
     'INTEGER',
@@ -36,7 +37,7 @@ t_MINUS     = r'\-'
 t_POR       = r'\*'
 t_DIVIDE    = r'\/'
 t_MODULATE  = r'\%'
-
+t_POT      = r'\*\*'
 ### methods for tokens INTEGER , DECIMAL  
 def t_FLOAT(t):
     r'\d+\.\d+'
@@ -97,9 +98,14 @@ lexer = lex.lex()
 
 ### end lexical format
 ### init imports grammar
-
+from expressions.expressions import *
 ### end imports grammar 
 # Grammar definition
+### precedence
+
+### end precedence 
+
+
 
 def p_init(t):
     'init     : instrucciones'
@@ -137,7 +143,7 @@ def p_instruccion_error(t):
 
 def p_print_instr(t):
     'print_instr  : RPRINT PARIZQ expresion PARDER'
-    t[0] = "Print Reconocido - " + t[3]
+    t[0] = "Print Reconocido - " + str(t[3])
 
 def p_expresion_cadena(t):
     'expresion  : CADENA'
@@ -160,7 +166,26 @@ def p_expresion_binaria(t):
     elif t[2] == '%': t[0] = t[1] % t[3]
 
 
+
+
+def p_expresion_agrupacion(t):
+    'expresion  :   PARIZQ expresion PARDER'
+    t[0] = t[2]
+
+def p_expresion_number(t):
+    '''
+    expresion   :   INTEGER
+                |   FLOAT
+    '''
+    t[0] = t[1]
+
+
 ### END Arithmetic Options
+
+
+### LOGIC expression grammar 
+
+### end logic expresion grammar 
 
 import ply.yacc as yacc
 parser = yacc.yacc()

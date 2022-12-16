@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'CADENA DIVIDE EQUALS FLOAT ID INTEGER MINUS MODULATE PARDER PARIZQ PLUS POR RPRINT SALTOLINEAinit     : instruccionesinstrucciones    : instrucciones instruccioninstrucciones    : instruccioninstruccion      : print_instr fininsfinins       : SALTOLINEA\n                    | instruccion  : error SALTOLINEAprint_instr  : RPRINT PARIZQ expresion PARDERexpresion  : CADENA\n    expresion   :   expresion PLUS      expresion\n                |   expresion MINUS     expresion\n                |   expresion POR       expresion\n                |   expresion DIVIDE    expresion\n                |   expresion MODULATE  expresion\n    '
+_lr_signature = 'CADENA DIVIDE EQUALS FLOAT ID INTEGER MINUS MODULATE PARDER PARIZQ PLUS POR POT RPRINT SALTOLINEAinit     : instruccionesinstrucciones    : instrucciones instruccioninstrucciones    : instruccioninstruccion      : print_instr fininsfinins       : SALTOLINEA\n                    | instruccion  : error SALTOLINEAprint_instr  : RPRINT PARIZQ expresion PARDERexpresion  : CADENA\n    expresion   :   expresion PLUS      expresion\n                |   expresion MINUS     expresion\n                |   expresion POR       expresion\n                |   expresion DIVIDE    expresion\n                |   expresion MODULATE  expresion\n    expresion  :   PARIZQ expresion PARDER\n    expresion   :   INTEGER\n                |   FLOAT\n    '
     
-_lr_action_items = {'error':([0,2,3,4,7,8,9,10,14,],[5,5,-3,-6,-2,-4,-5,-7,-8,]),'RPRINT':([0,2,3,4,7,8,9,10,14,],[6,6,-3,-6,-2,-4,-5,-7,-8,]),'$end':([1,2,3,4,7,8,9,10,14,],[0,-1,-3,-6,-2,-4,-5,-7,-8,]),'SALTOLINEA':([4,5,14,],[9,10,-8,]),'PARIZQ':([6,],[11,]),'CADENA':([11,15,16,17,18,19,],[13,13,13,13,13,13,]),'PARDER':([12,13,20,21,22,23,24,],[14,-9,-10,-11,-12,-13,-14,]),'PLUS':([12,13,20,21,22,23,24,],[15,-9,15,15,15,15,15,]),'MINUS':([12,13,20,21,22,23,24,],[16,-9,16,16,16,16,16,]),'POR':([12,13,20,21,22,23,24,],[17,-9,17,17,17,17,17,]),'DIVIDE':([12,13,20,21,22,23,24,],[18,-9,18,18,18,18,18,]),'MODULATE':([12,13,20,21,22,23,24,],[19,-9,19,19,19,19,19,]),}
+_lr_action_items = {'error':([0,2,3,4,7,8,9,10,18,],[5,5,-3,-6,-2,-4,-5,-7,-8,]),'RPRINT':([0,2,3,4,7,8,9,10,18,],[6,6,-3,-6,-2,-4,-5,-7,-8,]),'$end':([1,2,3,4,7,8,9,10,18,],[0,-1,-3,-6,-2,-4,-5,-7,-8,]),'SALTOLINEA':([4,5,18,],[9,10,-8,]),'PARIZQ':([6,11,12,19,20,21,22,23,],[11,12,12,12,12,12,12,12,]),'CADENA':([11,12,19,20,21,22,23,],[14,14,14,14,14,14,14,]),'INTEGER':([11,12,19,20,21,22,23,],[15,15,15,15,15,15,15,]),'FLOAT':([11,12,19,20,21,22,23,],[16,16,16,16,16,16,16,]),'PARDER':([13,14,15,16,17,24,25,26,27,28,29,],[18,-9,-16,-17,24,-15,-10,-11,-12,-13,-14,]),'PLUS':([13,14,15,16,17,24,25,26,27,28,29,],[19,-9,-16,-17,19,-15,19,19,19,19,19,]),'MINUS':([13,14,15,16,17,24,25,26,27,28,29,],[20,-9,-16,-17,20,-15,20,20,20,20,20,]),'POR':([13,14,15,16,17,24,25,26,27,28,29,],[21,-9,-16,-17,21,-15,21,21,21,21,21,]),'DIVIDE':([13,14,15,16,17,24,25,26,27,28,29,],[22,-9,-16,-17,22,-15,22,22,22,22,22,]),'MODULATE':([13,14,15,16,17,24,25,26,27,28,29,],[23,-9,-16,-17,23,-15,23,23,23,23,23,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'init':([0,],[1,]),'instrucciones':([0,],[2,]),'instruccion':([0,2,],[3,7,]),'print_instr':([0,2,],[4,4,]),'finins':([4,],[8,]),'expresion':([11,15,16,17,18,19,],[12,20,21,22,23,24,]),}
+_lr_goto_items = {'init':([0,],[1,]),'instrucciones':([0,],[2,]),'instruccion':([0,2,],[3,7,]),'print_instr':([0,2,],[4,4,]),'finins':([4,],[8,]),'expresion':([11,12,19,20,21,22,23,],[13,17,25,26,27,28,29,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,18 +27,21 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> init","S'",1,None,None,None),
-  ('init -> instrucciones','init',1,'p_init','grammar.py',105),
-  ('instrucciones -> instrucciones instruccion','instrucciones',2,'p_instrucciones_instrucciones_instruccion','grammar.py',109),
-  ('instrucciones -> instruccion','instrucciones',1,'p_instrucciones_instruccion','grammar.py',115),
-  ('instruccion -> print_instr finins','instruccion',2,'p_instruccion','grammar.py',124),
-  ('finins -> SALTOLINEA','finins',1,'p_finins','grammar.py',128),
-  ('finins -> <empty>','finins',0,'p_finins','grammar.py',129),
-  ('instruccion -> error SALTOLINEA','instruccion',2,'p_instruccion_error','grammar.py',133),
-  ('print_instr -> RPRINT PARIZQ expresion PARDER','print_instr',4,'p_print_instr','grammar.py',139),
-  ('expresion -> CADENA','expresion',1,'p_expresion_cadena','grammar.py',143),
-  ('expresion -> expresion PLUS expresion','expresion',3,'p_expresion_binaria','grammar.py',150),
-  ('expresion -> expresion MINUS expresion','expresion',3,'p_expresion_binaria','grammar.py',151),
-  ('expresion -> expresion POR expresion','expresion',3,'p_expresion_binaria','grammar.py',152),
-  ('expresion -> expresion DIVIDE expresion','expresion',3,'p_expresion_binaria','grammar.py',153),
-  ('expresion -> expresion MODULATE expresion','expresion',3,'p_expresion_binaria','grammar.py',154),
+  ('init -> instrucciones','init',1,'p_init','grammar.py',111),
+  ('instrucciones -> instrucciones instruccion','instrucciones',2,'p_instrucciones_instrucciones_instruccion','grammar.py',115),
+  ('instrucciones -> instruccion','instrucciones',1,'p_instrucciones_instruccion','grammar.py',121),
+  ('instruccion -> print_instr finins','instruccion',2,'p_instruccion','grammar.py',130),
+  ('finins -> SALTOLINEA','finins',1,'p_finins','grammar.py',134),
+  ('finins -> <empty>','finins',0,'p_finins','grammar.py',135),
+  ('instruccion -> error SALTOLINEA','instruccion',2,'p_instruccion_error','grammar.py',139),
+  ('print_instr -> RPRINT PARIZQ expresion PARDER','print_instr',4,'p_print_instr','grammar.py',145),
+  ('expresion -> CADENA','expresion',1,'p_expresion_cadena','grammar.py',149),
+  ('expresion -> expresion PLUS expresion','expresion',3,'p_expresion_binaria','grammar.py',156),
+  ('expresion -> expresion MINUS expresion','expresion',3,'p_expresion_binaria','grammar.py',157),
+  ('expresion -> expresion POR expresion','expresion',3,'p_expresion_binaria','grammar.py',158),
+  ('expresion -> expresion DIVIDE expresion','expresion',3,'p_expresion_binaria','grammar.py',159),
+  ('expresion -> expresion MODULATE expresion','expresion',3,'p_expresion_binaria','grammar.py',160),
+  ('expresion -> PARIZQ expresion PARDER','expresion',3,'p_expresion_agrupacion','grammar.py',172),
+  ('expresion -> INTEGER','expresion',1,'p_expresion_number','grammar.py',177),
+  ('expresion -> FLOAT','expresion',1,'p_expresion_number','grammar.py',178),
 ]
