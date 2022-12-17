@@ -18,5 +18,5 @@ Proyecto 1 Interprete y Compilador (C3D) del curso de Organización de Lenguajes
 
 <br/>
 
-### <p align="center">Segundo semestre 2022</p>
+### <p align="center">Vacaciones Diciembre 2022</p>
 
