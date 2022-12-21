@@ -1,3 +1,7 @@
+'''
+Grupo 3 :^)
+'''
+
 import sys
 import os
 import re 
@@ -6,7 +10,12 @@ reserved = {
 }
 
 tokens = [
+    # Comments
+    "COMMENUNI",
+    "COMMENMUL",
+
     "SALTOLINEA",
+    "DOSPUNTOS",
     "PARIZQ",
     "PARDER",
     "CADENA",
@@ -27,6 +36,7 @@ tokens = [
 
 # Tokens Definitions
 t_SALTOLINEA = r'\n'
+t_DOSPUNTOS = r';'
 t_PARIZQ = r'\('
 t_PARDER = r'\)'
 ### arithmetics tokens init 
@@ -36,6 +46,18 @@ t_MINUS     = r'\-'
 t_POR       = r'\*'
 t_DIVIDE    = r'\/'
 t_MODULATE  = r'\%'
+
+# Comment multiline
+def t_COMMENUNI(t):
+    r'\#\=(.|\n)*?\=\#'
+    t.lexer.lineno += t.value.count('\n')
+    # print('Token multilinea')
+
+# Comment unline
+def t_COMMENMUL(t):
+    r'\#.*\n'
+    t.lexer.lineno += 1
+    # print('Token unilinea')
 
 ### methods for tokens INTEGER , DECIMAL  
 def t_FLOAT(t):
@@ -60,7 +82,7 @@ def t_INTEGER(t):
 ### end methods for arithmetics 
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
-    t.type = reserved.get(t.value.lower(), 'ID')  # revisar en la lista de reservadas
+    t.type = reserved.get(t.value, 'ID')  # revisar en la lista de reservadas
     return t
 
 def t_CADENA(t):
@@ -101,6 +123,7 @@ lexer = lex.lex()
 ### end imports grammar 
 # Grammar definition
 
+# Init List of Instructions
 def p_init(t):
     'init     : instrucciones'
     t[0] = t[1]
@@ -118,7 +141,7 @@ def p_instrucciones_instruccion(t):
     else:
         t[0] = [t[1]]
 
-# Instructions Options
+# Instructions 
 
 def p_instruccion(t):
     'instruccion      : print_instr finins'
@@ -129,9 +152,11 @@ def p_finins(t):
                     | '''
     t[0] = None
 
+# Error Production (Semantic)
 def p_instruccion_error(t):
-    'instruccion  : error SALTOLINEA'
-    t[0] = "Error: " + str(t[1].value) + " - " + t.lineno(1) + " - " + find_column(input, t.slice[1])
+    'instruccion  : error finins'
+    print("ERROR - ", "Error Sintáctico. Instruccion " + str(t[1].value), t.lineno(1), find_column(input, t.slice[1]))
+    t[0] = ""
 
 # Expressions Options
 
@@ -142,6 +167,10 @@ def p_print_instr(t):
 def p_expresion_cadena(t):
     'expresion  : CADENA'
     t[0] = "Cadena Reconocida: " + t[1]
+
+def p_expresion_id(t):
+    'expresion  :   ID'
+    t[0] = "ID Reconocido: " + t[1]
 
 # Instructions Productions
 ### Arithmetic Options 
@@ -167,18 +196,21 @@ parser = yacc.yacc()
 
 input = ''
 s = ''
-with open('ArchivosPrueba/archivo.txt', 'r') as f:
+with open('Proyecto1_G3/ArchivosPrueba/archivo.txt', 'r') as f:
     content = f.readlines()
     for element in content:
         s += element
 
 input = s
-print("El input es: [" + input + "]")
+print("\n\nEl input es: [\n" + input + "\n]\n\n")
 
 instrucciones = parser.parse(input)
 
 for instruccion in instrucciones:
-    print(instruccion) 
+    if instruccion == None:
+        print("Error En Gramatica xd")
+    else:
+        print(instruccion) 
 
 
 
