@@ -6,7 +6,20 @@ import sys
 import os
 import re 
 reserved = {
-    'print' : 'RPRINT'
+    'print' :   'RPRINT',    
+    # Comienzan Tipos Basico
+    'None'  :   'RNONE',
+    'int'   :   'RINT',
+    'float' :   'RFLOAT',
+    'bool'  :   'RBOOL',
+    'string':   'RSTRING',
+    'false' :   'RFALSE',
+    'true'  :   'RTRUE',
+    # Terminan Tipos Basicos
+    # Comienzan Tipos Compuestos
+    'list'  :   'RLIST',
+    'struct':   'RSTRUCT'
+    # Terminan Tipos Compuestos
 }
 
 tokens = [
@@ -29,7 +42,8 @@ tokens = [
     'MODULATE',
     ### arithmetics tokens type date
     'FLOAT',
-    'INTEGER',
+    'INTEGER'
+    
     
 
 ] + list(reserved.values())
