@@ -714,7 +714,7 @@ state 25
 
     expresion                      shift and go to state 36
 
-state 26
+state 21
 
     (21) expresion -> expresion GREATEREQUAL . expresion
     (9) expresion -> . CADENA
