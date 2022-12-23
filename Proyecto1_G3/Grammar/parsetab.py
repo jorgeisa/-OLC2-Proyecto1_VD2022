@@ -7,8 +7,10 @@ _tabversion = '3.10'
 _lr_method = 'LALR'
 
 _lr_signature = 'CADENA COMMENMUL COMMENUNI DIFFERENTIATIONSIGN DIVIDE DOSPUNTOS EQUALIZATIONSIGN EQUALS FLOAT GREATEREQUAL GREATERTHAN ID INTEGER LESSEQUAL MINUS MODULATE PARDER PARIZQ PLUS POR RBOOL RFALSE RFLOAT RINT RLIST RNONE RPRINT RSTRING RSTRUCT RTRUE SALTOLINEA SMALLERTHANinit     : instruccionesinstrucciones    : instrucciones instruccioninstrucciones    : instruccioninstruccion      : print_instr fininsfinins       : SALTOLINEA\n                    | instruccion  : error fininsprint_instr  : RPRINT PARIZQ expresion PARDERexpresion  : CADENAexpresion  :   ID\n    expresion   :   expresion PLUS      expresion\n                |   expresion MINUS     expresion\n                |   expresion POR       expresion\n                |   expresion DIVIDE    expresion\n                |   expresion MODULATE  expresion\n    \n    expresion   :   expresion EQUALIZATIONSIGN      expresion\n                |   expresion DIFFERENTIATIONSIGN     expresion\n                |   expresion SMALLERTHAN       expresion\n                |   expresion GREATERTHAN    expresion\n                |   expresion LESSEQUAL  expresion\n                |   expresion GREATEREQUAL  expresion\n    '
+_lr_signature = 'CADENA DIVIDE EQUALS FLOAT ID INTEGER MINUS MODULATE PARDER PARIZQ PLUS POR POT RPRINT SALTOLINEAinit     : instruccionesinstrucciones    : instrucciones instruccioninstrucciones    : instruccioninstruccion      : print_instr fininsfinins       : SALTOLINEA\n                    | instruccion  : error SALTOLINEAprint_instr  : RPRINT PARIZQ expresion PARDERexpresion  : CADENA\n    expresion   :   expresion PLUS      expresion\n                |   expresion MINUS     expresion\n                |   expresion POR       expresion\n                |   expresion DIVIDE    expresion\n                |   expresion MODULATE  expresion\n    expresion  :   PARIZQ expresion PARDER\n    expresion   :   INTEGER\n                |   FLOAT\n    '
     
 _lr_action_items = {'error':([0,2,3,4,5,7,8,9,10,15,],[5,5,-3,-6,-6,-2,-4,-5,-7,-8,]),'RPRINT':([0,2,3,4,5,7,8,9,10,15,],[6,6,-3,-6,-6,-2,-4,-5,-7,-8,]),'$end':([1,2,3,4,5,7,8,9,10,15,],[0,-1,-3,-6,-6,-2,-4,-5,-7,-8,]),'SALTOLINEA':([4,5,15,],[9,9,-8,]),'PARIZQ':([6,],[11,]),'CADENA':([11,16,17,18,19,20,21,22,23,24,25,26,],[13,13,13,13,13,13,13,13,13,13,13,13,]),'ID':([11,16,17,18,19,20,21,22,23,24,25,26,],[14,14,14,14,14,14,14,14,14,14,14,14,]),'PARDER':([12,13,14,27,28,29,30,31,32,33,34,35,36,37,],[15,-9,-10,-11,-12,-13,-14,-15,-16,-17,-18,-19,-20,-21,]),'PLUS':([12,13,14,27,28,29,30,31,32,33,34,35,36,37,],[16,-9,-10,16,16,16,16,16,16,16,16,16,16,16,]),'MINUS':([12,13,14,27,28,29,30,31,32,33,34,35,36,37,],[17,-9,-10,17,17,17,17,17,17,17,17,17,17,17,]),'POR':([12,13,14,27,28,29,30,31,32,33,34,35,36,37,],[18,-9,-10,18,18,18,18,18,18,18,18,18,18,18,]),'DIVIDE':([12,13,14,27,28,29,30,31,32,33,34,35,36,37,],[19,-9,-10,19,19,19,19,19,19,19,19,19,19,19,]),'MODULATE':([12,13,14,27,28,29,30,31,32,33,34,35,36,37,],[20,-9,-10,20,20,20,20,20,20,20,20,20,20,20,]),'EQUALIZATIONSIGN':([12,13,14,27,28,29,30,31,32,33,34,35,36,37,],[21,-9,-10,21,21,21,21,21,21,21,21,21,21,21,]),'DIFFERENTIATIONSIGN':([12,13,14,27,28,29,30,31,32,33,34,35,36,37,],[22,-9,-10,22,22,22,22,22,22,22,22,22,22,22,]),'SMALLERTHAN':([12,13,14,27,28,29,30,31,32,33,34,35,36,37,],[23,-9,-10,23,23,23,23,23,23,23,23,23,23,23,]),'GREATERTHAN':([12,13,14,27,28,29,30,31,32,33,34,35,36,37,],[24,-9,-10,24,24,24,24,24,24,24,24,24,24,24,]),'LESSEQUAL':([12,13,14,27,28,29,30,31,32,33,34,35,36,37,],[25,-9,-10,25,25,25,25,25,25,25,25,25,25,25,]),'GREATEREQUAL':([12,13,14,27,28,29,30,31,32,33,34,35,36,37,],[26,-9,-10,26,26,26,26,26,26,26,26,26,26,26,]),}
+_lr_action_items = {'error':([0,2,3,4,7,8,9,10,18,],[5,5,-3,-6,-2,-4,-5,-7,-8,]),'RPRINT':([0,2,3,4,7,8,9,10,18,],[6,6,-3,-6,-2,-4,-5,-7,-8,]),'$end':([1,2,3,4,7,8,9,10,18,],[0,-1,-3,-6,-2,-4,-5,-7,-8,]),'SALTOLINEA':([4,5,18,],[9,10,-8,]),'PARIZQ':([6,11,12,19,20,21,22,23,],[11,12,12,12,12,12,12,12,]),'CADENA':([11,12,19,20,21,22,23,],[14,14,14,14,14,14,14,]),'INTEGER':([11,12,19,20,21,22,23,],[15,15,15,15,15,15,15,]),'FLOAT':([11,12,19,20,21,22,23,],[16,16,16,16,16,16,16,]),'PARDER':([13,14,15,16,17,24,25,26,27,28,29,],[18,-9,-16,-17,24,-15,-10,-11,-12,-13,-14,]),'PLUS':([13,14,15,16,17,24,25,26,27,28,29,],[19,-9,-16,-17,19,-15,19,19,19,19,19,]),'MINUS':([13,14,15,16,17,24,25,26,27,28,29,],[20,-9,-16,-17,20,-15,20,20,20,20,20,]),'POR':([13,14,15,16,17,24,25,26,27,28,29,],[21,-9,-16,-17,21,-15,21,21,21,21,21,]),'DIVIDE':([13,14,15,16,17,24,25,26,27,28,29,],[22,-9,-16,-17,22,-15,22,22,22,22,22,]),'MODULATE':([13,14,15,16,17,24,25,26,27,28,29,],[23,-9,-16,-17,23,-15,23,23,23,23,23,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -18,6 +20,7 @@ for _k, _v in _lr_action_items.items():
 del _lr_action_items
 
 _lr_goto_items = {'init':([0,],[1,]),'instrucciones':([0,],[2,]),'instruccion':([0,2,],[3,7,]),'print_instr':([0,2,],[4,4,]),'finins':([4,5,],[8,10,]),'expresion':([11,16,17,18,19,20,21,22,23,24,25,26,],[12,27,28,29,30,31,32,33,34,35,36,37,]),}
+_lr_goto_items = {'init':([0,],[1,]),'instrucciones':([0,],[2,]),'instruccion':([0,2,],[3,7,]),'print_instr':([0,2,],[4,4,]),'finins':([4,],[8,]),'expresion':([11,12,19,20,21,22,23,],[13,17,25,26,27,28,29,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -48,4 +51,21 @@ _lr_productions = [
   ('expresion -> expresion GREATERTHAN expresion','expresion',3,'p_expresion_binaria_relacional','grammar.py',230),
   ('expresion -> expresion LESSEQUAL expresion','expresion',3,'p_expresion_binaria_relacional','grammar.py',231),
   ('expresion -> expresion GREATEREQUAL expresion','expresion',3,'p_expresion_binaria_relacional','grammar.py',232),
+  ('init -> instrucciones','init',1,'p_init','grammar.py',111),
+  ('instrucciones -> instrucciones instruccion','instrucciones',2,'p_instrucciones_instrucciones_instruccion','grammar.py',115),
+  ('instrucciones -> instruccion','instrucciones',1,'p_instrucciones_instruccion','grammar.py',121),
+  ('instruccion -> print_instr finins','instruccion',2,'p_instruccion','grammar.py',130),
+  ('finins -> SALTOLINEA','finins',1,'p_finins','grammar.py',134),
+  ('finins -> <empty>','finins',0,'p_finins','grammar.py',135),
+  ('instruccion -> error SALTOLINEA','instruccion',2,'p_instruccion_error','grammar.py',139),
+  ('print_instr -> RPRINT PARIZQ expresion PARDER','print_instr',4,'p_print_instr','grammar.py',145),
+  ('expresion -> CADENA','expresion',1,'p_expresion_cadena','grammar.py',149),
+  ('expresion -> expresion PLUS expresion','expresion',3,'p_expresion_binaria','grammar.py',156),
+  ('expresion -> expresion MINUS expresion','expresion',3,'p_expresion_binaria','grammar.py',157),
+  ('expresion -> expresion POR expresion','expresion',3,'p_expresion_binaria','grammar.py',158),
+  ('expresion -> expresion DIVIDE expresion','expresion',3,'p_expresion_binaria','grammar.py',159),
+  ('expresion -> expresion MODULATE expresion','expresion',3,'p_expresion_binaria','grammar.py',160),
+  ('expresion -> PARIZQ expresion PARDER','expresion',3,'p_expresion_agrupacion','grammar.py',172),
+  ('expresion -> INTEGER','expresion',1,'p_expresion_number','grammar.py',177),
+  ('expresion -> FLOAT','expresion',1,'p_expresion_number','grammar.py',178),
 ]

@@ -40,6 +40,7 @@ tokens = [
     'POR',
     'DIVIDE',
     'MODULATE',
+    'POT',
     ### arithmetics tokens type date
     'FLOAT',
     'INTEGER',
@@ -70,6 +71,7 @@ t_MINUS     = r'\-'
 t_POR       = r'\*'
 t_DIVIDE    = r'\/'
 t_MODULATE  = r'\%'
+t_POT      = r'\*\*'
 
 # Empiezan Operadores Relacionales
 t_EQUALIZATIONSIGN = r'=='
@@ -152,9 +154,15 @@ lexer = lex.lex()
 
 ### end lexical format
 ### init imports grammar
-
+from expressions.expressions import *
+from instruction.asignacion import Asignacion
 ### end imports grammar 
 # Grammar definition
+### precedence
+
+### end precedence 
+
+
 
 # Init List of Instructions
 def p_init(t):
@@ -177,7 +185,9 @@ def p_instrucciones_instruccion(t):
 # Instructions 
 
 def p_instruccion(t):
-    'instruccion      : print_instr finins'
+    '''instruccion      : print_instr finins
+                        | asignacion_instr  finins
+    '''
     t[0] = t[1]
 
 def p_finins(t):
@@ -195,7 +205,7 @@ def p_instruccion_error(t):
 
 def p_print_instr(t):
     'print_instr  : RPRINT PARIZQ expresion PARDER'
-    t[0] = "Print Reconocido - " + t[3]
+    t[0] = "Print Reconocido - " + str(t[3])
 
 def p_expresion_cadena(t):
     'expresion  : CADENA'
@@ -206,6 +216,12 @@ def p_expresion_id(t):
     t[0] = "ID Reconocido: " + t[1]
 
 # Instructions Productions
+### declaration options 
+
+def p_asignacion_instr(t):
+    'asignacion_instr  : ID EQUALS expresion' 
+    t[0] = Asignacion(t[1],t[3])
+### end declaration options 
 ### Arithmetic Options 
 def p_expresion_binaria(t):
     '''
@@ -240,7 +256,25 @@ def p_expresion_binaria_relacional(t):
 # Termina Expresion Binaria Relacional
 
 
+
+def p_expresion_agrupacion(t):
+    'expresion  :   PARIZQ expresion PARDER'
+    t[0] = t[2]
+
+def p_expresion_number(t):
+    '''
+    expresion   :   INTEGER
+                |   FLOAT
+    '''
+    t[0] = t[1]
+
+
 ### END Arithmetic Options
+
+
+### LOGIC expression grammar 
+
+### end logic expresion grammar 
 
 import ply.yacc as yacc
 parser = yacc.yacc()
