@@ -5,6 +5,6 @@ multilineasasdfasfasf
 =#
 
    print("cadenaxdd")
-   Print(id) 
+   
 
 print("hola"+"mundo")
