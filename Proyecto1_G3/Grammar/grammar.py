@@ -43,7 +43,17 @@ tokens = [
     'POT',
     ### arithmetics tokens type date
     'FLOAT',
-    'INTEGER'
+    'INTEGER',
+
+    # Empiezan Relacionales
+    # Operadores Relacionales
+    'EQUALIZATIONSIGN',  # Signo de Igualacion
+    'DIFFERENTIATIONSIGN',  # Signo de diferenciacion
+    'SMALLERTHAN',      # Signo de Menor que
+    'GREATERTHAN',      # Signo de Mayor que
+    'LESSEQUAL',        # Signo de Menor Igual
+    'GREATEREQUAL',     # Signo de Mayor Igual
+    # Terminan Relacionales
     
     
 
@@ -62,6 +72,15 @@ t_POR       = r'\*'
 t_DIVIDE    = r'\/'
 t_MODULATE  = r'\%'
 t_POT      = r'\*\*'
+
+# Empiezan Operadores Relacionales
+t_EQUALIZATIONSIGN = r'=='
+t_DIFFERENTIATIONSIGN = r'!='
+t_SMALLERTHAN = r'<'
+t_GREATERTHAN = r'>'
+t_LESSEQUAL = r'<='
+t_GREATEREQUAL = r'>='
+# Terminan Operadores Relacionales
 
 # Comment multiline
 def t_COMMENUNI(t):
@@ -226,6 +245,23 @@ def p_expresion_binaria(t):
     elif t[2] == '/': t[0] = t[1] / t[3]    
     elif t[2] == '%': t[0] = t[1] % t[3]
 
+# Empieza Expresion Binaria Relacional
+def p_expresion_binaria_relacional(t):
+    '''
+    expresion   :   expresion EQUALIZATIONSIGN      expresion
+                |   expresion DIFFERENTIATIONSIGN     expresion
+                |   expresion SMALLERTHAN       expresion
+                |   expresion GREATERTHAN    expresion
+                |   expresion LESSEQUAL  expresion
+                |   expresion GREATEREQUAL  expresion
+    '''
+    if   t[2] == '==': t[0] = t[1] == t[3]
+    elif t[2] == '!=': t[0] = t[1] != t[3]
+    elif t[2] == '<': t[0] = t[1] < t[3]
+    elif t[2] == '>': t[0] = t[1] > t[3]    
+    elif t[2] == '<=': t[0] = t[1] <= t[3]
+    elif t[2] == '>=': t[0] = t[1] >= t[3]
+# Termina Expresion Binaria Relacional
 
 
 
