@@ -5,9 +5,16 @@ Unused terminals:
     COMMENMUL
     COMMENUNI
     DOSPUNTOS
-    EQUALS
-    ID
     POT
+    RBOOL
+    RFALSE
+    RFLOAT
+    RINT
+    RLIST
+    RNONE
+    RSTRING
+    RSTRUCT
+    RTRUE
 
 Grammar
 
@@ -16,46 +23,59 @@ Rule 1     init -> instrucciones
 Rule 2     instrucciones -> instrucciones instruccion
 Rule 3     instrucciones -> instruccion
 Rule 4     instruccion -> print_instr finins
-Rule 5     finins -> SALTOLINEA
-Rule 6     finins -> <empty>
-Rule 7     instruccion -> error finins
-Rule 8     print_instr -> RPRINT PARIZQ expresion PARDER
-Rule 9     expresion -> CADENA
-Rule 10    expresion -> expresion PLUS expresion
-Rule 11    expresion -> expresion MINUS expresion
-Rule 12    expresion -> expresion POR expresion
-Rule 13    expresion -> expresion DIVIDE expresion
-Rule 14    expresion -> expresion MODULATE expresion
-Rule 15    expresion -> PARIZQ expresion PARDER
-Rule 16    expresion -> INTEGER
-Rule 17    expresion -> FLOAT
+Rule 5     instruccion -> asignacion_instr finins
+Rule 6     finins -> SALTOLINEA
+Rule 7     finins -> <empty>
+Rule 8     instruccion -> error finins
+Rule 9     print_instr -> RPRINT PARIZQ expresion PARDER
+Rule 10    expresion -> CADENA
+Rule 11    expresion -> ID
+Rule 12    asignacion_instr -> ID EQUALS expresion
+Rule 13    expresion -> expresion PLUS expresion
+Rule 14    expresion -> expresion MINUS expresion
+Rule 15    expresion -> expresion POR expresion
+Rule 16    expresion -> expresion DIVIDE expresion
+Rule 17    expresion -> expresion MODULATE expresion
+Rule 18    expresion -> PARIZQ expresion PARDER
+Rule 19    expresion -> INTEGER
+Rule 20    expresion -> FLOAT
 
 Terminals, with rules where they appear
 
-CADENA               : 9
+CADENA               : 10
 COMMENMUL            : 
 COMMENUNI            : 
-DIVIDE               : 14
+DIVIDE               : 16
 DOSPUNTOS            : 
-EQUALS               : 
-FLOAT                : 17
-ID                   : 
-INTEGER              : 16
-MINUS                : 11
-MODULATE             : 14
-PARDER               : 8 15
-PARIZQ               : 8 15
-PLUS                 : 10
-POR                  : 12
+EQUALS               : 12
+FLOAT                : 20
+ID                   : 11 12
+INTEGER              : 19
+MINUS                : 14
+MODULATE             : 17
+PARDER               : 9 18
+PARIZQ               : 9 18
+PLUS                 : 13
+POR                  : 15
 POT                  : 
-RPRINT               : 8
-SALTOLINEA           : 5
-error                : 7
+RBOOL                : 
+RFALSE               : 
+RFLOAT               : 
+RINT                 : 
+RLIST                : 
+RNONE                : 
+RPRINT               : 9
+RSTRING              : 
+RSTRUCT              : 
+RTRUE                : 
+SALTOLINEA           : 6
+error                : 8
 
 Nonterminals, with rules where they appear
 
-expresion            : 8 10 10 11 11 12 12 13 13 14 14 15
-finins               : 4
+asignacion_instr     : 5
+expresion            : 9 12 13 13 14 14 15 15 16 16 17 17 18
+finins               : 4 5 8
 init                 : 0
 instruccion          : 2 3
 instrucciones        : 1 2
@@ -70,16 +90,20 @@ state 0
     (2) instrucciones -> . instrucciones instruccion
     (3) instrucciones -> . instruccion
     (4) instruccion -> . print_instr finins
-    (7) instruccion -> . error finins
-    (8) print_instr -> . RPRINT PARIZQ expresion PARDER
+    (5) instruccion -> . asignacion_instr finins
+    (8) instruccion -> . error finins
+    (9) print_instr -> . RPRINT PARIZQ expresion PARDER
+    (12) asignacion_instr -> . ID EQUALS expresion
 
-    error           shift and go to state 5
-    RPRINT          shift and go to state 6
+    error           shift and go to state 6
+    RPRINT          shift and go to state 7
+    ID              shift and go to state 8
 
     init                           shift and go to state 1
     instrucciones                  shift and go to state 2
     instruccion                    shift and go to state 3
     print_instr                    shift and go to state 4
+    asignacion_instr               shift and go to state 5
 
 state 1
 
@@ -92,15 +116,19 @@ state 2
     (1) init -> instrucciones .
     (2) instrucciones -> instrucciones . instruccion
     (4) instruccion -> . print_instr finins
-    (7) instruccion -> . error finins
-    (8) print_instr -> . RPRINT PARIZQ expresion PARDER
+    (5) instruccion -> . asignacion_instr finins
+    (8) instruccion -> . error finins
+    (9) print_instr -> . RPRINT PARIZQ expresion PARDER
+    (12) asignacion_instr -> . ID EQUALS expresion
 
     $end            reduce using rule 1 (init -> instrucciones .)
-    error           shift and go to state 5
-    RPRINT          shift and go to state 6
+    error           shift and go to state 6
+    RPRINT          shift and go to state 7
+    ID              shift and go to state 8
 
-    instruccion                    shift and go to state 7
+    instruccion                    shift and go to state 9
     print_instr                    shift and go to state 4
+    asignacion_instr               shift and go to state 5
 
 state 3
 
@@ -108,488 +136,632 @@ state 3
 
     error           reduce using rule 3 (instrucciones -> instruccion .)
     RPRINT          reduce using rule 3 (instrucciones -> instruccion .)
+    ID              reduce using rule 3 (instrucciones -> instruccion .)
     $end            reduce using rule 3 (instrucciones -> instruccion .)
 
 
 state 4
 
     (4) instruccion -> print_instr . finins
-    (5) finins -> . SALTOLINEA
-    (6) finins -> .
+    (6) finins -> . SALTOLINEA
+    (7) finins -> .
 
-    SALTOLINEA      shift and go to state 9
-    error           reduce using rule 6 (finins -> .)
-    RPRINT          reduce using rule 6 (finins -> .)
-    $end            reduce using rule 6 (finins -> .)
-
-    finins                         shift and go to state 8
-
-state 5
-
-    (7) instruccion -> error . finins
-    (5) finins -> . SALTOLINEA
-    (6) finins -> .
-
-    SALTOLINEA      shift and go to state 9
-    error           reduce using rule 6 (finins -> .)
-    RPRINT          reduce using rule 6 (finins -> .)
-    $end            reduce using rule 6 (finins -> .)
+    SALTOLINEA      shift and go to state 11
+    error           reduce using rule 7 (finins -> .)
+    RPRINT          reduce using rule 7 (finins -> .)
+    ID              reduce using rule 7 (finins -> .)
+    $end            reduce using rule 7 (finins -> .)
 
     finins                         shift and go to state 10
 
+state 5
+
+    (5) instruccion -> asignacion_instr . finins
+    (6) finins -> . SALTOLINEA
+    (7) finins -> .
+
+    SALTOLINEA      shift and go to state 11
+    error           reduce using rule 7 (finins -> .)
+    RPRINT          reduce using rule 7 (finins -> .)
+    ID              reduce using rule 7 (finins -> .)
+    $end            reduce using rule 7 (finins -> .)
+
+    finins                         shift and go to state 12
+
 state 6
 
-    (8) print_instr -> RPRINT . PARIZQ expresion PARDER
+    (8) instruccion -> error . finins
+    (6) finins -> . SALTOLINEA
+    (7) finins -> .
 
-    PARIZQ          shift and go to state 11
+    SALTOLINEA      shift and go to state 11
+    error           reduce using rule 7 (finins -> .)
+    RPRINT          reduce using rule 7 (finins -> .)
+    ID              reduce using rule 7 (finins -> .)
+    $end            reduce using rule 7 (finins -> .)
 
+    finins                         shift and go to state 13
 
 state 7
+
+    (9) print_instr -> RPRINT . PARIZQ expresion PARDER
+
+    PARIZQ          shift and go to state 14
+
+
+state 8
+
+    (12) asignacion_instr -> ID . EQUALS expresion
+
+    EQUALS          shift and go to state 15
+
+
+state 9
 
     (2) instrucciones -> instrucciones instruccion .
 
     error           reduce using rule 2 (instrucciones -> instrucciones instruccion .)
     RPRINT          reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    ID              reduce using rule 2 (instrucciones -> instrucciones instruccion .)
     $end            reduce using rule 2 (instrucciones -> instrucciones instruccion .)
 
 
-state 8
+state 10
 
     (4) instruccion -> print_instr finins .
 
     error           reduce using rule 4 (instruccion -> print_instr finins .)
     RPRINT          reduce using rule 4 (instruccion -> print_instr finins .)
+    ID              reduce using rule 4 (instruccion -> print_instr finins .)
     $end            reduce using rule 4 (instruccion -> print_instr finins .)
-
-
-state 9
-
-    (5) finins -> SALTOLINEA .
-
-    error           reduce using rule 5 (finins -> SALTOLINEA .)
-    RPRINT          reduce using rule 5 (finins -> SALTOLINEA .)
-    $end            reduce using rule 5 (finins -> SALTOLINEA .)
-
-
-state 10
-
-    (7) instruccion -> error finins .
-
-    error           reduce using rule 7 (instruccion -> error finins .)
-    RPRINT          reduce using rule 7 (instruccion -> error finins .)
-    $end            reduce using rule 7 (instruccion -> error finins .)
 
 
 state 11
 
-    (8) print_instr -> RPRINT PARIZQ . expresion PARDER
-    (9) expresion -> . CADENA
-    (10) expresion -> . expresion PLUS expresion
-    (11) expresion -> . expresion MINUS expresion
-    (12) expresion -> . expresion POR expresion
-    (13) expresion -> . expresion DIVIDE expresion
-    (14) expresion -> . expresion MODULATE expresion
-    (15) expresion -> . PARIZQ expresion PARDER
-    (16) expresion -> . INTEGER
-    (17) expresion -> . FLOAT
+    (6) finins -> SALTOLINEA .
 
-    CADENA          shift and go to state 14
-    PARIZQ          shift and go to state 12
-    INTEGER         shift and go to state 15
-    FLOAT           shift and go to state 16
+    error           reduce using rule 6 (finins -> SALTOLINEA .)
+    RPRINT          reduce using rule 6 (finins -> SALTOLINEA .)
+    ID              reduce using rule 6 (finins -> SALTOLINEA .)
+    $end            reduce using rule 6 (finins -> SALTOLINEA .)
 
-    expresion                      shift and go to state 13
 
 state 12
 
-    (15) expresion -> PARIZQ . expresion PARDER
-    (9) expresion -> . CADENA
-    (10) expresion -> . expresion PLUS expresion
-    (11) expresion -> . expresion MINUS expresion
-    (12) expresion -> . expresion POR expresion
-    (13) expresion -> . expresion DIVIDE expresion
-    (14) expresion -> . expresion MODULATE expresion
-    (15) expresion -> . PARIZQ expresion PARDER
-    (16) expresion -> . INTEGER
-    (17) expresion -> . FLOAT
+    (5) instruccion -> asignacion_instr finins .
 
-    CADENA          shift and go to state 14
-    PARIZQ          shift and go to state 12
-    INTEGER         shift and go to state 15
-    FLOAT           shift and go to state 16
+    error           reduce using rule 5 (instruccion -> asignacion_instr finins .)
+    RPRINT          reduce using rule 5 (instruccion -> asignacion_instr finins .)
+    ID              reduce using rule 5 (instruccion -> asignacion_instr finins .)
+    $end            reduce using rule 5 (instruccion -> asignacion_instr finins .)
 
-    expresion                      shift and go to state 17
 
 state 13
 
-    (8) print_instr -> RPRINT PARIZQ expresion . PARDER
-    (11) expresion -> expresion . PLUS expresion
-    (12) expresion -> expresion . MINUS expresion
-    (13) expresion -> expresion . POR expresion
-    (14) expresion -> expresion . DIVIDE expresion
-    (15) expresion -> expresion . MODULATE expresion
+    (8) instruccion -> error finins .
 
-    PARDER          shift and go to state 18
-    PLUS            shift and go to state 19
-    MINUS           shift and go to state 20
-    POR             shift and go to state 21
-    DIVIDE          shift and go to state 22
-    MODULATE        shift and go to state 23
+    error           reduce using rule 8 (instruccion -> error finins .)
+    RPRINT          reduce using rule 8 (instruccion -> error finins .)
+    ID              reduce using rule 8 (instruccion -> error finins .)
+    $end            reduce using rule 8 (instruccion -> error finins .)
 
 
 state 14
 
-    (9) expresion -> CADENA .
+    (9) print_instr -> RPRINT PARIZQ . expresion PARDER
+    (10) expresion -> . CADENA
+    (11) expresion -> . ID
+    (13) expresion -> . expresion PLUS expresion
+    (14) expresion -> . expresion MINUS expresion
+    (15) expresion -> . expresion POR expresion
+    (16) expresion -> . expresion DIVIDE expresion
+    (17) expresion -> . expresion MODULATE expresion
+    (18) expresion -> . PARIZQ expresion PARDER
+    (19) expresion -> . INTEGER
+    (20) expresion -> . FLOAT
 
-    PARDER          reduce using rule 9 (expresion -> CADENA .)
-    PLUS            reduce using rule 9 (expresion -> CADENA .)
-    MINUS           reduce using rule 9 (expresion -> CADENA .)
-    POR             reduce using rule 9 (expresion -> CADENA .)
-    DIVIDE          reduce using rule 9 (expresion -> CADENA .)
-    MODULATE        reduce using rule 9 (expresion -> CADENA .)
+    CADENA          shift and go to state 18
+    ID              shift and go to state 19
+    PARIZQ          shift and go to state 16
+    INTEGER         shift and go to state 20
+    FLOAT           shift and go to state 21
 
+    expresion                      shift and go to state 17
 
 state 15
 
-    (16) expresion -> INTEGER .
+    (12) asignacion_instr -> ID EQUALS . expresion
+    (10) expresion -> . CADENA
+    (11) expresion -> . ID
+    (13) expresion -> . expresion PLUS expresion
+    (14) expresion -> . expresion MINUS expresion
+    (15) expresion -> . expresion POR expresion
+    (16) expresion -> . expresion DIVIDE expresion
+    (17) expresion -> . expresion MODULATE expresion
+    (18) expresion -> . PARIZQ expresion PARDER
+    (19) expresion -> . INTEGER
+    (20) expresion -> . FLOAT
 
-    PARDER          reduce using rule 16 (expresion -> INTEGER .)
-    PLUS            reduce using rule 16 (expresion -> INTEGER .)
-    MINUS           reduce using rule 16 (expresion -> INTEGER .)
-    POR             reduce using rule 16 (expresion -> INTEGER .)
-    DIVIDE          reduce using rule 16 (expresion -> INTEGER .)
-    MODULATE        reduce using rule 16 (expresion -> INTEGER .)
+    CADENA          shift and go to state 18
+    ID              shift and go to state 19
+    PARIZQ          shift and go to state 16
+    INTEGER         shift and go to state 20
+    FLOAT           shift and go to state 21
 
+    expresion                      shift and go to state 22
 
 state 16
 
-    (17) expresion -> FLOAT .
+    (18) expresion -> PARIZQ . expresion PARDER
+    (10) expresion -> . CADENA
+    (11) expresion -> . ID
+    (13) expresion -> . expresion PLUS expresion
+    (14) expresion -> . expresion MINUS expresion
+    (15) expresion -> . expresion POR expresion
+    (16) expresion -> . expresion DIVIDE expresion
+    (17) expresion -> . expresion MODULATE expresion
+    (18) expresion -> . PARIZQ expresion PARDER
+    (19) expresion -> . INTEGER
+    (20) expresion -> . FLOAT
 
-    PARDER          reduce using rule 17 (expresion -> FLOAT .)
-    PLUS            reduce using rule 17 (expresion -> FLOAT .)
-    MINUS           reduce using rule 17 (expresion -> FLOAT .)
-    POR             reduce using rule 17 (expresion -> FLOAT .)
-    DIVIDE          reduce using rule 17 (expresion -> FLOAT .)
-    MODULATE        reduce using rule 17 (expresion -> FLOAT .)
+    CADENA          shift and go to state 18
+    ID              shift and go to state 19
+    PARIZQ          shift and go to state 16
+    INTEGER         shift and go to state 20
+    FLOAT           shift and go to state 21
 
+    expresion                      shift and go to state 23
 
 state 17
 
-    (15) expresion -> PARIZQ expresion . PARDER
-    (10) expresion -> expresion . PLUS expresion
-    (11) expresion -> expresion . MINUS expresion
-    (12) expresion -> expresion . POR expresion
-    (13) expresion -> expresion . DIVIDE expresion
-    (14) expresion -> expresion . MODULATE expresion
+    (9) print_instr -> RPRINT PARIZQ expresion . PARDER
+    (13) expresion -> expresion . PLUS expresion
+    (14) expresion -> expresion . MINUS expresion
+    (15) expresion -> expresion . POR expresion
+    (16) expresion -> expresion . DIVIDE expresion
+    (17) expresion -> expresion . MODULATE expresion
 
     PARDER          shift and go to state 24
-    PLUS            shift and go to state 19
-    MINUS           shift and go to state 20
-    POR             shift and go to state 21
-    DIVIDE          shift and go to state 22
-    MODULATE        shift and go to state 23
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    POR             shift and go to state 27
+    DIVIDE          shift and go to state 28
+    MODULATE        shift and go to state 29
 
 
 state 18
 
-    (8) print_instr -> RPRINT PARIZQ expresion PARDER .
+    (10) expresion -> CADENA .
 
-    SALTOLINEA      reduce using rule 8 (print_instr -> RPRINT PARIZQ expresion PARDER .)
-    error           reduce using rule 8 (print_instr -> RPRINT PARIZQ expresion PARDER .)
-    RPRINT          reduce using rule 8 (print_instr -> RPRINT PARIZQ expresion PARDER .)
-    $end            reduce using rule 8 (print_instr -> RPRINT PARIZQ expresion PARDER .)
+    PARDER          reduce using rule 10 (expresion -> CADENA .)
+    PLUS            reduce using rule 10 (expresion -> CADENA .)
+    MINUS           reduce using rule 10 (expresion -> CADENA .)
+    POR             reduce using rule 10 (expresion -> CADENA .)
+    DIVIDE          reduce using rule 10 (expresion -> CADENA .)
+    MODULATE        reduce using rule 10 (expresion -> CADENA .)
+    SALTOLINEA      reduce using rule 10 (expresion -> CADENA .)
+    error           reduce using rule 10 (expresion -> CADENA .)
+    RPRINT          reduce using rule 10 (expresion -> CADENA .)
+    ID              reduce using rule 10 (expresion -> CADENA .)
+    $end            reduce using rule 10 (expresion -> CADENA .)
 
 
 state 19
 
-    (10) expresion -> expresion PLUS . expresion
-    (9) expresion -> . CADENA
-    (10) expresion -> . expresion PLUS expresion
-    (11) expresion -> . expresion MINUS expresion
-    (12) expresion -> . expresion POR expresion
-    (13) expresion -> . expresion DIVIDE expresion
-    (14) expresion -> . expresion MODULATE expresion
-    (15) expresion -> . PARIZQ expresion PARDER
-    (16) expresion -> . INTEGER
-    (17) expresion -> . FLOAT
+    (11) expresion -> ID .
 
-    CADENA          shift and go to state 14
-    PARIZQ          shift and go to state 12
-    INTEGER         shift and go to state 15
-    FLOAT           shift and go to state 16
+    PARDER          reduce using rule 11 (expresion -> ID .)
+    PLUS            reduce using rule 11 (expresion -> ID .)
+    MINUS           reduce using rule 11 (expresion -> ID .)
+    POR             reduce using rule 11 (expresion -> ID .)
+    DIVIDE          reduce using rule 11 (expresion -> ID .)
+    MODULATE        reduce using rule 11 (expresion -> ID .)
+    SALTOLINEA      reduce using rule 11 (expresion -> ID .)
+    error           reduce using rule 11 (expresion -> ID .)
+    RPRINT          reduce using rule 11 (expresion -> ID .)
+    ID              reduce using rule 11 (expresion -> ID .)
+    $end            reduce using rule 11 (expresion -> ID .)
 
-    expresion                      shift and go to state 25
 
 state 20
 
-    (11) expresion -> expresion PLUS . expresion
-    (9) expresion -> . CADENA
-    (10) expresion -> . expresion PLUS expresion
-    (11) expresion -> . expresion MINUS expresion
-    (12) expresion -> . expresion POR expresion
-    (13) expresion -> . expresion DIVIDE expresion
-    (14) expresion -> . expresion MODULATE expresion
-    (15) expresion -> . PARIZQ expresion PARDER
-    (16) expresion -> . INTEGER
-    (17) expresion -> . FLOAT
+    (19) expresion -> INTEGER .
 
-    CADENA          shift and go to state 14
-    PARIZQ          shift and go to state 12
-    INTEGER         shift and go to state 15
-    FLOAT           shift and go to state 16
+    PARDER          reduce using rule 19 (expresion -> INTEGER .)
+    PLUS            reduce using rule 19 (expresion -> INTEGER .)
+    MINUS           reduce using rule 19 (expresion -> INTEGER .)
+    POR             reduce using rule 19 (expresion -> INTEGER .)
+    DIVIDE          reduce using rule 19 (expresion -> INTEGER .)
+    MODULATE        reduce using rule 19 (expresion -> INTEGER .)
+    SALTOLINEA      reduce using rule 19 (expresion -> INTEGER .)
+    error           reduce using rule 19 (expresion -> INTEGER .)
+    RPRINT          reduce using rule 19 (expresion -> INTEGER .)
+    ID              reduce using rule 19 (expresion -> INTEGER .)
+    $end            reduce using rule 19 (expresion -> INTEGER .)
 
-    expresion                      shift and go to state 26
 
 state 21
 
-    (12) expresion -> expresion MINUS . expresion
-    (9) expresion -> . CADENA
-    (10) expresion -> . expresion PLUS expresion
-    (11) expresion -> . expresion MINUS expresion
-    (12) expresion -> . expresion POR expresion
-    (13) expresion -> . expresion DIVIDE expresion
-    (14) expresion -> . expresion MODULATE expresion
-    (15) expresion -> . PARIZQ expresion PARDER
-    (16) expresion -> . INTEGER
-    (17) expresion -> . FLOAT
+    (20) expresion -> FLOAT .
 
-    CADENA          shift and go to state 14
-    PARIZQ          shift and go to state 12
-    INTEGER         shift and go to state 15
-    FLOAT           shift and go to state 16
+    PARDER          reduce using rule 20 (expresion -> FLOAT .)
+    PLUS            reduce using rule 20 (expresion -> FLOAT .)
+    MINUS           reduce using rule 20 (expresion -> FLOAT .)
+    POR             reduce using rule 20 (expresion -> FLOAT .)
+    DIVIDE          reduce using rule 20 (expresion -> FLOAT .)
+    MODULATE        reduce using rule 20 (expresion -> FLOAT .)
+    SALTOLINEA      reduce using rule 20 (expresion -> FLOAT .)
+    error           reduce using rule 20 (expresion -> FLOAT .)
+    RPRINT          reduce using rule 20 (expresion -> FLOAT .)
+    ID              reduce using rule 20 (expresion -> FLOAT .)
+    $end            reduce using rule 20 (expresion -> FLOAT .)
 
-    expresion                      shift and go to state 27
 
 state 22
 
-    (13) expresion -> expresion POR . expresion
-    (9) expresion -> . CADENA
-    (10) expresion -> . expresion PLUS expresion
-    (11) expresion -> . expresion MINUS expresion
-    (12) expresion -> . expresion POR expresion
-    (13) expresion -> . expresion DIVIDE expresion
-    (14) expresion -> . expresion MODULATE expresion
-    (15) expresion -> . PARIZQ expresion PARDER
-    (16) expresion -> . INTEGER
-    (17) expresion -> . FLOAT
+    (12) asignacion_instr -> ID EQUALS expresion .
+    (13) expresion -> expresion . PLUS expresion
+    (14) expresion -> expresion . MINUS expresion
+    (15) expresion -> expresion . POR expresion
+    (16) expresion -> expresion . DIVIDE expresion
+    (17) expresion -> expresion . MODULATE expresion
 
-    CADENA          shift and go to state 14
-    PARIZQ          shift and go to state 12
-    INTEGER         shift and go to state 15
-    FLOAT           shift and go to state 16
+    SALTOLINEA      reduce using rule 12 (asignacion_instr -> ID EQUALS expresion .)
+    error           reduce using rule 12 (asignacion_instr -> ID EQUALS expresion .)
+    RPRINT          reduce using rule 12 (asignacion_instr -> ID EQUALS expresion .)
+    ID              reduce using rule 12 (asignacion_instr -> ID EQUALS expresion .)
+    $end            reduce using rule 12 (asignacion_instr -> ID EQUALS expresion .)
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    POR             shift and go to state 27
+    DIVIDE          shift and go to state 28
+    MODULATE        shift and go to state 29
 
-    expresion                      shift and go to state 28
 
 state 23
 
-    (14) expresion -> expresion DIVIDE . expresion
-    (9) expresion -> . CADENA
-    (10) expresion -> . expresion PLUS expresion
-    (11) expresion -> . expresion MINUS expresion
-    (12) expresion -> . expresion POR expresion
-    (13) expresion -> . expresion DIVIDE expresion
-    (14) expresion -> . expresion MODULATE expresion
-    (15) expresion -> . PARIZQ expresion PARDER
-    (16) expresion -> . INTEGER
-    (17) expresion -> . FLOAT
+    (18) expresion -> PARIZQ expresion . PARDER
+    (13) expresion -> expresion . PLUS expresion
+    (14) expresion -> expresion . MINUS expresion
+    (15) expresion -> expresion . POR expresion
+    (16) expresion -> expresion . DIVIDE expresion
+    (17) expresion -> expresion . MODULATE expresion
 
-    CADENA          shift and go to state 14
-    PARIZQ          shift and go to state 12
-    INTEGER         shift and go to state 15
-    FLOAT           shift and go to state 16
+    PARDER          shift and go to state 30
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    POR             shift and go to state 27
+    DIVIDE          shift and go to state 28
+    MODULATE        shift and go to state 29
 
-    expresion                      shift and go to state 29
 
 state 24
 
-    (15) expresion -> PARIZQ expresion PARDER .
+    (9) print_instr -> RPRINT PARIZQ expresion PARDER .
 
-    PARDER          reduce using rule 15 (expresion -> PARIZQ expresion PARDER .)
-    PLUS            reduce using rule 15 (expresion -> PARIZQ expresion PARDER .)
-    MINUS           reduce using rule 15 (expresion -> PARIZQ expresion PARDER .)
-    POR             reduce using rule 15 (expresion -> PARIZQ expresion PARDER .)
-    DIVIDE          reduce using rule 15 (expresion -> PARIZQ expresion PARDER .)
-    MODULATE        reduce using rule 15 (expresion -> PARIZQ expresion PARDER .)
+    SALTOLINEA      reduce using rule 9 (print_instr -> RPRINT PARIZQ expresion PARDER .)
+    error           reduce using rule 9 (print_instr -> RPRINT PARIZQ expresion PARDER .)
+    RPRINT          reduce using rule 9 (print_instr -> RPRINT PARIZQ expresion PARDER .)
+    ID              reduce using rule 9 (print_instr -> RPRINT PARIZQ expresion PARDER .)
+    $end            reduce using rule 9 (print_instr -> RPRINT PARIZQ expresion PARDER .)
 
 
 state 25
 
-    (10) expresion -> expresion PLUS expresion .
-    (10) expresion -> expresion . PLUS expresion
-    (11) expresion -> expresion . MINUS expresion
-    (12) expresion -> expresion . POR expresion
-    (13) expresion -> expresion . DIVIDE expresion
-    (14) expresion -> expresion . MODULATE expresion
+    (13) expresion -> expresion PLUS . expresion
+    (10) expresion -> . CADENA
+    (11) expresion -> . ID
+    (13) expresion -> . expresion PLUS expresion
+    (14) expresion -> . expresion MINUS expresion
+    (15) expresion -> . expresion POR expresion
+    (16) expresion -> . expresion DIVIDE expresion
+    (17) expresion -> . expresion MODULATE expresion
+    (18) expresion -> . PARIZQ expresion PARDER
+    (19) expresion -> . INTEGER
+    (20) expresion -> . FLOAT
 
-    CADENA          shift and go to state 13
-    ID              shift and go to state 14
+    CADENA          shift and go to state 18
+    ID              shift and go to state 19
+    PARIZQ          shift and go to state 16
+    INTEGER         shift and go to state 20
+    FLOAT           shift and go to state 21
 
-    expresion                      shift and go to state 25
-
-state 21
-
-    (11) expresion -> expresion PLUS expresion .
-    (11) expresion -> expresion . PLUS expresion
-    (12) expresion -> expresion . MINUS expresion
-    (13) expresion -> expresion . POR expresion
-    (14) expresion -> expresion . DIVIDE expresion
-    (15) expresion -> expresion . MODULATE expresion
-
-  ! shift/reduce conflict for PLUS resolved as shift
-  ! shift/reduce conflict for MINUS resolved as shift
-  ! shift/reduce conflict for POR resolved as shift
-  ! shift/reduce conflict for DIVIDE resolved as shift
-  ! shift/reduce conflict for MODULATE resolved as shift
-    PARDER          reduce using rule 10 (expresion -> expresion PLUS expresion .)
-    PLUS            shift and go to state 19
-    MINUS           shift and go to state 20
-    POR             shift and go to state 21
-    DIVIDE          shift and go to state 22
-    MODULATE        shift and go to state 23
-
-  ! PLUS            [ reduce using rule 11 (expresion -> expresion PLUS expresion .) ]
-  ! MINUS           [ reduce using rule 11 (expresion -> expresion PLUS expresion .) ]
-  ! POR             [ reduce using rule 11 (expresion -> expresion PLUS expresion .) ]
-  ! DIVIDE          [ reduce using rule 11 (expresion -> expresion PLUS expresion .) ]
-  ! MODULATE        [ reduce using rule 11 (expresion -> expresion PLUS expresion .) ]
-
+    expresion                      shift and go to state 31
 
 state 26
 
-    (12) expresion -> expresion MINUS expresion .
-    (11) expresion -> expresion . PLUS expresion
-    (12) expresion -> expresion . MINUS expresion
-    (13) expresion -> expresion . POR expresion
-    (14) expresion -> expresion . DIVIDE expresion
-    (15) expresion -> expresion . MODULATE expresion
+    (14) expresion -> expresion MINUS . expresion
+    (10) expresion -> . CADENA
+    (11) expresion -> . ID
+    (13) expresion -> . expresion PLUS expresion
+    (14) expresion -> . expresion MINUS expresion
+    (15) expresion -> . expresion POR expresion
+    (16) expresion -> . expresion DIVIDE expresion
+    (17) expresion -> . expresion MODULATE expresion
+    (18) expresion -> . PARIZQ expresion PARDER
+    (19) expresion -> . INTEGER
+    (20) expresion -> . FLOAT
 
-  ! shift/reduce conflict for PLUS resolved as shift
-  ! shift/reduce conflict for MINUS resolved as shift
-  ! shift/reduce conflict for POR resolved as shift
-  ! shift/reduce conflict for DIVIDE resolved as shift
-  ! shift/reduce conflict for MODULATE resolved as shift
-    PARDER          reduce using rule 11 (expresion -> expresion MINUS expresion .)
-    PLUS            shift and go to state 19
-    MINUS           shift and go to state 20
-    POR             shift and go to state 21
-    DIVIDE          shift and go to state 22
-    MODULATE        shift and go to state 23
+    CADENA          shift and go to state 18
+    ID              shift and go to state 19
+    PARIZQ          shift and go to state 16
+    INTEGER         shift and go to state 20
+    FLOAT           shift and go to state 21
 
-  ! PLUS            [ reduce using rule 12 (expresion -> expresion MINUS expresion .) ]
-  ! MINUS           [ reduce using rule 12 (expresion -> expresion MINUS expresion .) ]
-  ! POR             [ reduce using rule 12 (expresion -> expresion MINUS expresion .) ]
-  ! DIVIDE          [ reduce using rule 12 (expresion -> expresion MINUS expresion .) ]
-  ! MODULATE        [ reduce using rule 12 (expresion -> expresion MINUS expresion .) ]
-
+    expresion                      shift and go to state 32
 
 state 27
 
-    (13) expresion -> expresion POR expresion .
-    (11) expresion -> expresion . PLUS expresion
-    (12) expresion -> expresion . MINUS expresion
-    (13) expresion -> expresion . POR expresion
-    (14) expresion -> expresion . DIVIDE expresion
-    (15) expresion -> expresion . MODULATE expresion
+    (15) expresion -> expresion POR . expresion
+    (10) expresion -> . CADENA
+    (11) expresion -> . ID
+    (13) expresion -> . expresion PLUS expresion
+    (14) expresion -> . expresion MINUS expresion
+    (15) expresion -> . expresion POR expresion
+    (16) expresion -> . expresion DIVIDE expresion
+    (17) expresion -> . expresion MODULATE expresion
+    (18) expresion -> . PARIZQ expresion PARDER
+    (19) expresion -> . INTEGER
+    (20) expresion -> . FLOAT
 
-  ! shift/reduce conflict for PLUS resolved as shift
-  ! shift/reduce conflict for MINUS resolved as shift
-  ! shift/reduce conflict for POR resolved as shift
-  ! shift/reduce conflict for DIVIDE resolved as shift
-  ! shift/reduce conflict for MODULATE resolved as shift
-    PARDER          reduce using rule 12 (expresion -> expresion POR expresion .)
-    PLUS            shift and go to state 19
-    MINUS           shift and go to state 20
-    POR             shift and go to state 21
-    DIVIDE          shift and go to state 22
-    MODULATE        shift and go to state 23
+    CADENA          shift and go to state 18
+    ID              shift and go to state 19
+    PARIZQ          shift and go to state 16
+    INTEGER         shift and go to state 20
+    FLOAT           shift and go to state 21
 
-  ! PLUS            [ reduce using rule 13 (expresion -> expresion POR expresion .) ]
-  ! MINUS           [ reduce using rule 13 (expresion -> expresion POR expresion .) ]
-  ! POR             [ reduce using rule 13 (expresion -> expresion POR expresion .) ]
-  ! DIVIDE          [ reduce using rule 13 (expresion -> expresion POR expresion .) ]
-  ! MODULATE        [ reduce using rule 13 (expresion -> expresion POR expresion .) ]
-
+    expresion                      shift and go to state 33
 
 state 28
 
-    (14) expresion -> expresion DIVIDE expresion .
-    (11) expresion -> expresion . PLUS expresion
-    (12) expresion -> expresion . MINUS expresion
-    (13) expresion -> expresion . POR expresion
-    (14) expresion -> expresion . DIVIDE expresion
-    (15) expresion -> expresion . MODULATE expresion
+    (16) expresion -> expresion DIVIDE . expresion
+    (10) expresion -> . CADENA
+    (11) expresion -> . ID
+    (13) expresion -> . expresion PLUS expresion
+    (14) expresion -> . expresion MINUS expresion
+    (15) expresion -> . expresion POR expresion
+    (16) expresion -> . expresion DIVIDE expresion
+    (17) expresion -> . expresion MODULATE expresion
+    (18) expresion -> . PARIZQ expresion PARDER
+    (19) expresion -> . INTEGER
+    (20) expresion -> . FLOAT
 
-  ! shift/reduce conflict for PLUS resolved as shift
-  ! shift/reduce conflict for MINUS resolved as shift
-  ! shift/reduce conflict for POR resolved as shift
-  ! shift/reduce conflict for DIVIDE resolved as shift
-  ! shift/reduce conflict for MODULATE resolved as shift
-    PARDER          reduce using rule 13 (expresion -> expresion DIVIDE expresion .)
-    PLUS            shift and go to state 19
-    MINUS           shift and go to state 20
-    POR             shift and go to state 21
-    DIVIDE          shift and go to state 22
-    MODULATE        shift and go to state 23
+    CADENA          shift and go to state 18
+    ID              shift and go to state 19
+    PARIZQ          shift and go to state 16
+    INTEGER         shift and go to state 20
+    FLOAT           shift and go to state 21
 
-  ! PLUS            [ reduce using rule 14 (expresion -> expresion DIVIDE expresion .) ]
-  ! MINUS           [ reduce using rule 14 (expresion -> expresion DIVIDE expresion .) ]
-  ! POR             [ reduce using rule 14 (expresion -> expresion DIVIDE expresion .) ]
-  ! DIVIDE          [ reduce using rule 14 (expresion -> expresion DIVIDE expresion .) ]
-  ! MODULATE        [ reduce using rule 14 (expresion -> expresion DIVIDE expresion .) ]
-
+    expresion                      shift and go to state 34
 
 state 29
 
-    (15) expresion -> expresion MODULATE expresion .
-    (11) expresion -> expresion . PLUS expresion
-    (12) expresion -> expresion . MINUS expresion
-    (13) expresion -> expresion . POR expresion
-    (14) expresion -> expresion . DIVIDE expresion
-    (15) expresion -> expresion . MODULATE expresion
+    (17) expresion -> expresion MODULATE . expresion
+    (10) expresion -> . CADENA
+    (11) expresion -> . ID
+    (13) expresion -> . expresion PLUS expresion
+    (14) expresion -> . expresion MINUS expresion
+    (15) expresion -> . expresion POR expresion
+    (16) expresion -> . expresion DIVIDE expresion
+    (17) expresion -> . expresion MODULATE expresion
+    (18) expresion -> . PARIZQ expresion PARDER
+    (19) expresion -> . INTEGER
+    (20) expresion -> . FLOAT
+
+    CADENA          shift and go to state 18
+    ID              shift and go to state 19
+    PARIZQ          shift and go to state 16
+    INTEGER         shift and go to state 20
+    FLOAT           shift and go to state 21
+
+    expresion                      shift and go to state 35
+
+state 30
+
+    (18) expresion -> PARIZQ expresion PARDER .
+
+    PARDER          reduce using rule 18 (expresion -> PARIZQ expresion PARDER .)
+    PLUS            reduce using rule 18 (expresion -> PARIZQ expresion PARDER .)
+    MINUS           reduce using rule 18 (expresion -> PARIZQ expresion PARDER .)
+    POR             reduce using rule 18 (expresion -> PARIZQ expresion PARDER .)
+    DIVIDE          reduce using rule 18 (expresion -> PARIZQ expresion PARDER .)
+    MODULATE        reduce using rule 18 (expresion -> PARIZQ expresion PARDER .)
+    SALTOLINEA      reduce using rule 18 (expresion -> PARIZQ expresion PARDER .)
+    error           reduce using rule 18 (expresion -> PARIZQ expresion PARDER .)
+    RPRINT          reduce using rule 18 (expresion -> PARIZQ expresion PARDER .)
+    ID              reduce using rule 18 (expresion -> PARIZQ expresion PARDER .)
+    $end            reduce using rule 18 (expresion -> PARIZQ expresion PARDER .)
+
+
+state 31
+
+    (13) expresion -> expresion PLUS expresion .
+    (13) expresion -> expresion . PLUS expresion
+    (14) expresion -> expresion . MINUS expresion
+    (15) expresion -> expresion . POR expresion
+    (16) expresion -> expresion . DIVIDE expresion
+    (17) expresion -> expresion . MODULATE expresion
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
   ! shift/reduce conflict for POR resolved as shift
   ! shift/reduce conflict for DIVIDE resolved as shift
   ! shift/reduce conflict for MODULATE resolved as shift
-    PARDER          reduce using rule 14 (expresion -> expresion MODULATE expresion .)
-    PLUS            shift and go to state 19
-    MINUS           shift and go to state 20
-    POR             shift and go to state 21
-    DIVIDE          shift and go to state 22
-    MODULATE        shift and go to state 23
+    PARDER          reduce using rule 13 (expresion -> expresion PLUS expresion .)
+    SALTOLINEA      reduce using rule 13 (expresion -> expresion PLUS expresion .)
+    error           reduce using rule 13 (expresion -> expresion PLUS expresion .)
+    RPRINT          reduce using rule 13 (expresion -> expresion PLUS expresion .)
+    ID              reduce using rule 13 (expresion -> expresion PLUS expresion .)
+    $end            reduce using rule 13 (expresion -> expresion PLUS expresion .)
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    POR             shift and go to state 27
+    DIVIDE          shift and go to state 28
+    MODULATE        shift and go to state 29
 
-  ! PLUS            [ reduce using rule 15 (expresion -> expresion MODULATE expresion .) ]
-  ! MINUS           [ reduce using rule 15 (expresion -> expresion MODULATE expresion .) ]
-  ! POR             [ reduce using rule 15 (expresion -> expresion MODULATE expresion .) ]
-  ! DIVIDE          [ reduce using rule 15 (expresion -> expresion MODULATE expresion .) ]
-  ! MODULATE        [ reduce using rule 15 (expresion -> expresion MODULATE expresion .) ]
+  ! PLUS            [ reduce using rule 13 (expresion -> expresion PLUS expresion .) ]
+  ! MINUS           [ reduce using rule 13 (expresion -> expresion PLUS expresion .) ]
+  ! POR             [ reduce using rule 13 (expresion -> expresion PLUS expresion .) ]
+  ! DIVIDE          [ reduce using rule 13 (expresion -> expresion PLUS expresion .) ]
+  ! MODULATE        [ reduce using rule 13 (expresion -> expresion PLUS expresion .) ]
+
+
+state 32
+
+    (14) expresion -> expresion MINUS expresion .
+    (13) expresion -> expresion . PLUS expresion
+    (14) expresion -> expresion . MINUS expresion
+    (15) expresion -> expresion . POR expresion
+    (16) expresion -> expresion . DIVIDE expresion
+    (17) expresion -> expresion . MODULATE expresion
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for POR resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MODULATE resolved as shift
+    PARDER          reduce using rule 14 (expresion -> expresion MINUS expresion .)
+    SALTOLINEA      reduce using rule 14 (expresion -> expresion MINUS expresion .)
+    error           reduce using rule 14 (expresion -> expresion MINUS expresion .)
+    RPRINT          reduce using rule 14 (expresion -> expresion MINUS expresion .)
+    ID              reduce using rule 14 (expresion -> expresion MINUS expresion .)
+    $end            reduce using rule 14 (expresion -> expresion MINUS expresion .)
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    POR             shift and go to state 27
+    DIVIDE          shift and go to state 28
+    MODULATE        shift and go to state 29
+
+  ! PLUS            [ reduce using rule 14 (expresion -> expresion MINUS expresion .) ]
+  ! MINUS           [ reduce using rule 14 (expresion -> expresion MINUS expresion .) ]
+  ! POR             [ reduce using rule 14 (expresion -> expresion MINUS expresion .) ]
+  ! DIVIDE          [ reduce using rule 14 (expresion -> expresion MINUS expresion .) ]
+  ! MODULATE        [ reduce using rule 14 (expresion -> expresion MINUS expresion .) ]
+
+
+state 33
+
+    (15) expresion -> expresion POR expresion .
+    (13) expresion -> expresion . PLUS expresion
+    (14) expresion -> expresion . MINUS expresion
+    (15) expresion -> expresion . POR expresion
+    (16) expresion -> expresion . DIVIDE expresion
+    (17) expresion -> expresion . MODULATE expresion
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for POR resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MODULATE resolved as shift
+    PARDER          reduce using rule 15 (expresion -> expresion POR expresion .)
+    SALTOLINEA      reduce using rule 15 (expresion -> expresion POR expresion .)
+    error           reduce using rule 15 (expresion -> expresion POR expresion .)
+    RPRINT          reduce using rule 15 (expresion -> expresion POR expresion .)
+    ID              reduce using rule 15 (expresion -> expresion POR expresion .)
+    $end            reduce using rule 15 (expresion -> expresion POR expresion .)
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    POR             shift and go to state 27
+    DIVIDE          shift and go to state 28
+    MODULATE        shift and go to state 29
+
+  ! PLUS            [ reduce using rule 15 (expresion -> expresion POR expresion .) ]
+  ! MINUS           [ reduce using rule 15 (expresion -> expresion POR expresion .) ]
+  ! POR             [ reduce using rule 15 (expresion -> expresion POR expresion .) ]
+  ! DIVIDE          [ reduce using rule 15 (expresion -> expresion POR expresion .) ]
+  ! MODULATE        [ reduce using rule 15 (expresion -> expresion POR expresion .) ]
+
+
+state 34
+
+    (16) expresion -> expresion DIVIDE expresion .
+    (13) expresion -> expresion . PLUS expresion
+    (14) expresion -> expresion . MINUS expresion
+    (15) expresion -> expresion . POR expresion
+    (16) expresion -> expresion . DIVIDE expresion
+    (17) expresion -> expresion . MODULATE expresion
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for POR resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MODULATE resolved as shift
+    PARDER          reduce using rule 16 (expresion -> expresion DIVIDE expresion .)
+    SALTOLINEA      reduce using rule 16 (expresion -> expresion DIVIDE expresion .)
+    error           reduce using rule 16 (expresion -> expresion DIVIDE expresion .)
+    RPRINT          reduce using rule 16 (expresion -> expresion DIVIDE expresion .)
+    ID              reduce using rule 16 (expresion -> expresion DIVIDE expresion .)
+    $end            reduce using rule 16 (expresion -> expresion DIVIDE expresion .)
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    POR             shift and go to state 27
+    DIVIDE          shift and go to state 28
+    MODULATE        shift and go to state 29
+
+  ! PLUS            [ reduce using rule 16 (expresion -> expresion DIVIDE expresion .) ]
+  ! MINUS           [ reduce using rule 16 (expresion -> expresion DIVIDE expresion .) ]
+  ! POR             [ reduce using rule 16 (expresion -> expresion DIVIDE expresion .) ]
+  ! DIVIDE          [ reduce using rule 16 (expresion -> expresion DIVIDE expresion .) ]
+  ! MODULATE        [ reduce using rule 16 (expresion -> expresion DIVIDE expresion .) ]
+
+
+state 35
+
+    (17) expresion -> expresion MODULATE expresion .
+    (13) expresion -> expresion . PLUS expresion
+    (14) expresion -> expresion . MINUS expresion
+    (15) expresion -> expresion . POR expresion
+    (16) expresion -> expresion . DIVIDE expresion
+    (17) expresion -> expresion . MODULATE expresion
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for POR resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MODULATE resolved as shift
+    PARDER          reduce using rule 17 (expresion -> expresion MODULATE expresion .)
+    SALTOLINEA      reduce using rule 17 (expresion -> expresion MODULATE expresion .)
+    error           reduce using rule 17 (expresion -> expresion MODULATE expresion .)
+    RPRINT          reduce using rule 17 (expresion -> expresion MODULATE expresion .)
+    ID              reduce using rule 17 (expresion -> expresion MODULATE expresion .)
+    $end            reduce using rule 17 (expresion -> expresion MODULATE expresion .)
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    POR             shift and go to state 27
+    DIVIDE          shift and go to state 28
+    MODULATE        shift and go to state 29
+
+  ! PLUS            [ reduce using rule 17 (expresion -> expresion MODULATE expresion .) ]
+  ! MINUS           [ reduce using rule 17 (expresion -> expresion MODULATE expresion .) ]
+  ! POR             [ reduce using rule 17 (expresion -> expresion MODULATE expresion .) ]
+  ! DIVIDE          [ reduce using rule 17 (expresion -> expresion MODULATE expresion .) ]
+  ! MODULATE        [ reduce using rule 17 (expresion -> expresion MODULATE expresion .) ]
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for PLUS in state 25 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 25 resolved as shift
-WARNING: shift/reduce conflict for POR in state 25 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 25 resolved as shift
-WARNING: shift/reduce conflict for MODULATE in state 25 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 26 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 26 resolved as shift
-WARNING: shift/reduce conflict for POR in state 26 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 26 resolved as shift
-WARNING: shift/reduce conflict for MODULATE in state 26 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 27 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 27 resolved as shift
-WARNING: shift/reduce conflict for POR in state 27 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 27 resolved as shift
-WARNING: shift/reduce conflict for MODULATE in state 27 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 28 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 28 resolved as shift
-WARNING: shift/reduce conflict for POR in state 28 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 28 resolved as shift
-WARNING: shift/reduce conflict for MODULATE in state 28 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 29 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 29 resolved as shift
-WARNING: shift/reduce conflict for POR in state 29 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 29 resolved as shift
-WARNING: shift/reduce conflict for MODULATE in state 29 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 31 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 31 resolved as shift
+WARNING: shift/reduce conflict for POR in state 31 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 31 resolved as shift
+WARNING: shift/reduce conflict for MODULATE in state 31 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 32 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 32 resolved as shift
+WARNING: shift/reduce conflict for POR in state 32 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 32 resolved as shift
+WARNING: shift/reduce conflict for MODULATE in state 32 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 33 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 33 resolved as shift
+WARNING: shift/reduce conflict for POR in state 33 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 33 resolved as shift
+WARNING: shift/reduce conflict for MODULATE in state 33 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 34 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 34 resolved as shift
+WARNING: shift/reduce conflict for POR in state 34 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 34 resolved as shift
+WARNING: shift/reduce conflict for MODULATE in state 34 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 35 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 35 resolved as shift
+WARNING: shift/reduce conflict for POR in state 35 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 35 resolved as shift
+WARNING: shift/reduce conflict for MODULATE in state 35 resolved as shift

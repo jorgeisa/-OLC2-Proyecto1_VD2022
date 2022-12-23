@@ -135,12 +135,20 @@ lexer = lex.lex()
 
 ### end lexical format
 ### init imports grammar
-from expressions.expressions import *
-from instruction.asignacion import Asignacion
+
+##from instruction.asignacion import Asignacion
 ### end imports grammar 
 # Grammar definition
 ### precedence
+precedence =(
+    (),
+    (),
+    (),
+    (),
+    (),
 
+
+)
 ### end precedence 
 
 
@@ -245,7 +253,7 @@ parser = yacc.yacc()
 
 input = ''
 s = ''
-with open('Proyecto1_G3/ArchivosPrueba/archivo.txt', 'r') as f:
+with open('ArchivosPrueba/archivo.txt', 'r') as f:
     content = f.readlines()
     for element in content:
         s += element
