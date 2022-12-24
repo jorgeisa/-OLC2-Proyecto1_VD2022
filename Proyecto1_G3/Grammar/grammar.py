@@ -65,7 +65,7 @@ tokens = [
 
 # Tokens Definitions
 t_SALTOLINEA = r'\n'
-t_DOSPUNTOS = r';'
+t_DOSPUNTOS = r':'
 t_PARIZQ = r'\('
 t_PARDER = r'\)'
 t_COMA = r'\,'
@@ -162,6 +162,7 @@ lexer = lex.lex()
 from Proyecto1_G3.Abstract.Return import Type
 from Proyecto1_G3.Instruction.Native.Print import Print
 from Proyecto1_G3.Expression.Literal import Literal
+from Proyecto1_G3.Instruction.Native.Declaration import Declaration
 # Terminan Imports Gramatica
 
 # Empieza Precedencia
@@ -199,6 +200,7 @@ def p_instrucciones_instruccion(t):
 def p_instruccion(t):
     '''instruccion      : print_instr finins
                         | asignacion_instr  finins
+                        | definicion_asignacion_instr
     '''
     t[0] = t[1]
 
@@ -221,7 +223,12 @@ def p_print_instr(t):
 # Empieza Asignacion
 def p_asignacion_instr(t):
     'asignacion_instr  : ID EQUALS expresion' 
-    t[0] = "Asignacion(t[1],t[3])"
+    t[0] = Declaration(t[1], t[3], t.lineno(1), t.lexpos(0))
+
+def p_definicion_asginacion(t):
+    'definicion_asignacion_instr  : ID  DOSPUNTOS tipo EQUALS expresion'
+    t[0] = Declaration(t[1], t[5], t.lineno(1), t.lexpos(0))
+
 
 # Empieza Expresion Binaria Aritmetica
 def p_expresion_binaria(t):
@@ -280,6 +287,16 @@ def p_expresion_cadena(t):
 def p_expresion_id(t):
     'expresion  :   ID'
     t[0] = "ID Reconocido: " + t[1]
+
+
+# Empieza Tipo 
+def p_tipo(t):
+    '''
+    tipo    : INTEGER
+            | FLOAT
+            
+
+    '''
 
 # Empieza Expresion Numero
 def p_expresion_number(t):
