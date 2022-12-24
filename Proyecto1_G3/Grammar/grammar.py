@@ -156,6 +156,7 @@ lexer = lex.lex()
 ### init imports grammar
 
 ##from instruction.asignacion import Asignacion
+from Instruction.Native.Declaration import *
 ### end imports grammar 
 # Grammar definition
 ### precedence
