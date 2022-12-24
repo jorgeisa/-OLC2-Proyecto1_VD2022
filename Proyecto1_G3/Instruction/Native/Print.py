@@ -1,7 +1,7 @@
 
-from Abstract.Instruction import *
-from Abstract.Return import *
-from SymbolTable.Generator import *
+from Proyecto1_G3.Abstract.Instruction import *
+from Proyecto1_G3.Abstract.Return import *
+from Proyecto1_G3.SymbolTable.Generator import *
 
 
 class Print(Instruction):
@@ -12,7 +12,8 @@ class Print(Instruction):
         self.value = value
         self.new_line = new_line
 
-    def compile(self, env):        
+    def compile(self, env):
+        # val = self.value.compile(env)
         gen_aux = Generator()
         generator = gen_aux.get_instance()
 
@@ -43,7 +44,7 @@ class Print(Instruction):
                 temp = generator.add_temp()
                 generator.get_stack(temp, 'P')
                 generator.ret_env(env.size)
-            elif valuee.type == Type.LIST:
+            elif valuee.type == Type.ARRAY:
                 generator.add_expression('P', 'P', env.size, '+')
                 generator.fprint_array()
                 generator.add_expression('P', 'P', env.size, '-')
@@ -57,7 +58,7 @@ class Print(Instruction):
                 generator.get_stack(temp, 'P')
                 generator.ret_env(env.size)
             else:
-                print("unknown word")
+                print("falta")
             generator.add_print("c", 32)
         if self.new_line:
             generator.add_print("c", 10)

@@ -1,5 +1,5 @@
-from Symbol import *
-from Abstract.Return import *
+from Proyecto1_G3.SymbolTable.Symbol import *
+from Proyecto1_G3.Abstract.Return import *
 
 class Environment:
     variables = {}

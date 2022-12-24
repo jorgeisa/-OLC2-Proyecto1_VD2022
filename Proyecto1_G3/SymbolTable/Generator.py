@@ -1,4 +1,4 @@
-from Environment import *
+from Proyecto1_G3.SymbolTable.Environment import *
 
 class Generator:
     generator = None

@@ -1,6 +1,6 @@
-from Abstract.Instruction import *
-from Abstract.Return import *
-from SymbolTable.Generator import *
+from Proyecto1_G3.Abstract.Instruction import *
+from Proyecto1_G3.Abstract.Return import *
+from Proyecto1_G3.SymbolTable.Generator import *
 
 class Declaration(Instruction):
     def __init__(self,id,value, line, column):
