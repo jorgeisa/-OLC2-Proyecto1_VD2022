@@ -1,6 +1,6 @@
-from Abstract.Expression import *
-from Abstract.Return import *
-from SymbolTable.Generator import *
+from Proyecto1_G3.Abstract.Expression import *
+from Proyecto1_G3.Abstract.Return import *
+from Proyecto1_G3.SymbolTable.Generator import *
 from enum import Enum
 
 

@@ -1,4 +1,13 @@
-# Archivo solamente para probar cosas xddd
+# Archivo solamente para probar cosas xddddef 
 
-heap = [0 for i in range(150)]
-print(heap)
+from Proyecto1_G3.Grammar.grammar import *
+
+def main():
+    try:
+        #print("h", "o", "l", "a")
+        eject()
+    except ValueError as ve:
+        return str(ve)
+
+if __name__ == "__main__":
+    main()

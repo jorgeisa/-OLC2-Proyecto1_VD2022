@@ -31,9 +31,12 @@ tokens = [
     "DOSPUNTOS",
     "PARIZQ",
     "PARDER",
+    'COMA',
+
     "CADENA",
     'ID',
-    ### arithmetics tokens     
+    
+    # Empieza Aritmeticas     
     'EQUALS',
     'PLUS',
     'MINUS',
@@ -41,7 +44,8 @@ tokens = [
     'DIVIDE',
     'MODULATE',
     'POT',
-    ### arithmetics tokens type date
+    # Termina Aritmeticas
+
     'FLOAT',
     'INTEGER',
 
@@ -52,7 +56,7 @@ tokens = [
     'SMALLERTHAN',      # Signo de Menor que
     'GREATERTHAN',      # Signo de Mayor que
     'LESSEQUAL',        # Signo de Menor Igual
-    'GREATEREQUAL',     # Signo de Mayor Igual
+    'GREATEREQUAL'     # Signo de Mayor Igual
     # Terminan Relacionales
     
     
@@ -64,7 +68,8 @@ t_SALTOLINEA = r'\n'
 t_DOSPUNTOS = r';'
 t_PARIZQ = r'\('
 t_PARDER = r'\)'
-### arithmetics tokens init 
+t_COMA = r'\,'
+# Empiezan Aritmeticas
 t_EQUALS    = r'\='
 t_PLUS      = r'\+'
 t_MINUS     = r'\-'
@@ -72,6 +77,7 @@ t_POR       = r'\*'
 t_DIVIDE    = r'\/'
 t_MODULATE  = r'\%'
 t_POT      = r'\*\*'
+# Terminan Aritmeticas
 
 # Empiezan Operadores Relacionales
 t_EQUALIZATIONSIGN = r'=='
@@ -82,19 +88,19 @@ t_LESSEQUAL = r'<='
 t_GREATEREQUAL = r'>='
 # Terminan Operadores Relacionales
 
-# Comment multiline
+# Comentario Unilinea
 def t_COMMENUNI(t):
     r'\#\=(.|\n)*?\=\#'
     t.lexer.lineno += t.value.count('\n')
-    # print('Token multilinea')
+# Termina Comentario Unilinea
 
-# Comment unline
+# Empieza Comentario Multilinea
 def t_COMMENMUL(t):
     r'\#.*\n'
     t.lexer.lineno += 1
-    # print('Token unilinea')
+# Termina Comentario Unilinea
 
-### methods for tokens INTEGER , DECIMAL  
+# Empieza Float  
 def t_FLOAT(t):
     r'\d+\.\d+'
     try:
@@ -104,6 +110,7 @@ def t_FLOAT(t):
         t.value = 0
     return t
 
+# Empieza Int
 def t_INTEGER(t):
     r'\d+'
     try:
@@ -113,13 +120,13 @@ def t_INTEGER(t):
         t.value = 0
     return t
 
-
-### end methods for arithmetics 
+# Empieza ID
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
     t.type = reserved.get(t.value, 'ID')  # revisar en la lista de reservadas
     return t
 
+# Empieza Cadena
 def t_CADENA(t):
     # r'\"(\\"|.)*?\"'
     r"""\"(\\"|\\'|\\\\|\\n|\\t|\\r|[^\\\'\"])*?\""""
@@ -151,16 +158,14 @@ def find_column(inp, token):
 import ply.lex as lex
 lexer = lex.lex()
 
+# Empiezan Imports Gramatica
+from Proyecto1_G3.Abstract.Return import Type
+from Proyecto1_G3.Instruction.Native.Print import Print
+from Proyecto1_G3.Expression.Literal import Literal
+# Terminan Imports Gramatica
 
-### end lexical format
-### init imports grammar
-
-##from instruction.asignacion import Asignacion
-from Instruction.Native.Declaration import *
-### end imports grammar 
-# Grammar definition
-### precedence
-precedence =(
+# Empieza Precedencia
+'''precedence =(
     (),
     (),
     (),
@@ -168,10 +173,8 @@ precedence =(
     (),
 
 
-)
-### end precedence 
-
-
+)'''
+# Termina precedencia 
 
 # Init List of Instructions
 def p_init(t):
@@ -204,34 +207,23 @@ def p_finins(t):
                     | '''
     t[0] = None
 
-# Error Production (Semantic)
+# Produccion Error
 def p_instruccion_error(t):
     'instruccion  : error finins'
     print("ERROR - ", "Error Sintáctico. Instruccion " + str(t[1].value), t.lineno(1), find_column(input, t.slice[1]))
     t[0] = ""
 
-# Expressions Options
-
+# Empieza Print
 def p_print_instr(t):
-    'print_instr  : RPRINT PARIZQ expresion PARDER'
-    t[0] = "Print Reconocido - " + str(t[3])
+    'print_instr  : RPRINT PARIZQ expres_lista PARDER'
+    t[0] = Print(t[3], t.lineno(1), t.lexpos(0), False)
 
-def p_expresion_cadena(t):
-    'expresion  : CADENA'
-    t[0] = "Cadena Reconocida: " + t[1]
-
-def p_expresion_id(t):
-    'expresion  :   ID'
-    t[0] = "ID Reconocido: " + t[1]
-
-# Instructions Productions
-### declaration options 
-
+# Empieza Asignacion
 def p_asignacion_instr(t):
     'asignacion_instr  : ID EQUALS expresion' 
-    t[0] = Asignacion(t[1],t[3])
-### end declaration options 
-### Arithmetic Options 
+    t[0] = "Asignacion(t[1],t[3])"
+
+# Empieza Expresion Binaria Aritmetica
 def p_expresion_binaria(t):
     '''
     expresion   :   expresion PLUS      expresion
@@ -264,12 +256,32 @@ def p_expresion_binaria_relacional(t):
     elif t[2] == '>=': t[0] = t[1] >= t[3]
 # Termina Expresion Binaria Relacional
 
+# Empieza Lista Expresiones
+def p_expresion_lista(t):
+    '''expres_lista  : expres_lista COMA expresion
+                        | expresion'''
+    if len(t) == 2:
+        t[0] = [t[1]]
+    else:
+        t[1].append(t[3])
+        t[0] = t[1]
 
-
+# Empieza Expresion Agrupacion
 def p_expresion_agrupacion(t):
     'expresion  :   PARIZQ expresion PARDER'
     t[0] = t[2]
 
+# Empieza Expresion Cadena
+def p_expresion_cadena(t):
+    'expresion  : CADENA'
+    t[0] = Literal(str(t[1]), Type.STRING, t.lineno(1), t.lexpos(0))
+
+# Empieza Expresion ID
+def p_expresion_id(t):
+    'expresion  :   ID'
+    t[0] = "ID Reconocido: " + t[1]
+
+# Empieza Expresion Numero
 def p_expresion_number(t):
     '''
     expresion   :   INTEGER
@@ -277,35 +289,41 @@ def p_expresion_number(t):
     '''
     t[0] = t[1]
 
-
-### END Arithmetic Options
-
-
-### LOGIC expression grammar 
-
-### end logic expresion grammar 
-
 import ply.yacc as yacc
 parser = yacc.yacc()
 
-input = ''
-s = ''
-with open('ArchivosPrueba/archivo.txt', 'r') as f:
-    content = f.readlines()
-    for element in content:
-        s += element
+from Proyecto1_G3.SymbolTable.Generator import Generator
+from Proyecto1_G3.SymbolTable.Environment import Environment
 
-input = s
-print("\n\nEl input es: [\n" + input + "\n]\n\n")
+def eject():
 
-instrucciones = parser.parse(input)
+    input = ''
+    s = ''
+    with open('Proyecto1_G3/ArchivosPrueba/archivo.txt', 'r') as f:
+        content = f.readlines()
+        for element in content:
+            s += element
 
-for instruccion in instrucciones:
-    if instruccion == None:
-        print("Error En Gramatica xd")
-    else:
-        print(instruccion) 
+    input = s
+    print("\n\nEl input es: [\n" + input + "\n]\n\n")
 
+    gen_aux = Generator()
+    gen_aux.clean_all()
+    generator = gen_aux.get_instance()
+    new_env = Environment(None)
+    
+    instrucciones = parser.parse(input)
 
+    for instruccion in instrucciones:
+        if instruccion == None:
+            print("Error En Gramatica xd")
+        else:
+            instruccion.compile(new_env)
 
-
+    C3D = generator.get_code()
+    f = open("salida.go", 'w')
+    f.write(C3D)
+    f.close()
+    generator.clean_all()
+    print(C3D)
+            
