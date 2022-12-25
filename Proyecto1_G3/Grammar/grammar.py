@@ -5,6 +5,7 @@ Grupo 3 :^)
 import sys
 import os
 import re 
+
 reserved = {
     'print' :   'RPRINT',    
     # Comienzan Tipos Basico
@@ -216,7 +217,7 @@ def p_instruccion_error(t):
 # Empieza Print
 def p_print_instr(t):
     'print_instr  : RPRINT PARIZQ expres_lista PARDER'
-    t[0] = Print(t[3], t.lineno(1), t.lexpos(0), False)
+    t[0] = Print(t[3], t.lineno(1), find_column(input, t.slice[1]), False)
 
 # Empieza Asignacion
 def p_asignacion_instr(t):
@@ -274,7 +275,7 @@ def p_expresion_agrupacion(t):
 # Empieza Expresion Cadena
 def p_expresion_cadena(t):
     'expresion  : CADENA'
-    t[0] = Literal(str(t[1]), Type.STRING, t.lineno(1), t.lexpos(0))
+    t[0] = Literal(str(t[1]), Type.STRING, t.lineno(1), find_column(input, t.slice[1]))
 
 # Empieza Expresion ID
 def p_expresion_id(t):
@@ -287,7 +288,12 @@ def p_expresion_number(t):
     expresion   :   INTEGER
                 |   FLOAT
     '''
-    t[0] = t[1]
+    if t.slice[1].type == "INTEGER":
+        print("ES un entero")
+        t[0] = Literal(t[1], Type.INT, t.lineno(1), find_column(input, t.slice[1]))
+    elif t.slice[1].type == "FLOAT":
+        print("ES UN FLOAT")
+        t[0] = Literal(t[1], Type.FLOAT, t.lineno(1), find_column(input, t.slice[1]))
 
 import ply.yacc as yacc
 parser = yacc.yacc()
@@ -295,15 +301,16 @@ parser = yacc.yacc()
 from Proyecto1_G3.SymbolTable.Generator import Generator
 from Proyecto1_G3.SymbolTable.Environment import Environment
 
-def eject():
+input = ''
 
-    input = ''
+def eject():
     s = ''
     with open('Proyecto1_G3/ArchivosPrueba/archivo.txt', 'r') as f:
         content = f.readlines()
         for element in content:
             s += element
 
+    global input
     input = s
     print("\n\nEl input es: [\n" + input + "\n]\n\n")
 
@@ -326,4 +333,30 @@ def eject():
     f.close()
     generator.clean_all()
     print(C3D)
+
+def ejectText(inputText):
+    
+    global input
+    input = inputText
+
+    gen_aux = Generator()
+    gen_aux.clean_all()
+    generator = gen_aux.get_instance()
+    new_env = Environment(None)
+    
+    instrucciones = parser.parse(input)
+
+    for instruccion in instrucciones:
+        if instruccion == None:
+            print("Error")
+            return ""
+        else:
+            instruccion.compile(new_env)
+
+    C3D = generator.get_code()
+    f = open("salida.go", 'w')
+    f.write(C3D)
+    f.close()
+    # generator.clean_all()
+    return generator
             

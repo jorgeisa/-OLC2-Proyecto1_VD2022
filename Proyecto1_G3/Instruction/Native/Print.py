@@ -17,7 +17,10 @@ class Print(Instruction):
         gen_aux = Generator()
         generator = gen_aux.get_instance()
 
+        generator.add_comment("Print - Comienzo")
+
         for values in self.value:
+            # d: Int, String  - f: float - c: caracter
             valuee = values.compile(env)
             if valuee.type == Type.INT:
                 generator.add_print("d", valuee.value)
@@ -60,5 +63,6 @@ class Print(Instruction):
             else:
                 print("falta")
             generator.add_print("c", 32)
+        generator.add_comment("Print - Final")
         if self.new_line:
             generator.add_print("c", 10)

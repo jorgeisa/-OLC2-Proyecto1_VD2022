@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-var t0, t1, t2, t3, t4, t5, t6, t7, t8 float64;
+var t0, t1, t2, t3, t4, t5 float64;
 var P, H float64;
 var stack [30101999]float64;
 var heap [30101999]float64;
@@ -26,14 +26,19 @@ func print_string(){
 
 
 func main(){
+	/* Print - Comienzo */
 	t0=H;
-	heap[int(H)]=4;
+	heap[int(H)]=6;
 	H=H+1;
-	heap[int(H)]=104;
+	heap[int(H)]=112;
 	H=H+1;
-	heap[int(H)]=111;
+	heap[int(H)]=114;
 	H=H+1;
-	heap[int(H)]=108;
+	heap[int(H)]=117;
+	H=H+1;
+	heap[int(H)]=101;
+	H=H+1;
+	heap[int(H)]=98;
 	H=H+1;
 	heap[int(H)]=97;
 	H=H+1;
@@ -48,55 +53,6 @@ func main(){
 	t5=stack[int(P)];
 	P=P-0;
 	fmt.Printf("%c", int(32));
-	t6=H;
-	heap[int(H)]=18;
-	H=H+1;
-	heap[int(H)]=109;
-	H=H+1;
-	heap[int(H)]=97;
-	H=H+1;
-	heap[int(H)]=110;
-	H=H+1;
-	heap[int(H)]=113;
-	H=H+1;
-	heap[int(H)]=117;
-	H=H+1;
-	heap[int(H)]=105;
-	H=H+1;
-	heap[int(H)]=115;
-	H=H+1;
-	heap[int(H)]=105;
-	H=H+1;
-	heap[int(H)]=109;
-	H=H+1;
-	heap[int(H)]=111;
-	H=H+1;
-	heap[int(H)]=32;
-	H=H+1;
-	heap[int(H)]=65;
-	H=H+1;
-	heap[int(H)]=98;
-	H=H+1;
-	heap[int(H)]=114;
-	H=H+1;
-	heap[int(H)]=104;
-	H=H+1;
-	heap[int(H)]=97;
-	H=H+1;
-	heap[int(H)]=97;
-	H=H+1;
-	heap[int(H)]=109;
-	H=H+1;
-	heap[int(H)]=-1;
-	H=H+1;
-	t6=t6+0.12837;
-	t7=P+0;
-	t7=t7+1;
-	stack[int(t7)]=t6;
-	P=P+0;
-	print_string();
-	t8=stack[int(P)];
-	P=P-0;
-	fmt.Printf("%c", int(32));
+	/* Print - Final */
 
 }
