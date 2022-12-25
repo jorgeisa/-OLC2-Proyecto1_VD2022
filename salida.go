@@ -26,6 +26,7 @@ func print_string(){
 
 
 func main(){
+	/* Print - Comienzo */
 	t0=H;
 	heap[int(H)]=4;
 	H=H+1;
@@ -48,6 +49,8 @@ func main(){
 	t5=stack[int(P)];
 	P=P-0;
 	fmt.Printf("%c", int(32));
+	/* Print - Final */
+	/* Print - Comienzo */
 	t6=H;
 	heap[int(H)]=18;
 	H=H+1;
@@ -98,5 +101,29 @@ func main(){
 	t8=stack[int(P)];
 	P=P-0;
 	fmt.Printf("%c", int(32));
+	/* Print - Final */
+	/* Print - Comienzo */
+	fmt.Printf("%d", int(1));
+	fmt.Printf("%c", int(32));
+	/* Print - Final */
+	/* Print - Comienzo */
+	goto L2;
+	/* goto para evitar errores */
+	goto L3;
+	L2:
+	fmt.Printf("%c", int(116));
+	fmt.Printf("%c", int(114));
+	fmt.Printf("%c", int(117));
+	fmt.Printf("%c", int(101));
+	goto L4;
+	L3:
+	fmt.Printf("%c", int(102));
+	fmt.Printf("%c", int(97));
+	fmt.Printf("%c", int(108));
+	fmt.Printf("%c", int(115));
+	fmt.Printf("%c", int(101));
+	L4:
+	fmt.Printf("%c", int(32));
+	/* Print - Final */
 
 }

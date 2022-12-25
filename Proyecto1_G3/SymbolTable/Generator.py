@@ -193,6 +193,7 @@ class Generator:
         self.code_in('H=H+1;\n')
 
     # INSTRUCCIONES
+    # Print para Enteros y Strings
     def add_print(self, type, value):
         self.code_in(f'fmt.Printf("%{type}", int({value}));\n')
 
