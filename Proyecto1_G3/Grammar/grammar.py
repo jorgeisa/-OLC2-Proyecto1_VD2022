@@ -14,8 +14,8 @@ reserved = {
     'float' :   'RFLOAT',
     'bool'  :   'RBOOL',
     'string':   'RSTRING',
-    'false' :   'RFALSE',
-    'true'  :   'RTRUE',
+    'False' :   'RFALSE',
+    'True'  :   'RTRUE',
     # Terminan Tipos Basicos
     # Comienzan Tipos Compuestos
     'list'  :   'RLIST',
@@ -164,6 +164,7 @@ from Proyecto1_G3.Abstract.Return import Type
 from Proyecto1_G3.Instruction.Native.Print import Print
 from Proyecto1_G3.Expression.Literal import Literal
 from Proyecto1_G3.Instruction.Native.Declaration import Declaration
+from Proyecto1_G3.Expression.Relational import Relational, RelationalOption
 # Terminan Imports Gramatica
 
 # Empieza Precedencia
@@ -256,18 +257,24 @@ def p_expresion_binaria_relacional(t):
                 |   expresion LESSEQUAL  expresion
                 |   expresion GREATEREQUAL  expresion
     '''
-    if   t[2] == '==': t[0] = t[1] == t[3]
-    elif t[2] == '!=': t[0] = t[1] != t[3]
-    elif t[2] == '<': t[0] = t[1] < t[3]
-    elif t[2] == '>': t[0] = t[1] > t[3]    
-    elif t[2] == '<=': t[0] = t[1] <= t[3]
-    elif t[2] == '>=': t[0] = t[1] >= t[3]
+    if   t[2] == '==': 
+        t[0] = Relational(t[1], t[3], RelationalOption.EQUAL, t.lineno(2), find_column(input, t.slice[2]))
+    elif t[2] == '!=': 
+        t[0] = Relational(t[1], t[3], RelationalOption.DISTINCT, t.lineno(2), find_column(input, t.slice[2]))
+    elif t[2] == '<': 
+        t[0] = Relational(t[1], t[3], RelationalOption.LESS, t.lineno(2), find_column(input, t.slice[2]))
+    elif t[2] == '>': 
+        t[0] = Relational(t[1], t[3], RelationalOption.GREATER, t.lineno(2), find_column(input, t.slice[2]))
+    elif t[2] == '<=': 
+        t[0] = Relational(t[1], t[3], RelationalOption.LESSEQUAL, t.lineno(2), find_column(input, t.slice[2]))
+    elif t[2] == '>=': 
+        t[0] = Relational(t[1], t[3], RelationalOption.GREATEREQUAL, t.lineno(2), find_column(input, t.slice[2]))
 # Termina Expresion Binaria Relacional
 
 # Empieza Lista Expresiones
 def p_expresion_lista(t):
     '''expres_lista  : expres_lista COMA expresion
-                        | expresion'''
+                     | expresion'''
     if len(t) == 2:
         t[0] = [t[1]]
     else:
@@ -283,6 +290,15 @@ def p_expresion_agrupacion(t):
 def p_expresion_cadena(t):
     'expresion  : CADENA'
     t[0] = Literal(str(t[1]), Type.STRING, t.lineno(1), find_column(input, t.slice[1]))
+
+# Empieza Expresion Booleanos
+def p_expresion_booleanos(t):
+    '''expresion  : RTRUE
+                  | RFALSE'''
+    if t.slice[1].type == "RTRUE":
+            t[0] = Literal(True, Type.BOOL, t.lineno(1), find_column(input, t.slice[1]))
+    elif t.slice[1].type == "RFALSE":
+            t[0] = Literal(False, Type.BOOL, t.lineno(1), find_column(input, t.slice[1]))
 
 # Empieza Expresion ID
 def p_expresion_id(t):
