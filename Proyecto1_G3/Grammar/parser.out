@@ -253,7 +253,9 @@ state 5
 
 state 6
 
-    (6) instruccion -> definicion_asignacion_instr .
+    (6) instruccion -> definicion_asignacion_instr . finins
+    (7) finins -> . SALTOLINEA
+    (8) finins -> .
 
     error           reduce using rule 6 (instruccion -> definicion_asignacion_instr .)
     RPRINTLN        reduce using rule 6 (instruccion -> definicion_asignacion_instr .)
@@ -265,6 +267,7 @@ state 6
     RELSE           reduce using rule 6 (instruccion -> definicion_asignacion_instr .)
     RELIF           reduce using rule 6 (instruccion -> definicion_asignacion_instr .)
 
+    finins                         shift and go to state 14
 
 state 7
 
@@ -398,7 +401,7 @@ state 14
     RELIF           reduce using rule 2 (instrucciones -> instrucciones instruccion .)
 
 
-state 15
+state 16
 
     (4) instruccion -> print_instrln finins .
 
@@ -413,7 +416,7 @@ state 15
     RELIF           reduce using rule 4 (instruccion -> print_instrln finins .)
 
 
-state 16
+state 17
 
     (9) finins -> SALTOLINEA .
 
@@ -428,7 +431,7 @@ state 16
     RELIF           reduce using rule 9 (finins -> SALTOLINEA .)
 
 
-state 17
+state 18
 
     (5) instruccion -> asignacion_instr finins .
 
@@ -443,7 +446,7 @@ state 17
     RELIF           reduce using rule 5 (instruccion -> asignacion_instr finins .)
 
 
-state 18
+state 19
 
     (7) instruccion -> print_instr finins .
 
@@ -458,7 +461,7 @@ state 18
     RELIF           reduce using rule 7 (instruccion -> print_instr finins .)
 
 
-state 19
+state 20
 
     (8) instruccion -> if_instr finins .
 
@@ -473,7 +476,7 @@ state 19
     RELIF           reduce using rule 8 (instruccion -> if_instr finins .)
 
 
-state 20
+state 21
 
     (11) instruccion -> error finins .
 
@@ -488,7 +491,7 @@ state 20
     RELIF           reduce using rule 11 (instruccion -> error finins .)
 
 
-state 21
+state 22
 
     (12) print_instrln -> RPRINTLN PARIZQ . expres_lista PARDER
     (36) expres_lista -> . expres_lista COMA expresion
@@ -526,7 +529,7 @@ state 21
     expresion                      shift and go to state 35
     expresion_number               shift and go to state 26
 
-state 22
+state 23
 
     (14) asignacion_instr -> ID EQUALS . expresion
     (23) expresion -> . expresion PLUS expresion
@@ -561,7 +564,7 @@ state 22
     expresion                      shift and go to state 36
     expresion_number               shift and go to state 26
 
-state 23
+state 24
 
     (15) definicion_asignacion_instr -> ID DOSPUNTOS . tipo EQUALS expresion
     (43) tipo -> . RINT
@@ -574,7 +577,7 @@ state 23
 
     tipo                           shift and go to state 37
 
-state 24
+state 25
 
     (13) print_instr -> RPRINT PARIZQ . expres_lista PARDER
     (36) expres_lista -> . expres_lista COMA expresion
@@ -612,7 +615,7 @@ state 24
     expresion                      shift and go to state 35
     expresion_number               shift and go to state 26
 
-state 25
+state 26
 
     (17) if_instr -> RIF expresion . statement REND
     (18) if_instr -> RIF expresion . DOSPUNTOS statement RELSE DOSPUNTOS statement REND
@@ -674,7 +677,7 @@ state 25
     print_instr                    shift and go to state 7
     if_instr                       shift and go to state 8
 
-state 26
+state 27
 
     (29) expresion -> expresion_number .
 
@@ -705,7 +708,7 @@ state 26
     RELIF           reduce using rule 29 (expresion -> expresion_number .)
 
 
-state 27
+state 28
 
     (38) expresion -> PARIZQ . expresion PARDER
     (23) expresion -> . expresion PLUS expresion
@@ -926,7 +929,7 @@ state 33
     RELIF           reduce using rule 47 (expresion_number -> FLOAT .)
 
 
-state 34
+state 33
 
     (12) print_instrln -> RPRINTLN PARIZQ expres_lista . PARDER
     (36) expres_lista -> expres_lista . COMA expresion
@@ -935,7 +938,7 @@ state 34
     COMA            shift and go to state 59
 
 
-state 35
+state 34
 
     (37) expres_lista -> expresion .
     (23) expresion -> expresion . PLUS expresion
@@ -967,7 +970,7 @@ state 35
     GREATEREQUAL    shift and go to state 55
 
 
-state 36
+state 35
 
     (14) asignacion_instr -> ID EQUALS expresion .
     (23) expresion -> expresion . PLUS expresion
@@ -1007,35 +1010,35 @@ state 36
     GREATEREQUAL    shift and go to state 55
 
 
-state 37
+state 36
 
     (15) definicion_asignacion_instr -> ID DOSPUNTOS tipo . EQUALS expresion
 
     EQUALS          shift and go to state 60
 
 
-state 38
+state 37
 
     (43) tipo -> RINT .
 
     EQUALS          reduce using rule 43 (tipo -> RINT .)
 
 
-state 39
+state 38
 
     (44) tipo -> RFLOAT .
 
     EQUALS          reduce using rule 44 (tipo -> RFLOAT .)
 
 
-state 40
+state 39
 
     (45) tipo -> RBOOL .
 
     EQUALS          reduce using rule 45 (tipo -> RBOOL .)
 
 
-state 41
+state 40
 
     (13) print_instr -> RPRINT PARIZQ expres_lista . PARDER
     (36) expres_lista -> expres_lista . COMA expresion
@@ -1044,14 +1047,14 @@ state 41
     COMA            shift and go to state 59
 
 
-state 42
+state 41
 
     (17) if_instr -> RIF expresion statement . REND
 
     REND            shift and go to state 62
 
 
-state 43
+state 42
 
     (18) if_instr -> RIF expresion DOSPUNTOS . statement RELSE DOSPUNTOS statement REND
     (19) if_instr -> RIF expresion DOSPUNTOS . statement else_list REND
@@ -1087,7 +1090,7 @@ state 43
     print_instr                    shift and go to state 7
     if_instr                       shift and go to state 8
 
-state 44
+state 43
 
     (23) expresion -> expresion PLUS . expresion
     (23) expresion -> . expresion PLUS expresion
@@ -1122,7 +1125,7 @@ state 44
     expresion                      shift and go to state 64
     expresion_number               shift and go to state 26
 
-state 45
+state 44
 
     (24) expresion -> expresion MINUS . expresion
     (23) expresion -> . expresion PLUS expresion
@@ -1157,7 +1160,7 @@ state 45
     expresion                      shift and go to state 65
     expresion_number               shift and go to state 26
 
-state 46
+state 45
 
     (25) expresion -> expresion POT . expresion
     (23) expresion -> . expresion PLUS expresion
@@ -1192,7 +1195,7 @@ state 46
     expresion                      shift and go to state 66
     expresion_number               shift and go to state 26
 
-state 47
+state 46
 
     (26) expresion -> expresion POR . expresion
     (23) expresion -> . expresion PLUS expresion
@@ -1227,7 +1230,7 @@ state 47
     expresion                      shift and go to state 67
     expresion_number               shift and go to state 26
 
-state 48
+state 47
 
     (27) expresion -> expresion DIVIDE . expresion
     (23) expresion -> . expresion PLUS expresion
@@ -1262,7 +1265,7 @@ state 48
     expresion                      shift and go to state 68
     expresion_number               shift and go to state 26
 
-state 49
+state 48
 
     (28) expresion -> expresion MODULATE . expresion
     (23) expresion -> . expresion PLUS expresion
@@ -1297,7 +1300,7 @@ state 49
     expresion                      shift and go to state 69
     expresion_number               shift and go to state 26
 
-state 50
+state 49
 
     (30) expresion -> expresion EQUALIZATIONSIGN . expresion
     (23) expresion -> . expresion PLUS expresion
