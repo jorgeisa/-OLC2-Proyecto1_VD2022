@@ -25,7 +25,7 @@ class Relational(Expression):
         gen_aux = Generator()
         generator = gen_aux.get_instance()
 
-        generator.add_comment("inicio de expression realcional")
+        generator.add_comment("INICIO - Expresion Relacional")
         left = self.left.compile(env)
         right = None
         result = Return(None, Type.BOOL, False)
@@ -55,8 +55,7 @@ class Relational(Expression):
                 generator.add_if(valor1, valor2, '==', inicio_lbl)
                 generator.add_if(valor1, valor2, '!=', self.false_lbl)
                 generator.add_goto(self.false_lbl)
-                print('comparacion de cadenas')
-                # TODO tengo que hacer la comparacion de cadenas
+                
         else:
             goto_right = generator.new_label()
             left_temp = generator.add_temp()

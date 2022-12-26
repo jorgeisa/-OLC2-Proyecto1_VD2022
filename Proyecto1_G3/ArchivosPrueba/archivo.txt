@@ -3,9 +3,6 @@
 Prueba comentario 
 multilineasasdfasfasf
 =#  
-
-      print("hola")
-             print("manquisimo Abrhaam")
-      print(1)
-      print(True)
+       a = 123
+       print(a)
 

@@ -19,11 +19,11 @@ class Literal(Expression):
             self.check_labels()
             if self.value:
                 generator.add_goto(self.true_lbl)
-                generator.add_comment("goto para evitar errores")
+                generator.add_comment("GOTO - Relacional Evita Errores")
                 generator.add_goto(self.false_lbl)
             else:
                 generator.add_goto(self.false_lbl)
-                generator.add_comment("goto para evitar errores")
+                generator.add_comment("GOTO - Relacional Evita Errores")
                 generator.add_goto(self.true_lbl)
             ret = Return(self.value, self.type, False)
             ret.true_lbl = self.true_lbl
