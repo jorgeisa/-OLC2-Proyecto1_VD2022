@@ -16,8 +16,18 @@ reserved = {
     # Terminan Tipos Basicos
     # Comienzan Tipos Compuestos
     'list'  :   'RLIST',
-    'struct':   'RSTRUCT'
+    'struct':   'RSTRUCT',
     # Terminan Tipos Compuestos
+    # Empiezan Operadores Logicos
+    'or':       'OR',               # Operador OR
+    'and':      'AND',              # Operador AND
+    # Terminan Operadores Logicos
+    # Empiezan Funciones
+    'func':     'RFUNC',
+    # Terminan Funciones
+    # Empieza main
+    'main':     'RMAIN',
+    # Termina Main
 }
 
 tokens = [
@@ -54,9 +64,16 @@ tokens = [
     'SMALLERTHAN',      # Signo de Menor que
     'GREATERTHAN',      # Signo de Mayor que
     'LESSEQUAL',        # Signo de Menor Igual
-    'GREATEREQUAL'     # Signo de Mayor Igual
+    'GREATEREQUAL',    # Signo de Mayor Igual
     # Terminan Relacionales
+
+    # Empiezan Simbolos de encapsulamiento
+    'KEYSIGNOPEN',      # Llave que Abre
+    'KEYSIGNCLOSE',     # Llave que cierra
+    # Terminan Simbolos de Encapsulamiento
     
+    # Operadores Logicos
+    'NOT',              # Operador NOT
     
 
 ] + list(reserved.values())
@@ -67,6 +84,11 @@ t_DOSPUNTOS = r':'
 t_PARIZQ = r'\('
 t_PARDER = r'\)'
 t_COMA = r'\,'
+
+# Empiezan Simbolos de Encapsulamiento
+t_KEYSIGNOPEN = r'\{'
+t_KEYSIGNCLOSE = r'\}'
+
 # Empiezan Operadores Relacionales
 t_EQUALIZATIONSIGN = r'=='
 t_DIFFERENTIATIONSIGN = r'!='
@@ -75,6 +97,10 @@ t_GREATERTHAN = r'>'
 t_LESSEQUAL = r'<='
 t_GREATEREQUAL = r'>='
 # Terminan Operadores Relacionales
+
+# Operadores Logicos
+t_NOT = r'!'
+
 # Empiezan Aritmeticas
 t_EQUALS    = r'\='
 t_PLUS      = r'\+'
@@ -162,6 +188,7 @@ from Proyecto1_G3.Abstract.Return import Type
 from Proyecto1_G3.Expression.Literal import Literal
 from Proyecto1_G3.Expression.Access import Access
 from Proyecto1_G3.Expression.Relational import Relational, RelationalOption
+from Proyecto1_G3.Expression.Logical import Logical, LogicOption
 
 from Proyecto1_G3.Instruction.Native.Print import Print
 from Proyecto1_G3.Instruction.Declaration import Declaration
@@ -170,8 +197,11 @@ from Proyecto1_G3.Expression.Arithmetic import Arithmetic,ArithmeticOption
 
 # Empieza Precedencia
 precedence = (
-    
-    
+    ('left', 'OR'),  # ||
+    ('left', 'AND'),  # &&
+    ('right', 'UNOT'),  # !
+    ('left', 'EQUALIZATIONSIGN','DIFFERENTIATIONSIGN'),
+    ('left', 'GREATERTHAN', 'SMALLERTHAN', 'GREATEREQUAL', 'LESSEQUAL'),  # ==, !=, <, <=, >, >=
     ('left', 'PLUS', 'MINUS'),
     ('left', 'POR', 'DIVIDE', 'MODULATE'),
     ('left', 'POT'),
@@ -278,6 +308,27 @@ def p_expresion_binaria_relacional(t):
         t[0] = Relational(t[1], t[3], RelationalOption.GREATEREQUAL, t.lineno(2), find_column(input, t.slice[2]))
 # Termina Expresion Binaria Relacional
 
+# Empieza Expresion Binaria Logica
+def p_expresion_binaria_relacional(t):
+    '''
+    expresion   :   expresion OR      expresion
+                |   expresion AND     expresion
+    '''
+    if t[2] == "or":
+        t[0] = Logical(t[1], t[3], LogicOption.OR, t.lineno(1), find_column(input, t.slice[2]))
+    elif t[2] == "and":
+        t[0] = Logical(t[1], t[3], LogicOption.AND, t.lineno(1), find_column(input, t.slice[2]))
+        
+# Termina Expresion Binaria Logica
+
+# Empieza Expresion Unaria Logica
+def p_expresion_unaria_Logica(t):
+    '''
+        expresion : NOT expresion %prec UNOT
+    '''
+    if t[1] == '!':
+        t[0] = Logical(t[2],Literal(True, Type.BOOL, t.lineno(1), find_column(input, t.slice[2])), LogicOption.NOT, t.lineno(1), find_column(input, t.slice[2]))
+        
 # Empieza Lista Expresiones
 def p_expresion_lista(t):
     '''expres_lista  : expres_lista COMA expresion

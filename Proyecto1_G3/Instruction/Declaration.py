@@ -11,7 +11,7 @@ class Declaration(Instruction):
     def compile(self,env):
         g_aux = Generator()
         gen = g_aux.get_instance()
-        gen.add_comment("DECLARACION - Valor de la Varible")
+        gen.add_comment("DECLARACION - Valor de la Variable")
         value = self.value.compile(env)
         gen.add_comment("DECLARACION - Final de declarar valor")
         new_var = env.save_var(self.id,value.type,(value.type == Type.STRING or value.type == Type.STRUCT or value.type ==Type.LIST),value.struct_type)
@@ -29,5 +29,5 @@ class Declaration(Instruction):
             gen.set_stack(temp_post,"0")
             gen.put_label(temp_label)
         else:
-            gen.set_stack(temp_post,value.val)
+            gen.set_stack(temp_post,value.value)
         gen.add_space()
