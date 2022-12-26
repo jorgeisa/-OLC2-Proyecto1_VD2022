@@ -165,18 +165,18 @@ from Proyecto1_G3.Expression.Relational import Relational, RelationalOption
 
 from Proyecto1_G3.Instruction.Native.Print import Print
 from Proyecto1_G3.Instruction.Declaration import Declaration
+from Proyecto1_G3.Expression.Arithmetic import Arithmetic,ArithmeticOption
 # Terminan Imports Gramatica
 
 # Empieza Precedencia
-'''precedence =(
-    (),
-    (),
-    (),
-    (),
-    (),
-
-
-)'''
+precedence = (
+    
+    
+    ('left', 'PLUS', 'MINUS'),
+    ('left', 'POR', 'DIVIDE', 'MODULATE'),
+    ('left', 'POT'),
+    ('right', 'MINUS')
+)
 # Termina precedencia 
 
 # Init List of Instructions
@@ -239,12 +239,20 @@ def p_expresion_binaria(t):
                 |   expresion POR       expresion
                 |   expresion DIVIDE    expresion
                 |   expresion MODULATE  expresion
+                |   expresion_number
     '''
-    if   t[2] == '+': t[0] = t[1] + t[3]
-    elif t[2] == '-': t[0] = t[1] - t[3]
-    elif t[2] == '*': t[0] = t[1] * t[3]
-    elif t[2] == '/': t[0] = t[1] / t[3]    
-    elif t[2] == '%': t[0] = t[1] % t[3]
+    if(len(t)==2):
+        t[0] = t[1]
+    elif (len(t)==3):
+        if(t[1] == '-'): t[0] = Arithmetic(Literal(0,Type.INT, t.lineno(1), t.lexpos(0)),t[2],ArithmeticOption.MINUS,t.lineno(1), t.lexpos(0))
+    else:
+        if   t[2] == '+': t[0] = Arithmetic(t[1], t[3], ArithmeticOption.PLUS,t.lineno(1), t.lexpos(0))
+        elif t[2] == '-': t[0] = Arithmetic(t[1], t[3], ArithmeticOption.MINUS,t.lineno(1), t.lexpos(0))
+        elif t[2] == '*': t[0] = Arithmetic(t[1], t[3], ArithmeticOption.TIMES,t.lineno(1), t.lexpos(0))
+        elif t[2] == '/': t[0] = Arithmetic(t[1], t[3], ArithmeticOption.DIV,t.lineno(1), t.lexpos(0))  
+        elif t[2] == '%': t[0] = Arithmetic(t[1], t[3], ArithmeticOption.MODULE,t.lineno(1), t.lexpos(0))
+        elif t[2] == "^": t[0] = Arithmetic(t[1], t[3], ArithmeticOption.RAISED, t.lineno(1), t.lexpos(0))
+    
 
 # Empieza Expresion Binaria Relacional
 def p_expresion_binaria_relacional(t):
@@ -307,16 +315,18 @@ def p_expresion_id(t):
 # Empieza Tipo 
 def p_tipo(t):
     '''
-    tipo    : INTEGER
-            | FLOAT
+    tipo    : RINT
+            | RFLOAT
+            | RBOOL
+
     '''
     t[0] = t[1]
 
 # Empieza Expresion Numero
 def p_expresion_number(t):
     '''
-    expresion   :   INTEGER
-                |   FLOAT
+    expresion_number    :   INTEGER
+                        |   FLOAT
     '''
     if t.slice[1].type == "INTEGER":
         print("ES un entero")

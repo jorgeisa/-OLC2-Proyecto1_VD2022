@@ -5,9 +5,6 @@ Unused terminals:
     COMMENMUL
     COMMENUNI
     POT
-    RBOOL
-    RFLOAT
-    RINT
     RLIST
     RNONE
     RSTRING
@@ -33,60 +30,62 @@ Rule 14    expresion -> expresion MINUS expresion
 Rule 15    expresion -> expresion POR expresion
 Rule 16    expresion -> expresion DIVIDE expresion
 Rule 17    expresion -> expresion MODULATE expresion
-Rule 18    expresion -> expresion EQUALIZATIONSIGN expresion
-Rule 19    expresion -> expresion DIFFERENTIATIONSIGN expresion
-Rule 20    expresion -> expresion SMALLERTHAN expresion
-Rule 21    expresion -> expresion GREATERTHAN expresion
-Rule 22    expresion -> expresion LESSEQUAL expresion
-Rule 23    expresion -> expresion GREATEREQUAL expresion
-Rule 24    expres_lista -> expres_lista COMA expresion
-Rule 25    expres_lista -> expresion
-Rule 26    expresion -> PARIZQ expresion PARDER
-Rule 27    expresion -> CADENA
-Rule 28    expresion -> RTRUE
-Rule 29    expresion -> RFALSE
-Rule 30    expresion -> ID
-Rule 31    tipo -> INTEGER
-Rule 32    tipo -> FLOAT
-Rule 33    expresion -> INTEGER
-Rule 34    expresion -> FLOAT
+Rule 18    expresion -> expresion_number
+Rule 19    expresion -> expresion EQUALIZATIONSIGN expresion
+Rule 20    expresion -> expresion DIFFERENTIATIONSIGN expresion
+Rule 21    expresion -> expresion SMALLERTHAN expresion
+Rule 22    expresion -> expresion GREATERTHAN expresion
+Rule 23    expresion -> expresion LESSEQUAL expresion
+Rule 24    expresion -> expresion GREATEREQUAL expresion
+Rule 25    expres_lista -> expres_lista COMA expresion
+Rule 26    expres_lista -> expresion
+Rule 27    expresion -> PARIZQ expresion PARDER
+Rule 28    expresion -> CADENA
+Rule 29    expresion -> RTRUE
+Rule 30    expresion -> RFALSE
+Rule 31    expresion -> ID
+Rule 32    tipo -> RINT
+Rule 33    tipo -> RFLOAT
+Rule 34    tipo -> RBOOL
+Rule 35    expresion_number -> INTEGER
+Rule 36    expresion_number -> FLOAT
 
 Terminals, with rules where they appear
 
-CADENA               : 27
-COMA                 : 24
+CADENA               : 28
+COMA                 : 25
 COMMENMUL            : 
 COMMENUNI            : 
-DIFFERENTIATIONSIGN  : 19
+DIFFERENTIATIONSIGN  : 20
 DIVIDE               : 16
 DOSPUNTOS            : 12
-EQUALIZATIONSIGN     : 18
+EQUALIZATIONSIGN     : 19
 EQUALS               : 11 12
-FLOAT                : 32 34
-GREATEREQUAL         : 23
-GREATERTHAN          : 21
-ID                   : 11 12 30
-INTEGER              : 31 33
-LESSEQUAL            : 22
+FLOAT                : 36
+GREATEREQUAL         : 24
+GREATERTHAN          : 22
+ID                   : 11 12 31
+INTEGER              : 35
+LESSEQUAL            : 23
 MINUS                : 14
 MODULATE             : 17
-PARDER               : 10 26
-PARIZQ               : 10 26
+PARDER               : 10 27
+PARIZQ               : 10 27
 PLUS                 : 13
 POR                  : 15
 POT                  : 
-RBOOL                : 
-RFALSE               : 29
-RFLOAT               : 
-RINT                 : 
+RBOOL                : 34
+RFALSE               : 30
+RFLOAT               : 33
+RINT                 : 32
 RLIST                : 
 RNONE                : 
 RPRINT               : 10
 RSTRING              : 
 RSTRUCT              : 
-RTRUE                : 28
+RTRUE                : 29
 SALTOLINEA           : 7
-SMALLERTHAN          : 20
+SMALLERTHAN          : 21
 error                : 9
 
 Nonterminals, with rules where they appear
@@ -302,26 +301,27 @@ state 15
 state 16
 
     (10) print_instr -> RPRINT PARIZQ . expres_lista PARDER
-    (24) expres_lista -> . expres_lista COMA expresion
-    (25) expres_lista -> . expresion
+    (25) expres_lista -> . expres_lista COMA expresion
+    (26) expres_lista -> . expresion
     (13) expresion -> . expresion PLUS expresion
     (14) expresion -> . expresion MINUS expresion
     (15) expresion -> . expresion POR expresion
     (16) expresion -> . expresion DIVIDE expresion
     (17) expresion -> . expresion MODULATE expresion
-    (18) expresion -> . expresion EQUALIZATIONSIGN expresion
-    (19) expresion -> . expresion DIFFERENTIATIONSIGN expresion
-    (20) expresion -> . expresion SMALLERTHAN expresion
-    (21) expresion -> . expresion GREATERTHAN expresion
-    (22) expresion -> . expresion LESSEQUAL expresion
-    (23) expresion -> . expresion GREATEREQUAL expresion
-    (26) expresion -> . PARIZQ expresion PARDER
-    (27) expresion -> . CADENA
-    (28) expresion -> . RTRUE
-    (29) expresion -> . RFALSE
-    (30) expresion -> . ID
-    (33) expresion -> . INTEGER
-    (34) expresion -> . FLOAT
+    (18) expresion -> . expresion_number
+    (19) expresion -> . expresion EQUALIZATIONSIGN expresion
+    (20) expresion -> . expresion DIFFERENTIATIONSIGN expresion
+    (21) expresion -> . expresion SMALLERTHAN expresion
+    (22) expresion -> . expresion GREATERTHAN expresion
+    (23) expresion -> . expresion LESSEQUAL expresion
+    (24) expresion -> . expresion GREATEREQUAL expresion
+    (27) expresion -> . PARIZQ expresion PARDER
+    (28) expresion -> . CADENA
+    (29) expresion -> . RTRUE
+    (30) expresion -> . RFALSE
+    (31) expresion -> . ID
+    (35) expresion_number -> . INTEGER
+    (36) expresion_number -> . FLOAT
 
     PARIZQ          shift and go to state 19
     CADENA          shift and go to state 22
@@ -342,19 +342,20 @@ state 17
     (15) expresion -> . expresion POR expresion
     (16) expresion -> . expresion DIVIDE expresion
     (17) expresion -> . expresion MODULATE expresion
-    (18) expresion -> . expresion EQUALIZATIONSIGN expresion
-    (19) expresion -> . expresion DIFFERENTIATIONSIGN expresion
-    (20) expresion -> . expresion SMALLERTHAN expresion
-    (21) expresion -> . expresion GREATERTHAN expresion
-    (22) expresion -> . expresion LESSEQUAL expresion
-    (23) expresion -> . expresion GREATEREQUAL expresion
-    (26) expresion -> . PARIZQ expresion PARDER
-    (27) expresion -> . CADENA
-    (28) expresion -> . RTRUE
-    (29) expresion -> . RFALSE
-    (30) expresion -> . ID
-    (33) expresion -> . INTEGER
-    (34) expresion -> . FLOAT
+    (18) expresion -> . expresion_number
+    (19) expresion -> . expresion EQUALIZATIONSIGN expresion
+    (20) expresion -> . expresion DIFFERENTIATIONSIGN expresion
+    (21) expresion -> . expresion SMALLERTHAN expresion
+    (22) expresion -> . expresion GREATERTHAN expresion
+    (23) expresion -> . expresion LESSEQUAL expresion
+    (24) expresion -> . expresion GREATEREQUAL expresion
+    (27) expresion -> . PARIZQ expresion PARDER
+    (28) expresion -> . CADENA
+    (29) expresion -> . RTRUE
+    (30) expresion -> . RFALSE
+    (31) expresion -> . ID
+    (35) expresion_number -> . INTEGER
+    (36) expresion_number -> . FLOAT
 
     PARIZQ          shift and go to state 19
     CADENA          shift and go to state 22
@@ -369,8 +370,9 @@ state 17
 state 18
 
     (12) definicion_asignacion_instr -> ID DOSPUNTOS . tipo EQUALS expresion
-    (31) tipo -> . INTEGER
-    (32) tipo -> . FLOAT
+    (32) tipo -> . RINT
+    (33) tipo -> . RFLOAT
+    (34) tipo -> . RBOOL
 
     INTEGER         shift and go to state 30
     FLOAT           shift and go to state 31
@@ -379,25 +381,26 @@ state 18
 
 state 19
 
-    (26) expresion -> PARIZQ . expresion PARDER
+    (27) expresion -> PARIZQ . expresion PARDER
     (13) expresion -> . expresion PLUS expresion
     (14) expresion -> . expresion MINUS expresion
     (15) expresion -> . expresion POR expresion
     (16) expresion -> . expresion DIVIDE expresion
     (17) expresion -> . expresion MODULATE expresion
-    (18) expresion -> . expresion EQUALIZATIONSIGN expresion
-    (19) expresion -> . expresion DIFFERENTIATIONSIGN expresion
-    (20) expresion -> . expresion SMALLERTHAN expresion
-    (21) expresion -> . expresion GREATERTHAN expresion
-    (22) expresion -> . expresion LESSEQUAL expresion
-    (23) expresion -> . expresion GREATEREQUAL expresion
-    (26) expresion -> . PARIZQ expresion PARDER
-    (27) expresion -> . CADENA
-    (28) expresion -> . RTRUE
-    (29) expresion -> . RFALSE
-    (30) expresion -> . ID
-    (33) expresion -> . INTEGER
-    (34) expresion -> . FLOAT
+    (18) expresion -> . expresion_number
+    (19) expresion -> . expresion EQUALIZATIONSIGN expresion
+    (20) expresion -> . expresion DIFFERENTIATIONSIGN expresion
+    (21) expresion -> . expresion SMALLERTHAN expresion
+    (22) expresion -> . expresion GREATERTHAN expresion
+    (23) expresion -> . expresion LESSEQUAL expresion
+    (24) expresion -> . expresion GREATEREQUAL expresion
+    (27) expresion -> . PARIZQ expresion PARDER
+    (28) expresion -> . CADENA
+    (29) expresion -> . RTRUE
+    (30) expresion -> . RFALSE
+    (31) expresion -> . ID
+    (35) expresion_number -> . INTEGER
+    (36) expresion_number -> . FLOAT
 
     PARIZQ          shift and go to state 19
     CADENA          shift and go to state 22
@@ -412,7 +415,7 @@ state 19
 state 20
 
     (10) print_instr -> RPRINT PARIZQ expres_lista . PARDER
-    (24) expres_lista -> expres_lista . COMA expresion
+    (25) expres_lista -> expres_lista . COMA expresion
 
     PARDER          shift and go to state 33
     COMA            shift and go to state 34
@@ -420,18 +423,18 @@ state 20
 
 state 21
 
-    (25) expres_lista -> expresion .
+    (26) expres_lista -> expresion .
     (13) expresion -> expresion . PLUS expresion
     (14) expresion -> expresion . MINUS expresion
     (15) expresion -> expresion . POR expresion
     (16) expresion -> expresion . DIVIDE expresion
     (17) expresion -> expresion . MODULATE expresion
-    (18) expresion -> expresion . EQUALIZATIONSIGN expresion
-    (19) expresion -> expresion . DIFFERENTIATIONSIGN expresion
-    (20) expresion -> expresion . SMALLERTHAN expresion
-    (21) expresion -> expresion . GREATERTHAN expresion
-    (22) expresion -> expresion . LESSEQUAL expresion
-    (23) expresion -> expresion . GREATEREQUAL expresion
+    (19) expresion -> expresion . EQUALIZATIONSIGN expresion
+    (20) expresion -> expresion . DIFFERENTIATIONSIGN expresion
+    (21) expresion -> expresion . SMALLERTHAN expresion
+    (22) expresion -> expresion . GREATERTHAN expresion
+    (23) expresion -> expresion . LESSEQUAL expresion
+    (24) expresion -> expresion . GREATEREQUAL expresion
 
     PARDER          reduce using rule 25 (expres_lista -> expresion .)
     COMA            reduce using rule 25 (expres_lista -> expresion .)
@@ -450,146 +453,170 @@ state 21
 
 state 22
 
-    (27) expresion -> CADENA .
+    (18) expresion -> expresion_number .
 
-    PLUS            reduce using rule 27 (expresion -> CADENA .)
-    MINUS           reduce using rule 27 (expresion -> CADENA .)
-    POR             reduce using rule 27 (expresion -> CADENA .)
-    DIVIDE          reduce using rule 27 (expresion -> CADENA .)
-    MODULATE        reduce using rule 27 (expresion -> CADENA .)
-    EQUALIZATIONSIGN reduce using rule 27 (expresion -> CADENA .)
-    DIFFERENTIATIONSIGN reduce using rule 27 (expresion -> CADENA .)
-    SMALLERTHAN     reduce using rule 27 (expresion -> CADENA .)
-    GREATERTHAN     reduce using rule 27 (expresion -> CADENA .)
-    LESSEQUAL       reduce using rule 27 (expresion -> CADENA .)
-    GREATEREQUAL    reduce using rule 27 (expresion -> CADENA .)
-    PARDER          reduce using rule 27 (expresion -> CADENA .)
-    COMA            reduce using rule 27 (expresion -> CADENA .)
-    SALTOLINEA      reduce using rule 27 (expresion -> CADENA .)
-    error           reduce using rule 27 (expresion -> CADENA .)
-    RPRINT          reduce using rule 27 (expresion -> CADENA .)
-    ID              reduce using rule 27 (expresion -> CADENA .)
-    $end            reduce using rule 27 (expresion -> CADENA .)
+    PLUS            reduce using rule 18 (expresion -> expresion_number .)
+    MINUS           reduce using rule 18 (expresion -> expresion_number .)
+    POR             reduce using rule 18 (expresion -> expresion_number .)
+    DIVIDE          reduce using rule 18 (expresion -> expresion_number .)
+    MODULATE        reduce using rule 18 (expresion -> expresion_number .)
+    EQUALIZATIONSIGN reduce using rule 18 (expresion -> expresion_number .)
+    DIFFERENTIATIONSIGN reduce using rule 18 (expresion -> expresion_number .)
+    SMALLERTHAN     reduce using rule 18 (expresion -> expresion_number .)
+    GREATERTHAN     reduce using rule 18 (expresion -> expresion_number .)
+    LESSEQUAL       reduce using rule 18 (expresion -> expresion_number .)
+    GREATEREQUAL    reduce using rule 18 (expresion -> expresion_number .)
+    PARDER          reduce using rule 18 (expresion -> expresion_number .)
+    COMA            reduce using rule 18 (expresion -> expresion_number .)
+    SALTOLINEA      reduce using rule 18 (expresion -> expresion_number .)
+    error           reduce using rule 18 (expresion -> expresion_number .)
+    RPRINT          reduce using rule 18 (expresion -> expresion_number .)
+    ID              reduce using rule 18 (expresion -> expresion_number .)
+    $end            reduce using rule 18 (expresion -> expresion_number .)
 
 
 state 23
 
-    (28) expresion -> RTRUE .
+    (28) expresion -> CADENA .
 
-    PLUS            reduce using rule 28 (expresion -> RTRUE .)
-    MINUS           reduce using rule 28 (expresion -> RTRUE .)
-    POR             reduce using rule 28 (expresion -> RTRUE .)
-    DIVIDE          reduce using rule 28 (expresion -> RTRUE .)
-    MODULATE        reduce using rule 28 (expresion -> RTRUE .)
-    EQUALIZATIONSIGN reduce using rule 28 (expresion -> RTRUE .)
-    DIFFERENTIATIONSIGN reduce using rule 28 (expresion -> RTRUE .)
-    SMALLERTHAN     reduce using rule 28 (expresion -> RTRUE .)
-    GREATERTHAN     reduce using rule 28 (expresion -> RTRUE .)
-    LESSEQUAL       reduce using rule 28 (expresion -> RTRUE .)
-    GREATEREQUAL    reduce using rule 28 (expresion -> RTRUE .)
-    PARDER          reduce using rule 28 (expresion -> RTRUE .)
-    COMA            reduce using rule 28 (expresion -> RTRUE .)
-    SALTOLINEA      reduce using rule 28 (expresion -> RTRUE .)
-    error           reduce using rule 28 (expresion -> RTRUE .)
-    RPRINT          reduce using rule 28 (expresion -> RTRUE .)
-    ID              reduce using rule 28 (expresion -> RTRUE .)
-    $end            reduce using rule 28 (expresion -> RTRUE .)
+    PLUS            reduce using rule 28 (expresion -> CADENA .)
+    MINUS           reduce using rule 28 (expresion -> CADENA .)
+    POR             reduce using rule 28 (expresion -> CADENA .)
+    DIVIDE          reduce using rule 28 (expresion -> CADENA .)
+    MODULATE        reduce using rule 28 (expresion -> CADENA .)
+    EQUALIZATIONSIGN reduce using rule 28 (expresion -> CADENA .)
+    DIFFERENTIATIONSIGN reduce using rule 28 (expresion -> CADENA .)
+    SMALLERTHAN     reduce using rule 28 (expresion -> CADENA .)
+    GREATERTHAN     reduce using rule 28 (expresion -> CADENA .)
+    LESSEQUAL       reduce using rule 28 (expresion -> CADENA .)
+    GREATEREQUAL    reduce using rule 28 (expresion -> CADENA .)
+    PARDER          reduce using rule 28 (expresion -> CADENA .)
+    COMA            reduce using rule 28 (expresion -> CADENA .)
+    SALTOLINEA      reduce using rule 28 (expresion -> CADENA .)
+    error           reduce using rule 28 (expresion -> CADENA .)
+    RPRINT          reduce using rule 28 (expresion -> CADENA .)
+    ID              reduce using rule 28 (expresion -> CADENA .)
+    $end            reduce using rule 28 (expresion -> CADENA .)
 
 
 state 24
 
-    (29) expresion -> RFALSE .
+    (29) expresion -> RTRUE .
 
-    PLUS            reduce using rule 29 (expresion -> RFALSE .)
-    MINUS           reduce using rule 29 (expresion -> RFALSE .)
-    POR             reduce using rule 29 (expresion -> RFALSE .)
-    DIVIDE          reduce using rule 29 (expresion -> RFALSE .)
-    MODULATE        reduce using rule 29 (expresion -> RFALSE .)
-    EQUALIZATIONSIGN reduce using rule 29 (expresion -> RFALSE .)
-    DIFFERENTIATIONSIGN reduce using rule 29 (expresion -> RFALSE .)
-    SMALLERTHAN     reduce using rule 29 (expresion -> RFALSE .)
-    GREATERTHAN     reduce using rule 29 (expresion -> RFALSE .)
-    LESSEQUAL       reduce using rule 29 (expresion -> RFALSE .)
-    GREATEREQUAL    reduce using rule 29 (expresion -> RFALSE .)
-    PARDER          reduce using rule 29 (expresion -> RFALSE .)
-    COMA            reduce using rule 29 (expresion -> RFALSE .)
-    SALTOLINEA      reduce using rule 29 (expresion -> RFALSE .)
-    error           reduce using rule 29 (expresion -> RFALSE .)
-    RPRINT          reduce using rule 29 (expresion -> RFALSE .)
-    ID              reduce using rule 29 (expresion -> RFALSE .)
-    $end            reduce using rule 29 (expresion -> RFALSE .)
+    PLUS            reduce using rule 29 (expresion -> RTRUE .)
+    MINUS           reduce using rule 29 (expresion -> RTRUE .)
+    POR             reduce using rule 29 (expresion -> RTRUE .)
+    DIVIDE          reduce using rule 29 (expresion -> RTRUE .)
+    MODULATE        reduce using rule 29 (expresion -> RTRUE .)
+    EQUALIZATIONSIGN reduce using rule 29 (expresion -> RTRUE .)
+    DIFFERENTIATIONSIGN reduce using rule 29 (expresion -> RTRUE .)
+    SMALLERTHAN     reduce using rule 29 (expresion -> RTRUE .)
+    GREATERTHAN     reduce using rule 29 (expresion -> RTRUE .)
+    LESSEQUAL       reduce using rule 29 (expresion -> RTRUE .)
+    GREATEREQUAL    reduce using rule 29 (expresion -> RTRUE .)
+    PARDER          reduce using rule 29 (expresion -> RTRUE .)
+    COMA            reduce using rule 29 (expresion -> RTRUE .)
+    SALTOLINEA      reduce using rule 29 (expresion -> RTRUE .)
+    error           reduce using rule 29 (expresion -> RTRUE .)
+    RPRINT          reduce using rule 29 (expresion -> RTRUE .)
+    ID              reduce using rule 29 (expresion -> RTRUE .)
+    $end            reduce using rule 29 (expresion -> RTRUE .)
 
 
 state 25
 
-    (30) expresion -> ID .
+    (30) expresion -> RFALSE .
 
-    PLUS            reduce using rule 30 (expresion -> ID .)
-    MINUS           reduce using rule 30 (expresion -> ID .)
-    POR             reduce using rule 30 (expresion -> ID .)
-    DIVIDE          reduce using rule 30 (expresion -> ID .)
-    MODULATE        reduce using rule 30 (expresion -> ID .)
-    EQUALIZATIONSIGN reduce using rule 30 (expresion -> ID .)
-    DIFFERENTIATIONSIGN reduce using rule 30 (expresion -> ID .)
-    SMALLERTHAN     reduce using rule 30 (expresion -> ID .)
-    GREATERTHAN     reduce using rule 30 (expresion -> ID .)
-    LESSEQUAL       reduce using rule 30 (expresion -> ID .)
-    GREATEREQUAL    reduce using rule 30 (expresion -> ID .)
-    PARDER          reduce using rule 30 (expresion -> ID .)
-    COMA            reduce using rule 30 (expresion -> ID .)
-    SALTOLINEA      reduce using rule 30 (expresion -> ID .)
-    error           reduce using rule 30 (expresion -> ID .)
-    RPRINT          reduce using rule 30 (expresion -> ID .)
-    ID              reduce using rule 30 (expresion -> ID .)
-    $end            reduce using rule 30 (expresion -> ID .)
+    PLUS            reduce using rule 30 (expresion -> RFALSE .)
+    MINUS           reduce using rule 30 (expresion -> RFALSE .)
+    POR             reduce using rule 30 (expresion -> RFALSE .)
+    DIVIDE          reduce using rule 30 (expresion -> RFALSE .)
+    MODULATE        reduce using rule 30 (expresion -> RFALSE .)
+    EQUALIZATIONSIGN reduce using rule 30 (expresion -> RFALSE .)
+    DIFFERENTIATIONSIGN reduce using rule 30 (expresion -> RFALSE .)
+    SMALLERTHAN     reduce using rule 30 (expresion -> RFALSE .)
+    GREATERTHAN     reduce using rule 30 (expresion -> RFALSE .)
+    LESSEQUAL       reduce using rule 30 (expresion -> RFALSE .)
+    GREATEREQUAL    reduce using rule 30 (expresion -> RFALSE .)
+    PARDER          reduce using rule 30 (expresion -> RFALSE .)
+    COMA            reduce using rule 30 (expresion -> RFALSE .)
+    SALTOLINEA      reduce using rule 30 (expresion -> RFALSE .)
+    error           reduce using rule 30 (expresion -> RFALSE .)
+    RPRINT          reduce using rule 30 (expresion -> RFALSE .)
+    ID              reduce using rule 30 (expresion -> RFALSE .)
+    $end            reduce using rule 30 (expresion -> RFALSE .)
 
 
 state 26
 
-    (33) expresion -> INTEGER .
+    (31) expresion -> ID .
 
-    PLUS            reduce using rule 33 (expresion -> INTEGER .)
-    MINUS           reduce using rule 33 (expresion -> INTEGER .)
-    POR             reduce using rule 33 (expresion -> INTEGER .)
-    DIVIDE          reduce using rule 33 (expresion -> INTEGER .)
-    MODULATE        reduce using rule 33 (expresion -> INTEGER .)
-    EQUALIZATIONSIGN reduce using rule 33 (expresion -> INTEGER .)
-    DIFFERENTIATIONSIGN reduce using rule 33 (expresion -> INTEGER .)
-    SMALLERTHAN     reduce using rule 33 (expresion -> INTEGER .)
-    GREATERTHAN     reduce using rule 33 (expresion -> INTEGER .)
-    LESSEQUAL       reduce using rule 33 (expresion -> INTEGER .)
-    GREATEREQUAL    reduce using rule 33 (expresion -> INTEGER .)
-    PARDER          reduce using rule 33 (expresion -> INTEGER .)
-    COMA            reduce using rule 33 (expresion -> INTEGER .)
-    SALTOLINEA      reduce using rule 33 (expresion -> INTEGER .)
-    error           reduce using rule 33 (expresion -> INTEGER .)
-    RPRINT          reduce using rule 33 (expresion -> INTEGER .)
-    ID              reduce using rule 33 (expresion -> INTEGER .)
-    $end            reduce using rule 33 (expresion -> INTEGER .)
+    PLUS            reduce using rule 31 (expresion -> ID .)
+    MINUS           reduce using rule 31 (expresion -> ID .)
+    POR             reduce using rule 31 (expresion -> ID .)
+    DIVIDE          reduce using rule 31 (expresion -> ID .)
+    MODULATE        reduce using rule 31 (expresion -> ID .)
+    EQUALIZATIONSIGN reduce using rule 31 (expresion -> ID .)
+    DIFFERENTIATIONSIGN reduce using rule 31 (expresion -> ID .)
+    SMALLERTHAN     reduce using rule 31 (expresion -> ID .)
+    GREATERTHAN     reduce using rule 31 (expresion -> ID .)
+    LESSEQUAL       reduce using rule 31 (expresion -> ID .)
+    GREATEREQUAL    reduce using rule 31 (expresion -> ID .)
+    PARDER          reduce using rule 31 (expresion -> ID .)
+    COMA            reduce using rule 31 (expresion -> ID .)
+    SALTOLINEA      reduce using rule 31 (expresion -> ID .)
+    error           reduce using rule 31 (expresion -> ID .)
+    RPRINT          reduce using rule 31 (expresion -> ID .)
+    ID              reduce using rule 31 (expresion -> ID .)
+    $end            reduce using rule 31 (expresion -> ID .)
 
 
 state 27
 
-    (34) expresion -> FLOAT .
+    (35) expresion_number -> INTEGER .
 
-    PLUS            reduce using rule 34 (expresion -> FLOAT .)
-    MINUS           reduce using rule 34 (expresion -> FLOAT .)
-    POR             reduce using rule 34 (expresion -> FLOAT .)
-    DIVIDE          reduce using rule 34 (expresion -> FLOAT .)
-    MODULATE        reduce using rule 34 (expresion -> FLOAT .)
-    EQUALIZATIONSIGN reduce using rule 34 (expresion -> FLOAT .)
-    DIFFERENTIATIONSIGN reduce using rule 34 (expresion -> FLOAT .)
-    SMALLERTHAN     reduce using rule 34 (expresion -> FLOAT .)
-    GREATERTHAN     reduce using rule 34 (expresion -> FLOAT .)
-    LESSEQUAL       reduce using rule 34 (expresion -> FLOAT .)
-    GREATEREQUAL    reduce using rule 34 (expresion -> FLOAT .)
-    PARDER          reduce using rule 34 (expresion -> FLOAT .)
-    COMA            reduce using rule 34 (expresion -> FLOAT .)
-    SALTOLINEA      reduce using rule 34 (expresion -> FLOAT .)
-    error           reduce using rule 34 (expresion -> FLOAT .)
-    RPRINT          reduce using rule 34 (expresion -> FLOAT .)
-    ID              reduce using rule 34 (expresion -> FLOAT .)
-    $end            reduce using rule 34 (expresion -> FLOAT .)
+    PLUS            reduce using rule 35 (expresion_number -> INTEGER .)
+    MINUS           reduce using rule 35 (expresion_number -> INTEGER .)
+    POR             reduce using rule 35 (expresion_number -> INTEGER .)
+    DIVIDE          reduce using rule 35 (expresion_number -> INTEGER .)
+    MODULATE        reduce using rule 35 (expresion_number -> INTEGER .)
+    EQUALIZATIONSIGN reduce using rule 35 (expresion_number -> INTEGER .)
+    DIFFERENTIATIONSIGN reduce using rule 35 (expresion_number -> INTEGER .)
+    SMALLERTHAN     reduce using rule 35 (expresion_number -> INTEGER .)
+    GREATERTHAN     reduce using rule 35 (expresion_number -> INTEGER .)
+    LESSEQUAL       reduce using rule 35 (expresion_number -> INTEGER .)
+    GREATEREQUAL    reduce using rule 35 (expresion_number -> INTEGER .)
+    PARDER          reduce using rule 35 (expresion_number -> INTEGER .)
+    COMA            reduce using rule 35 (expresion_number -> INTEGER .)
+    SALTOLINEA      reduce using rule 35 (expresion_number -> INTEGER .)
+    error           reduce using rule 35 (expresion_number -> INTEGER .)
+    RPRINT          reduce using rule 35 (expresion_number -> INTEGER .)
+    ID              reduce using rule 35 (expresion_number -> INTEGER .)
+    $end            reduce using rule 35 (expresion_number -> INTEGER .)
+
+
+state 28
+
+    (36) expresion_number -> FLOAT .
+
+    PLUS            reduce using rule 36 (expresion_number -> FLOAT .)
+    MINUS           reduce using rule 36 (expresion_number -> FLOAT .)
+    POR             reduce using rule 36 (expresion_number -> FLOAT .)
+    DIVIDE          reduce using rule 36 (expresion_number -> FLOAT .)
+    MODULATE        reduce using rule 36 (expresion_number -> FLOAT .)
+    EQUALIZATIONSIGN reduce using rule 36 (expresion_number -> FLOAT .)
+    DIFFERENTIATIONSIGN reduce using rule 36 (expresion_number -> FLOAT .)
+    SMALLERTHAN     reduce using rule 36 (expresion_number -> FLOAT .)
+    GREATERTHAN     reduce using rule 36 (expresion_number -> FLOAT .)
+    LESSEQUAL       reduce using rule 36 (expresion_number -> FLOAT .)
+    GREATEREQUAL    reduce using rule 36 (expresion_number -> FLOAT .)
+    PARDER          reduce using rule 36 (expresion_number -> FLOAT .)
+    COMA            reduce using rule 36 (expresion_number -> FLOAT .)
+    SALTOLINEA      reduce using rule 36 (expresion_number -> FLOAT .)
+    error           reduce using rule 36 (expresion_number -> FLOAT .)
+    RPRINT          reduce using rule 36 (expresion_number -> FLOAT .)
+    ID              reduce using rule 36 (expresion_number -> FLOAT .)
+    $end            reduce using rule 36 (expresion_number -> FLOAT .)
 
 
 state 28
@@ -600,12 +627,12 @@ state 28
     (15) expresion -> expresion . POR expresion
     (16) expresion -> expresion . DIVIDE expresion
     (17) expresion -> expresion . MODULATE expresion
-    (18) expresion -> expresion . EQUALIZATIONSIGN expresion
-    (19) expresion -> expresion . DIFFERENTIATIONSIGN expresion
-    (20) expresion -> expresion . SMALLERTHAN expresion
-    (21) expresion -> expresion . GREATERTHAN expresion
-    (22) expresion -> expresion . LESSEQUAL expresion
-    (23) expresion -> expresion . GREATEREQUAL expresion
+    (19) expresion -> expresion . EQUALIZATIONSIGN expresion
+    (20) expresion -> expresion . DIFFERENTIATIONSIGN expresion
+    (21) expresion -> expresion . SMALLERTHAN expresion
+    (22) expresion -> expresion . GREATERTHAN expresion
+    (23) expresion -> expresion . LESSEQUAL expresion
+    (24) expresion -> expresion . GREATEREQUAL expresion
 
     SALTOLINEA      reduce using rule 11 (asignacion_instr -> ID EQUALS expresion .)
     error           reduce using rule 11 (asignacion_instr -> ID EQUALS expresion .)
@@ -634,32 +661,39 @@ state 29
 
 state 30
 
-    (31) tipo -> INTEGER .
+    (32) tipo -> RINT .
 
-    EQUALS          reduce using rule 31 (tipo -> INTEGER .)
+    EQUALS          reduce using rule 32 (tipo -> RINT .)
 
 
 state 31
 
-    (32) tipo -> FLOAT .
+    (33) tipo -> RFLOAT .
 
-    EQUALS          reduce using rule 32 (tipo -> FLOAT .)
+    EQUALS          reduce using rule 33 (tipo -> RFLOAT .)
 
 
 state 32
 
-    (26) expresion -> PARIZQ expresion . PARDER
+    (34) tipo -> RBOOL .
+
+    EQUALS          reduce using rule 34 (tipo -> RBOOL .)
+
+
+state 33
+
+    (27) expresion -> PARIZQ expresion . PARDER
     (13) expresion -> expresion . PLUS expresion
     (14) expresion -> expresion . MINUS expresion
     (15) expresion -> expresion . POR expresion
     (16) expresion -> expresion . DIVIDE expresion
     (17) expresion -> expresion . MODULATE expresion
-    (18) expresion -> expresion . EQUALIZATIONSIGN expresion
-    (19) expresion -> expresion . DIFFERENTIATIONSIGN expresion
-    (20) expresion -> expresion . SMALLERTHAN expresion
-    (21) expresion -> expresion . GREATERTHAN expresion
-    (22) expresion -> expresion . LESSEQUAL expresion
-    (23) expresion -> expresion . GREATEREQUAL expresion
+    (19) expresion -> expresion . EQUALIZATIONSIGN expresion
+    (20) expresion -> expresion . DIFFERENTIATIONSIGN expresion
+    (21) expresion -> expresion . SMALLERTHAN expresion
+    (22) expresion -> expresion . GREATERTHAN expresion
+    (23) expresion -> expresion . LESSEQUAL expresion
+    (24) expresion -> expresion . GREATEREQUAL expresion
 
     PARDER          shift and go to state 47
     PLUS            shift and go to state 35
@@ -688,25 +722,26 @@ state 33
 
 state 34
 
-    (24) expres_lista -> expres_lista COMA . expresion
+    (25) expres_lista -> expres_lista COMA . expresion
     (13) expresion -> . expresion PLUS expresion
     (14) expresion -> . expresion MINUS expresion
     (15) expresion -> . expresion POR expresion
     (16) expresion -> . expresion DIVIDE expresion
     (17) expresion -> . expresion MODULATE expresion
-    (18) expresion -> . expresion EQUALIZATIONSIGN expresion
-    (19) expresion -> . expresion DIFFERENTIATIONSIGN expresion
-    (20) expresion -> . expresion SMALLERTHAN expresion
-    (21) expresion -> . expresion GREATERTHAN expresion
-    (22) expresion -> . expresion LESSEQUAL expresion
-    (23) expresion -> . expresion GREATEREQUAL expresion
-    (26) expresion -> . PARIZQ expresion PARDER
-    (27) expresion -> . CADENA
-    (28) expresion -> . RTRUE
-    (29) expresion -> . RFALSE
-    (30) expresion -> . ID
-    (33) expresion -> . INTEGER
-    (34) expresion -> . FLOAT
+    (18) expresion -> . expresion_number
+    (19) expresion -> . expresion EQUALIZATIONSIGN expresion
+    (20) expresion -> . expresion DIFFERENTIATIONSIGN expresion
+    (21) expresion -> . expresion SMALLERTHAN expresion
+    (22) expresion -> . expresion GREATERTHAN expresion
+    (23) expresion -> . expresion LESSEQUAL expresion
+    (24) expresion -> . expresion GREATEREQUAL expresion
+    (27) expresion -> . PARIZQ expresion PARDER
+    (28) expresion -> . CADENA
+    (29) expresion -> . RTRUE
+    (30) expresion -> . RFALSE
+    (31) expresion -> . ID
+    (35) expresion_number -> . INTEGER
+    (36) expresion_number -> . FLOAT
 
     PARIZQ          shift and go to state 19
     CADENA          shift and go to state 22
@@ -726,19 +761,20 @@ state 35
     (15) expresion -> . expresion POR expresion
     (16) expresion -> . expresion DIVIDE expresion
     (17) expresion -> . expresion MODULATE expresion
-    (18) expresion -> . expresion EQUALIZATIONSIGN expresion
-    (19) expresion -> . expresion DIFFERENTIATIONSIGN expresion
-    (20) expresion -> . expresion SMALLERTHAN expresion
-    (21) expresion -> . expresion GREATERTHAN expresion
-    (22) expresion -> . expresion LESSEQUAL expresion
-    (23) expresion -> . expresion GREATEREQUAL expresion
-    (26) expresion -> . PARIZQ expresion PARDER
-    (27) expresion -> . CADENA
-    (28) expresion -> . RTRUE
-    (29) expresion -> . RFALSE
-    (30) expresion -> . ID
-    (33) expresion -> . INTEGER
-    (34) expresion -> . FLOAT
+    (18) expresion -> . expresion_number
+    (19) expresion -> . expresion EQUALIZATIONSIGN expresion
+    (20) expresion -> . expresion DIFFERENTIATIONSIGN expresion
+    (21) expresion -> . expresion SMALLERTHAN expresion
+    (22) expresion -> . expresion GREATERTHAN expresion
+    (23) expresion -> . expresion LESSEQUAL expresion
+    (24) expresion -> . expresion GREATEREQUAL expresion
+    (27) expresion -> . PARIZQ expresion PARDER
+    (28) expresion -> . CADENA
+    (29) expresion -> . RTRUE
+    (30) expresion -> . RFALSE
+    (31) expresion -> . ID
+    (35) expresion_number -> . INTEGER
+    (36) expresion_number -> . FLOAT
 
     PARIZQ          shift and go to state 19
     CADENA          shift and go to state 22
@@ -758,19 +794,20 @@ state 36
     (15) expresion -> . expresion POR expresion
     (16) expresion -> . expresion DIVIDE expresion
     (17) expresion -> . expresion MODULATE expresion
-    (18) expresion -> . expresion EQUALIZATIONSIGN expresion
-    (19) expresion -> . expresion DIFFERENTIATIONSIGN expresion
-    (20) expresion -> . expresion SMALLERTHAN expresion
-    (21) expresion -> . expresion GREATERTHAN expresion
-    (22) expresion -> . expresion LESSEQUAL expresion
-    (23) expresion -> . expresion GREATEREQUAL expresion
-    (26) expresion -> . PARIZQ expresion PARDER
-    (27) expresion -> . CADENA
-    (28) expresion -> . RTRUE
-    (29) expresion -> . RFALSE
-    (30) expresion -> . ID
-    (33) expresion -> . INTEGER
-    (34) expresion -> . FLOAT
+    (18) expresion -> . expresion_number
+    (19) expresion -> . expresion EQUALIZATIONSIGN expresion
+    (20) expresion -> . expresion DIFFERENTIATIONSIGN expresion
+    (21) expresion -> . expresion SMALLERTHAN expresion
+    (22) expresion -> . expresion GREATERTHAN expresion
+    (23) expresion -> . expresion LESSEQUAL expresion
+    (24) expresion -> . expresion GREATEREQUAL expresion
+    (27) expresion -> . PARIZQ expresion PARDER
+    (28) expresion -> . CADENA
+    (29) expresion -> . RTRUE
+    (30) expresion -> . RFALSE
+    (31) expresion -> . ID
+    (35) expresion_number -> . INTEGER
+    (36) expresion_number -> . FLOAT
 
     PARIZQ          shift and go to state 19
     CADENA          shift and go to state 22
@@ -790,19 +827,20 @@ state 37
     (15) expresion -> . expresion POR expresion
     (16) expresion -> . expresion DIVIDE expresion
     (17) expresion -> . expresion MODULATE expresion
-    (18) expresion -> . expresion EQUALIZATIONSIGN expresion
-    (19) expresion -> . expresion DIFFERENTIATIONSIGN expresion
-    (20) expresion -> . expresion SMALLERTHAN expresion
-    (21) expresion -> . expresion GREATERTHAN expresion
-    (22) expresion -> . expresion LESSEQUAL expresion
-    (23) expresion -> . expresion GREATEREQUAL expresion
-    (26) expresion -> . PARIZQ expresion PARDER
-    (27) expresion -> . CADENA
-    (28) expresion -> . RTRUE
-    (29) expresion -> . RFALSE
-    (30) expresion -> . ID
-    (33) expresion -> . INTEGER
-    (34) expresion -> . FLOAT
+    (18) expresion -> . expresion_number
+    (19) expresion -> . expresion EQUALIZATIONSIGN expresion
+    (20) expresion -> . expresion DIFFERENTIATIONSIGN expresion
+    (21) expresion -> . expresion SMALLERTHAN expresion
+    (22) expresion -> . expresion GREATERTHAN expresion
+    (23) expresion -> . expresion LESSEQUAL expresion
+    (24) expresion -> . expresion GREATEREQUAL expresion
+    (27) expresion -> . PARIZQ expresion PARDER
+    (28) expresion -> . CADENA
+    (29) expresion -> . RTRUE
+    (30) expresion -> . RFALSE
+    (31) expresion -> . ID
+    (35) expresion_number -> . INTEGER
+    (36) expresion_number -> . FLOAT
 
     PARIZQ          shift and go to state 19
     CADENA          shift and go to state 22
@@ -822,19 +860,20 @@ state 38
     (15) expresion -> . expresion POR expresion
     (16) expresion -> . expresion DIVIDE expresion
     (17) expresion -> . expresion MODULATE expresion
-    (18) expresion -> . expresion EQUALIZATIONSIGN expresion
-    (19) expresion -> . expresion DIFFERENTIATIONSIGN expresion
-    (20) expresion -> . expresion SMALLERTHAN expresion
-    (21) expresion -> . expresion GREATERTHAN expresion
-    (22) expresion -> . expresion LESSEQUAL expresion
-    (23) expresion -> . expresion GREATEREQUAL expresion
-    (26) expresion -> . PARIZQ expresion PARDER
-    (27) expresion -> . CADENA
-    (28) expresion -> . RTRUE
-    (29) expresion -> . RFALSE
-    (30) expresion -> . ID
-    (33) expresion -> . INTEGER
-    (34) expresion -> . FLOAT
+    (18) expresion -> . expresion_number
+    (19) expresion -> . expresion EQUALIZATIONSIGN expresion
+    (20) expresion -> . expresion DIFFERENTIATIONSIGN expresion
+    (21) expresion -> . expresion SMALLERTHAN expresion
+    (22) expresion -> . expresion GREATERTHAN expresion
+    (23) expresion -> . expresion LESSEQUAL expresion
+    (24) expresion -> . expresion GREATEREQUAL expresion
+    (27) expresion -> . PARIZQ expresion PARDER
+    (28) expresion -> . CADENA
+    (29) expresion -> . RTRUE
+    (30) expresion -> . RFALSE
+    (31) expresion -> . ID
+    (35) expresion_number -> . INTEGER
+    (36) expresion_number -> . FLOAT
 
     PARIZQ          shift and go to state 19
     CADENA          shift and go to state 22
@@ -854,19 +893,20 @@ state 39
     (15) expresion -> . expresion POR expresion
     (16) expresion -> . expresion DIVIDE expresion
     (17) expresion -> . expresion MODULATE expresion
-    (18) expresion -> . expresion EQUALIZATIONSIGN expresion
-    (19) expresion -> . expresion DIFFERENTIATIONSIGN expresion
-    (20) expresion -> . expresion SMALLERTHAN expresion
-    (21) expresion -> . expresion GREATERTHAN expresion
-    (22) expresion -> . expresion LESSEQUAL expresion
-    (23) expresion -> . expresion GREATEREQUAL expresion
-    (26) expresion -> . PARIZQ expresion PARDER
-    (27) expresion -> . CADENA
-    (28) expresion -> . RTRUE
-    (29) expresion -> . RFALSE
-    (30) expresion -> . ID
-    (33) expresion -> . INTEGER
-    (34) expresion -> . FLOAT
+    (18) expresion -> . expresion_number
+    (19) expresion -> . expresion EQUALIZATIONSIGN expresion
+    (20) expresion -> . expresion DIFFERENTIATIONSIGN expresion
+    (21) expresion -> . expresion SMALLERTHAN expresion
+    (22) expresion -> . expresion GREATERTHAN expresion
+    (23) expresion -> . expresion LESSEQUAL expresion
+    (24) expresion -> . expresion GREATEREQUAL expresion
+    (27) expresion -> . PARIZQ expresion PARDER
+    (28) expresion -> . CADENA
+    (29) expresion -> . RTRUE
+    (30) expresion -> . RFALSE
+    (31) expresion -> . ID
+    (35) expresion_number -> . INTEGER
+    (36) expresion_number -> . FLOAT
 
     PARIZQ          shift and go to state 19
     CADENA          shift and go to state 22
@@ -880,25 +920,26 @@ state 39
 
 state 40
 
-    (18) expresion -> expresion EQUALIZATIONSIGN . expresion
+    (19) expresion -> expresion EQUALIZATIONSIGN . expresion
     (13) expresion -> . expresion PLUS expresion
     (14) expresion -> . expresion MINUS expresion
     (15) expresion -> . expresion POR expresion
     (16) expresion -> . expresion DIVIDE expresion
     (17) expresion -> . expresion MODULATE expresion
-    (18) expresion -> . expresion EQUALIZATIONSIGN expresion
-    (19) expresion -> . expresion DIFFERENTIATIONSIGN expresion
-    (20) expresion -> . expresion SMALLERTHAN expresion
-    (21) expresion -> . expresion GREATERTHAN expresion
-    (22) expresion -> . expresion LESSEQUAL expresion
-    (23) expresion -> . expresion GREATEREQUAL expresion
-    (26) expresion -> . PARIZQ expresion PARDER
-    (27) expresion -> . CADENA
-    (28) expresion -> . RTRUE
-    (29) expresion -> . RFALSE
-    (30) expresion -> . ID
-    (33) expresion -> . INTEGER
-    (34) expresion -> . FLOAT
+    (18) expresion -> . expresion_number
+    (19) expresion -> . expresion EQUALIZATIONSIGN expresion
+    (20) expresion -> . expresion DIFFERENTIATIONSIGN expresion
+    (21) expresion -> . expresion SMALLERTHAN expresion
+    (22) expresion -> . expresion GREATERTHAN expresion
+    (23) expresion -> . expresion LESSEQUAL expresion
+    (24) expresion -> . expresion GREATEREQUAL expresion
+    (27) expresion -> . PARIZQ expresion PARDER
+    (28) expresion -> . CADENA
+    (29) expresion -> . RTRUE
+    (30) expresion -> . RFALSE
+    (31) expresion -> . ID
+    (35) expresion_number -> . INTEGER
+    (36) expresion_number -> . FLOAT
 
     PARIZQ          shift and go to state 19
     CADENA          shift and go to state 22
@@ -912,25 +953,26 @@ state 40
 
 state 41
 
-    (19) expresion -> expresion DIFFERENTIATIONSIGN . expresion
+    (20) expresion -> expresion DIFFERENTIATIONSIGN . expresion
     (13) expresion -> . expresion PLUS expresion
     (14) expresion -> . expresion MINUS expresion
     (15) expresion -> . expresion POR expresion
     (16) expresion -> . expresion DIVIDE expresion
     (17) expresion -> . expresion MODULATE expresion
-    (18) expresion -> . expresion EQUALIZATIONSIGN expresion
-    (19) expresion -> . expresion DIFFERENTIATIONSIGN expresion
-    (20) expresion -> . expresion SMALLERTHAN expresion
-    (21) expresion -> . expresion GREATERTHAN expresion
-    (22) expresion -> . expresion LESSEQUAL expresion
-    (23) expresion -> . expresion GREATEREQUAL expresion
-    (26) expresion -> . PARIZQ expresion PARDER
-    (27) expresion -> . CADENA
-    (28) expresion -> . RTRUE
-    (29) expresion -> . RFALSE
-    (30) expresion -> . ID
-    (33) expresion -> . INTEGER
-    (34) expresion -> . FLOAT
+    (18) expresion -> . expresion_number
+    (19) expresion -> . expresion EQUALIZATIONSIGN expresion
+    (20) expresion -> . expresion DIFFERENTIATIONSIGN expresion
+    (21) expresion -> . expresion SMALLERTHAN expresion
+    (22) expresion -> . expresion GREATERTHAN expresion
+    (23) expresion -> . expresion LESSEQUAL expresion
+    (24) expresion -> . expresion GREATEREQUAL expresion
+    (27) expresion -> . PARIZQ expresion PARDER
+    (28) expresion -> . CADENA
+    (29) expresion -> . RTRUE
+    (30) expresion -> . RFALSE
+    (31) expresion -> . ID
+    (35) expresion_number -> . INTEGER
+    (36) expresion_number -> . FLOAT
 
     PARIZQ          shift and go to state 19
     CADENA          shift and go to state 22
@@ -944,25 +986,26 @@ state 41
 
 state 42
 
-    (20) expresion -> expresion SMALLERTHAN . expresion
+    (21) expresion -> expresion SMALLERTHAN . expresion
     (13) expresion -> . expresion PLUS expresion
     (14) expresion -> . expresion MINUS expresion
     (15) expresion -> . expresion POR expresion
     (16) expresion -> . expresion DIVIDE expresion
     (17) expresion -> . expresion MODULATE expresion
-    (18) expresion -> . expresion EQUALIZATIONSIGN expresion
-    (19) expresion -> . expresion DIFFERENTIATIONSIGN expresion
-    (20) expresion -> . expresion SMALLERTHAN expresion
-    (21) expresion -> . expresion GREATERTHAN expresion
-    (22) expresion -> . expresion LESSEQUAL expresion
-    (23) expresion -> . expresion GREATEREQUAL expresion
-    (26) expresion -> . PARIZQ expresion PARDER
-    (27) expresion -> . CADENA
-    (28) expresion -> . RTRUE
-    (29) expresion -> . RFALSE
-    (30) expresion -> . ID
-    (33) expresion -> . INTEGER
-    (34) expresion -> . FLOAT
+    (18) expresion -> . expresion_number
+    (19) expresion -> . expresion EQUALIZATIONSIGN expresion
+    (20) expresion -> . expresion DIFFERENTIATIONSIGN expresion
+    (21) expresion -> . expresion SMALLERTHAN expresion
+    (22) expresion -> . expresion GREATERTHAN expresion
+    (23) expresion -> . expresion LESSEQUAL expresion
+    (24) expresion -> . expresion GREATEREQUAL expresion
+    (27) expresion -> . PARIZQ expresion PARDER
+    (28) expresion -> . CADENA
+    (29) expresion -> . RTRUE
+    (30) expresion -> . RFALSE
+    (31) expresion -> . ID
+    (35) expresion_number -> . INTEGER
+    (36) expresion_number -> . FLOAT
 
     PARIZQ          shift and go to state 19
     CADENA          shift and go to state 22
@@ -976,25 +1019,26 @@ state 42
 
 state 43
 
-    (21) expresion -> expresion GREATERTHAN . expresion
+    (22) expresion -> expresion GREATERTHAN . expresion
     (13) expresion -> . expresion PLUS expresion
     (14) expresion -> . expresion MINUS expresion
     (15) expresion -> . expresion POR expresion
     (16) expresion -> . expresion DIVIDE expresion
     (17) expresion -> . expresion MODULATE expresion
-    (18) expresion -> . expresion EQUALIZATIONSIGN expresion
-    (19) expresion -> . expresion DIFFERENTIATIONSIGN expresion
-    (20) expresion -> . expresion SMALLERTHAN expresion
-    (21) expresion -> . expresion GREATERTHAN expresion
-    (22) expresion -> . expresion LESSEQUAL expresion
-    (23) expresion -> . expresion GREATEREQUAL expresion
-    (26) expresion -> . PARIZQ expresion PARDER
-    (27) expresion -> . CADENA
-    (28) expresion -> . RTRUE
-    (29) expresion -> . RFALSE
-    (30) expresion -> . ID
-    (33) expresion -> . INTEGER
-    (34) expresion -> . FLOAT
+    (18) expresion -> . expresion_number
+    (19) expresion -> . expresion EQUALIZATIONSIGN expresion
+    (20) expresion -> . expresion DIFFERENTIATIONSIGN expresion
+    (21) expresion -> . expresion SMALLERTHAN expresion
+    (22) expresion -> . expresion GREATERTHAN expresion
+    (23) expresion -> . expresion LESSEQUAL expresion
+    (24) expresion -> . expresion GREATEREQUAL expresion
+    (27) expresion -> . PARIZQ expresion PARDER
+    (28) expresion -> . CADENA
+    (29) expresion -> . RTRUE
+    (30) expresion -> . RFALSE
+    (31) expresion -> . ID
+    (35) expresion_number -> . INTEGER
+    (36) expresion_number -> . FLOAT
 
     PARIZQ          shift and go to state 19
     CADENA          shift and go to state 22
@@ -1008,25 +1052,26 @@ state 43
 
 state 44
 
-    (22) expresion -> expresion LESSEQUAL . expresion
+    (23) expresion -> expresion LESSEQUAL . expresion
     (13) expresion -> . expresion PLUS expresion
     (14) expresion -> . expresion MINUS expresion
     (15) expresion -> . expresion POR expresion
     (16) expresion -> . expresion DIVIDE expresion
     (17) expresion -> . expresion MODULATE expresion
-    (18) expresion -> . expresion EQUALIZATIONSIGN expresion
-    (19) expresion -> . expresion DIFFERENTIATIONSIGN expresion
-    (20) expresion -> . expresion SMALLERTHAN expresion
-    (21) expresion -> . expresion GREATERTHAN expresion
-    (22) expresion -> . expresion LESSEQUAL expresion
-    (23) expresion -> . expresion GREATEREQUAL expresion
-    (26) expresion -> . PARIZQ expresion PARDER
-    (27) expresion -> . CADENA
-    (28) expresion -> . RTRUE
-    (29) expresion -> . RFALSE
-    (30) expresion -> . ID
-    (33) expresion -> . INTEGER
-    (34) expresion -> . FLOAT
+    (18) expresion -> . expresion_number
+    (19) expresion -> . expresion EQUALIZATIONSIGN expresion
+    (20) expresion -> . expresion DIFFERENTIATIONSIGN expresion
+    (21) expresion -> . expresion SMALLERTHAN expresion
+    (22) expresion -> . expresion GREATERTHAN expresion
+    (23) expresion -> . expresion LESSEQUAL expresion
+    (24) expresion -> . expresion GREATEREQUAL expresion
+    (27) expresion -> . PARIZQ expresion PARDER
+    (28) expresion -> . CADENA
+    (29) expresion -> . RTRUE
+    (30) expresion -> . RFALSE
+    (31) expresion -> . ID
+    (35) expresion_number -> . INTEGER
+    (36) expresion_number -> . FLOAT
 
     PARIZQ          shift and go to state 19
     CADENA          shift and go to state 22
@@ -1040,25 +1085,26 @@ state 44
 
 state 45
 
-    (23) expresion -> expresion GREATEREQUAL . expresion
+    (24) expresion -> expresion GREATEREQUAL . expresion
     (13) expresion -> . expresion PLUS expresion
     (14) expresion -> . expresion MINUS expresion
     (15) expresion -> . expresion POR expresion
     (16) expresion -> . expresion DIVIDE expresion
     (17) expresion -> . expresion MODULATE expresion
-    (18) expresion -> . expresion EQUALIZATIONSIGN expresion
-    (19) expresion -> . expresion DIFFERENTIATIONSIGN expresion
-    (20) expresion -> . expresion SMALLERTHAN expresion
-    (21) expresion -> . expresion GREATERTHAN expresion
-    (22) expresion -> . expresion LESSEQUAL expresion
-    (23) expresion -> . expresion GREATEREQUAL expresion
-    (26) expresion -> . PARIZQ expresion PARDER
-    (27) expresion -> . CADENA
-    (28) expresion -> . RTRUE
-    (29) expresion -> . RFALSE
-    (30) expresion -> . ID
-    (33) expresion -> . INTEGER
-    (34) expresion -> . FLOAT
+    (18) expresion -> . expresion_number
+    (19) expresion -> . expresion EQUALIZATIONSIGN expresion
+    (20) expresion -> . expresion DIFFERENTIATIONSIGN expresion
+    (21) expresion -> . expresion SMALLERTHAN expresion
+    (22) expresion -> . expresion GREATERTHAN expresion
+    (23) expresion -> . expresion LESSEQUAL expresion
+    (24) expresion -> . expresion GREATEREQUAL expresion
+    (27) expresion -> . PARIZQ expresion PARDER
+    (28) expresion -> . CADENA
+    (29) expresion -> . RTRUE
+    (30) expresion -> . RFALSE
+    (31) expresion -> . ID
+    (35) expresion_number -> . INTEGER
+    (36) expresion_number -> . FLOAT
 
     PARIZQ          shift and go to state 19
     CADENA          shift and go to state 22
@@ -1078,19 +1124,20 @@ state 46
     (15) expresion -> . expresion POR expresion
     (16) expresion -> . expresion DIVIDE expresion
     (17) expresion -> . expresion MODULATE expresion
-    (18) expresion -> . expresion EQUALIZATIONSIGN expresion
-    (19) expresion -> . expresion DIFFERENTIATIONSIGN expresion
-    (20) expresion -> . expresion SMALLERTHAN expresion
-    (21) expresion -> . expresion GREATERTHAN expresion
-    (22) expresion -> . expresion LESSEQUAL expresion
-    (23) expresion -> . expresion GREATEREQUAL expresion
-    (26) expresion -> . PARIZQ expresion PARDER
-    (27) expresion -> . CADENA
-    (28) expresion -> . RTRUE
-    (29) expresion -> . RFALSE
-    (30) expresion -> . ID
-    (33) expresion -> . INTEGER
-    (34) expresion -> . FLOAT
+    (18) expresion -> . expresion_number
+    (19) expresion -> . expresion EQUALIZATIONSIGN expresion
+    (20) expresion -> . expresion DIFFERENTIATIONSIGN expresion
+    (21) expresion -> . expresion SMALLERTHAN expresion
+    (22) expresion -> . expresion GREATERTHAN expresion
+    (23) expresion -> . expresion LESSEQUAL expresion
+    (24) expresion -> . expresion GREATEREQUAL expresion
+    (27) expresion -> . PARIZQ expresion PARDER
+    (28) expresion -> . CADENA
+    (29) expresion -> . RTRUE
+    (30) expresion -> . RFALSE
+    (31) expresion -> . ID
+    (35) expresion_number -> . INTEGER
+    (36) expresion_number -> . FLOAT
 
     PARIZQ          shift and go to state 19
     CADENA          shift and go to state 22
@@ -1104,42 +1151,42 @@ state 46
 
 state 47
 
-    (26) expresion -> PARIZQ expresion PARDER .
+    (27) expresion -> PARIZQ expresion PARDER .
 
-    PLUS            reduce using rule 26 (expresion -> PARIZQ expresion PARDER .)
-    MINUS           reduce using rule 26 (expresion -> PARIZQ expresion PARDER .)
-    POR             reduce using rule 26 (expresion -> PARIZQ expresion PARDER .)
-    DIVIDE          reduce using rule 26 (expresion -> PARIZQ expresion PARDER .)
-    MODULATE        reduce using rule 26 (expresion -> PARIZQ expresion PARDER .)
-    EQUALIZATIONSIGN reduce using rule 26 (expresion -> PARIZQ expresion PARDER .)
-    DIFFERENTIATIONSIGN reduce using rule 26 (expresion -> PARIZQ expresion PARDER .)
-    SMALLERTHAN     reduce using rule 26 (expresion -> PARIZQ expresion PARDER .)
-    GREATERTHAN     reduce using rule 26 (expresion -> PARIZQ expresion PARDER .)
-    LESSEQUAL       reduce using rule 26 (expresion -> PARIZQ expresion PARDER .)
-    GREATEREQUAL    reduce using rule 26 (expresion -> PARIZQ expresion PARDER .)
-    PARDER          reduce using rule 26 (expresion -> PARIZQ expresion PARDER .)
-    COMA            reduce using rule 26 (expresion -> PARIZQ expresion PARDER .)
-    SALTOLINEA      reduce using rule 26 (expresion -> PARIZQ expresion PARDER .)
-    error           reduce using rule 26 (expresion -> PARIZQ expresion PARDER .)
-    RPRINT          reduce using rule 26 (expresion -> PARIZQ expresion PARDER .)
-    ID              reduce using rule 26 (expresion -> PARIZQ expresion PARDER .)
-    $end            reduce using rule 26 (expresion -> PARIZQ expresion PARDER .)
+    PLUS            reduce using rule 27 (expresion -> PARIZQ expresion PARDER .)
+    MINUS           reduce using rule 27 (expresion -> PARIZQ expresion PARDER .)
+    POR             reduce using rule 27 (expresion -> PARIZQ expresion PARDER .)
+    DIVIDE          reduce using rule 27 (expresion -> PARIZQ expresion PARDER .)
+    MODULATE        reduce using rule 27 (expresion -> PARIZQ expresion PARDER .)
+    EQUALIZATIONSIGN reduce using rule 27 (expresion -> PARIZQ expresion PARDER .)
+    DIFFERENTIATIONSIGN reduce using rule 27 (expresion -> PARIZQ expresion PARDER .)
+    SMALLERTHAN     reduce using rule 27 (expresion -> PARIZQ expresion PARDER .)
+    GREATERTHAN     reduce using rule 27 (expresion -> PARIZQ expresion PARDER .)
+    LESSEQUAL       reduce using rule 27 (expresion -> PARIZQ expresion PARDER .)
+    GREATEREQUAL    reduce using rule 27 (expresion -> PARIZQ expresion PARDER .)
+    PARDER          reduce using rule 27 (expresion -> PARIZQ expresion PARDER .)
+    COMA            reduce using rule 27 (expresion -> PARIZQ expresion PARDER .)
+    SALTOLINEA      reduce using rule 27 (expresion -> PARIZQ expresion PARDER .)
+    error           reduce using rule 27 (expresion -> PARIZQ expresion PARDER .)
+    RPRINT          reduce using rule 27 (expresion -> PARIZQ expresion PARDER .)
+    ID              reduce using rule 27 (expresion -> PARIZQ expresion PARDER .)
+    $end            reduce using rule 27 (expresion -> PARIZQ expresion PARDER .)
 
 
 state 48
 
-    (24) expres_lista -> expres_lista COMA expresion .
+    (25) expres_lista -> expres_lista COMA expresion .
     (13) expresion -> expresion . PLUS expresion
     (14) expresion -> expresion . MINUS expresion
     (15) expresion -> expresion . POR expresion
     (16) expresion -> expresion . DIVIDE expresion
     (17) expresion -> expresion . MODULATE expresion
-    (18) expresion -> expresion . EQUALIZATIONSIGN expresion
-    (19) expresion -> expresion . DIFFERENTIATIONSIGN expresion
-    (20) expresion -> expresion . SMALLERTHAN expresion
-    (21) expresion -> expresion . GREATERTHAN expresion
-    (22) expresion -> expresion . LESSEQUAL expresion
-    (23) expresion -> expresion . GREATEREQUAL expresion
+    (19) expresion -> expresion . EQUALIZATIONSIGN expresion
+    (20) expresion -> expresion . DIFFERENTIATIONSIGN expresion
+    (21) expresion -> expresion . SMALLERTHAN expresion
+    (22) expresion -> expresion . GREATERTHAN expresion
+    (23) expresion -> expresion . LESSEQUAL expresion
+    (24) expresion -> expresion . GREATEREQUAL expresion
 
     PARDER          reduce using rule 24 (expres_lista -> expres_lista COMA expresion .)
     COMA            reduce using rule 24 (expres_lista -> expres_lista COMA expresion .)
@@ -1164,24 +1211,21 @@ state 49
     (15) expresion -> expresion . POR expresion
     (16) expresion -> expresion . DIVIDE expresion
     (17) expresion -> expresion . MODULATE expresion
-    (18) expresion -> expresion . EQUALIZATIONSIGN expresion
-    (19) expresion -> expresion . DIFFERENTIATIONSIGN expresion
-    (20) expresion -> expresion . SMALLERTHAN expresion
-    (21) expresion -> expresion . GREATERTHAN expresion
-    (22) expresion -> expresion . LESSEQUAL expresion
-    (23) expresion -> expresion . GREATEREQUAL expresion
+    (19) expresion -> expresion . EQUALIZATIONSIGN expresion
+    (20) expresion -> expresion . DIFFERENTIATIONSIGN expresion
+    (21) expresion -> expresion . SMALLERTHAN expresion
+    (22) expresion -> expresion . GREATERTHAN expresion
+    (23) expresion -> expresion . LESSEQUAL expresion
+    (24) expresion -> expresion . GREATEREQUAL expresion
 
-  ! shift/reduce conflict for PLUS resolved as shift
-  ! shift/reduce conflict for MINUS resolved as shift
-  ! shift/reduce conflict for POR resolved as shift
-  ! shift/reduce conflict for DIVIDE resolved as shift
-  ! shift/reduce conflict for MODULATE resolved as shift
-  ! shift/reduce conflict for EQUALIZATIONSIGN resolved as shift
-  ! shift/reduce conflict for DIFFERENTIATIONSIGN resolved as shift
-  ! shift/reduce conflict for SMALLERTHAN resolved as shift
-  ! shift/reduce conflict for GREATERTHAN resolved as shift
-  ! shift/reduce conflict for LESSEQUAL resolved as shift
-  ! shift/reduce conflict for GREATEREQUAL resolved as shift
+    PLUS            reduce using rule 13 (expresion -> expresion PLUS expresion .)
+    MINUS           reduce using rule 13 (expresion -> expresion PLUS expresion .)
+    EQUALIZATIONSIGN reduce using rule 13 (expresion -> expresion PLUS expresion .)
+    DIFFERENTIATIONSIGN reduce using rule 13 (expresion -> expresion PLUS expresion .)
+    SMALLERTHAN     reduce using rule 13 (expresion -> expresion PLUS expresion .)
+    GREATERTHAN     reduce using rule 13 (expresion -> expresion PLUS expresion .)
+    LESSEQUAL       reduce using rule 13 (expresion -> expresion PLUS expresion .)
+    GREATEREQUAL    reduce using rule 13 (expresion -> expresion PLUS expresion .)
     PARDER          reduce using rule 13 (expresion -> expresion PLUS expresion .)
     COMA            reduce using rule 13 (expresion -> expresion PLUS expresion .)
     SALTOLINEA      reduce using rule 13 (expresion -> expresion PLUS expresion .)
@@ -1201,17 +1245,17 @@ state 49
     LESSEQUAL       shift and go to state 44
     GREATEREQUAL    shift and go to state 45
 
-  ! PLUS            [ reduce using rule 13 (expresion -> expresion PLUS expresion .) ]
-  ! MINUS           [ reduce using rule 13 (expresion -> expresion PLUS expresion .) ]
   ! POR             [ reduce using rule 13 (expresion -> expresion PLUS expresion .) ]
   ! DIVIDE          [ reduce using rule 13 (expresion -> expresion PLUS expresion .) ]
   ! MODULATE        [ reduce using rule 13 (expresion -> expresion PLUS expresion .) ]
-  ! EQUALIZATIONSIGN [ reduce using rule 13 (expresion -> expresion PLUS expresion .) ]
-  ! DIFFERENTIATIONSIGN [ reduce using rule 13 (expresion -> expresion PLUS expresion .) ]
-  ! SMALLERTHAN     [ reduce using rule 13 (expresion -> expresion PLUS expresion .) ]
-  ! GREATERTHAN     [ reduce using rule 13 (expresion -> expresion PLUS expresion .) ]
-  ! LESSEQUAL       [ reduce using rule 13 (expresion -> expresion PLUS expresion .) ]
-  ! GREATEREQUAL    [ reduce using rule 13 (expresion -> expresion PLUS expresion .) ]
+  ! PLUS            [ shift and go to state 36 ]
+  ! MINUS           [ shift and go to state 37 ]
+  ! EQUALIZATIONSIGN [ shift and go to state 41 ]
+  ! DIFFERENTIATIONSIGN [ shift and go to state 42 ]
+  ! SMALLERTHAN     [ shift and go to state 43 ]
+  ! GREATERTHAN     [ shift and go to state 44 ]
+  ! LESSEQUAL       [ shift and go to state 45 ]
+  ! GREATEREQUAL    [ shift and go to state 46 ]
 
 
 state 50
@@ -1222,24 +1266,21 @@ state 50
     (15) expresion -> expresion . POR expresion
     (16) expresion -> expresion . DIVIDE expresion
     (17) expresion -> expresion . MODULATE expresion
-    (18) expresion -> expresion . EQUALIZATIONSIGN expresion
-    (19) expresion -> expresion . DIFFERENTIATIONSIGN expresion
-    (20) expresion -> expresion . SMALLERTHAN expresion
-    (21) expresion -> expresion . GREATERTHAN expresion
-    (22) expresion -> expresion . LESSEQUAL expresion
-    (23) expresion -> expresion . GREATEREQUAL expresion
+    (19) expresion -> expresion . EQUALIZATIONSIGN expresion
+    (20) expresion -> expresion . DIFFERENTIATIONSIGN expresion
+    (21) expresion -> expresion . SMALLERTHAN expresion
+    (22) expresion -> expresion . GREATERTHAN expresion
+    (23) expresion -> expresion . LESSEQUAL expresion
+    (24) expresion -> expresion . GREATEREQUAL expresion
 
-  ! shift/reduce conflict for PLUS resolved as shift
-  ! shift/reduce conflict for MINUS resolved as shift
-  ! shift/reduce conflict for POR resolved as shift
-  ! shift/reduce conflict for DIVIDE resolved as shift
-  ! shift/reduce conflict for MODULATE resolved as shift
-  ! shift/reduce conflict for EQUALIZATIONSIGN resolved as shift
-  ! shift/reduce conflict for DIFFERENTIATIONSIGN resolved as shift
-  ! shift/reduce conflict for SMALLERTHAN resolved as shift
-  ! shift/reduce conflict for GREATERTHAN resolved as shift
-  ! shift/reduce conflict for LESSEQUAL resolved as shift
-  ! shift/reduce conflict for GREATEREQUAL resolved as shift
+    PLUS            reduce using rule 14 (expresion -> expresion MINUS expresion .)
+    MINUS           reduce using rule 14 (expresion -> expresion MINUS expresion .)
+    EQUALIZATIONSIGN reduce using rule 14 (expresion -> expresion MINUS expresion .)
+    DIFFERENTIATIONSIGN reduce using rule 14 (expresion -> expresion MINUS expresion .)
+    SMALLERTHAN     reduce using rule 14 (expresion -> expresion MINUS expresion .)
+    GREATERTHAN     reduce using rule 14 (expresion -> expresion MINUS expresion .)
+    LESSEQUAL       reduce using rule 14 (expresion -> expresion MINUS expresion .)
+    GREATEREQUAL    reduce using rule 14 (expresion -> expresion MINUS expresion .)
     PARDER          reduce using rule 14 (expresion -> expresion MINUS expresion .)
     COMA            reduce using rule 14 (expresion -> expresion MINUS expresion .)
     SALTOLINEA      reduce using rule 14 (expresion -> expresion MINUS expresion .)
@@ -1259,17 +1300,17 @@ state 50
     LESSEQUAL       shift and go to state 44
     GREATEREQUAL    shift and go to state 45
 
-  ! PLUS            [ reduce using rule 14 (expresion -> expresion MINUS expresion .) ]
-  ! MINUS           [ reduce using rule 14 (expresion -> expresion MINUS expresion .) ]
   ! POR             [ reduce using rule 14 (expresion -> expresion MINUS expresion .) ]
   ! DIVIDE          [ reduce using rule 14 (expresion -> expresion MINUS expresion .) ]
   ! MODULATE        [ reduce using rule 14 (expresion -> expresion MINUS expresion .) ]
-  ! EQUALIZATIONSIGN [ reduce using rule 14 (expresion -> expresion MINUS expresion .) ]
-  ! DIFFERENTIATIONSIGN [ reduce using rule 14 (expresion -> expresion MINUS expresion .) ]
-  ! SMALLERTHAN     [ reduce using rule 14 (expresion -> expresion MINUS expresion .) ]
-  ! GREATERTHAN     [ reduce using rule 14 (expresion -> expresion MINUS expresion .) ]
-  ! LESSEQUAL       [ reduce using rule 14 (expresion -> expresion MINUS expresion .) ]
-  ! GREATEREQUAL    [ reduce using rule 14 (expresion -> expresion MINUS expresion .) ]
+  ! PLUS            [ shift and go to state 36 ]
+  ! MINUS           [ shift and go to state 37 ]
+  ! EQUALIZATIONSIGN [ shift and go to state 41 ]
+  ! DIFFERENTIATIONSIGN [ shift and go to state 42 ]
+  ! SMALLERTHAN     [ shift and go to state 43 ]
+  ! GREATERTHAN     [ shift and go to state 44 ]
+  ! LESSEQUAL       [ shift and go to state 45 ]
+  ! GREATEREQUAL    [ shift and go to state 46 ]
 
 
 state 51
@@ -1280,24 +1321,24 @@ state 51
     (15) expresion -> expresion . POR expresion
     (16) expresion -> expresion . DIVIDE expresion
     (17) expresion -> expresion . MODULATE expresion
-    (18) expresion -> expresion . EQUALIZATIONSIGN expresion
-    (19) expresion -> expresion . DIFFERENTIATIONSIGN expresion
-    (20) expresion -> expresion . SMALLERTHAN expresion
-    (21) expresion -> expresion . GREATERTHAN expresion
-    (22) expresion -> expresion . LESSEQUAL expresion
-    (23) expresion -> expresion . GREATEREQUAL expresion
+    (19) expresion -> expresion . EQUALIZATIONSIGN expresion
+    (20) expresion -> expresion . DIFFERENTIATIONSIGN expresion
+    (21) expresion -> expresion . SMALLERTHAN expresion
+    (22) expresion -> expresion . GREATERTHAN expresion
+    (23) expresion -> expresion . LESSEQUAL expresion
+    (24) expresion -> expresion . GREATEREQUAL expresion
 
-  ! shift/reduce conflict for PLUS resolved as shift
-  ! shift/reduce conflict for MINUS resolved as shift
-  ! shift/reduce conflict for POR resolved as shift
-  ! shift/reduce conflict for DIVIDE resolved as shift
-  ! shift/reduce conflict for MODULATE resolved as shift
-  ! shift/reduce conflict for EQUALIZATIONSIGN resolved as shift
-  ! shift/reduce conflict for DIFFERENTIATIONSIGN resolved as shift
-  ! shift/reduce conflict for SMALLERTHAN resolved as shift
-  ! shift/reduce conflict for GREATERTHAN resolved as shift
-  ! shift/reduce conflict for LESSEQUAL resolved as shift
-  ! shift/reduce conflict for GREATEREQUAL resolved as shift
+    PLUS            reduce using rule 15 (expresion -> expresion POR expresion .)
+    MINUS           reduce using rule 15 (expresion -> expresion POR expresion .)
+    POR             reduce using rule 15 (expresion -> expresion POR expresion .)
+    DIVIDE          reduce using rule 15 (expresion -> expresion POR expresion .)
+    MODULATE        reduce using rule 15 (expresion -> expresion POR expresion .)
+    EQUALIZATIONSIGN reduce using rule 15 (expresion -> expresion POR expresion .)
+    DIFFERENTIATIONSIGN reduce using rule 15 (expresion -> expresion POR expresion .)
+    SMALLERTHAN     reduce using rule 15 (expresion -> expresion POR expresion .)
+    GREATERTHAN     reduce using rule 15 (expresion -> expresion POR expresion .)
+    LESSEQUAL       reduce using rule 15 (expresion -> expresion POR expresion .)
+    GREATEREQUAL    reduce using rule 15 (expresion -> expresion POR expresion .)
     PARDER          reduce using rule 15 (expresion -> expresion POR expresion .)
     COMA            reduce using rule 15 (expresion -> expresion POR expresion .)
     SALTOLINEA      reduce using rule 15 (expresion -> expresion POR expresion .)
@@ -1317,17 +1358,17 @@ state 51
     LESSEQUAL       shift and go to state 44
     GREATEREQUAL    shift and go to state 45
 
-  ! PLUS            [ reduce using rule 15 (expresion -> expresion POR expresion .) ]
-  ! MINUS           [ reduce using rule 15 (expresion -> expresion POR expresion .) ]
-  ! POR             [ reduce using rule 15 (expresion -> expresion POR expresion .) ]
-  ! DIVIDE          [ reduce using rule 15 (expresion -> expresion POR expresion .) ]
-  ! MODULATE        [ reduce using rule 15 (expresion -> expresion POR expresion .) ]
-  ! EQUALIZATIONSIGN [ reduce using rule 15 (expresion -> expresion POR expresion .) ]
-  ! DIFFERENTIATIONSIGN [ reduce using rule 15 (expresion -> expresion POR expresion .) ]
-  ! SMALLERTHAN     [ reduce using rule 15 (expresion -> expresion POR expresion .) ]
-  ! GREATERTHAN     [ reduce using rule 15 (expresion -> expresion POR expresion .) ]
-  ! LESSEQUAL       [ reduce using rule 15 (expresion -> expresion POR expresion .) ]
-  ! GREATEREQUAL    [ reduce using rule 15 (expresion -> expresion POR expresion .) ]
+  ! PLUS            [ shift and go to state 36 ]
+  ! MINUS           [ shift and go to state 37 ]
+  ! POR             [ shift and go to state 38 ]
+  ! DIVIDE          [ shift and go to state 39 ]
+  ! MODULATE        [ shift and go to state 40 ]
+  ! EQUALIZATIONSIGN [ shift and go to state 41 ]
+  ! DIFFERENTIATIONSIGN [ shift and go to state 42 ]
+  ! SMALLERTHAN     [ shift and go to state 43 ]
+  ! GREATERTHAN     [ shift and go to state 44 ]
+  ! LESSEQUAL       [ shift and go to state 45 ]
+  ! GREATEREQUAL    [ shift and go to state 46 ]
 
 
 state 52
@@ -1338,24 +1379,24 @@ state 52
     (15) expresion -> expresion . POR expresion
     (16) expresion -> expresion . DIVIDE expresion
     (17) expresion -> expresion . MODULATE expresion
-    (18) expresion -> expresion . EQUALIZATIONSIGN expresion
-    (19) expresion -> expresion . DIFFERENTIATIONSIGN expresion
-    (20) expresion -> expresion . SMALLERTHAN expresion
-    (21) expresion -> expresion . GREATERTHAN expresion
-    (22) expresion -> expresion . LESSEQUAL expresion
-    (23) expresion -> expresion . GREATEREQUAL expresion
+    (19) expresion -> expresion . EQUALIZATIONSIGN expresion
+    (20) expresion -> expresion . DIFFERENTIATIONSIGN expresion
+    (21) expresion -> expresion . SMALLERTHAN expresion
+    (22) expresion -> expresion . GREATERTHAN expresion
+    (23) expresion -> expresion . LESSEQUAL expresion
+    (24) expresion -> expresion . GREATEREQUAL expresion
 
-  ! shift/reduce conflict for PLUS resolved as shift
-  ! shift/reduce conflict for MINUS resolved as shift
-  ! shift/reduce conflict for POR resolved as shift
-  ! shift/reduce conflict for DIVIDE resolved as shift
-  ! shift/reduce conflict for MODULATE resolved as shift
-  ! shift/reduce conflict for EQUALIZATIONSIGN resolved as shift
-  ! shift/reduce conflict for DIFFERENTIATIONSIGN resolved as shift
-  ! shift/reduce conflict for SMALLERTHAN resolved as shift
-  ! shift/reduce conflict for GREATERTHAN resolved as shift
-  ! shift/reduce conflict for LESSEQUAL resolved as shift
-  ! shift/reduce conflict for GREATEREQUAL resolved as shift
+    PLUS            reduce using rule 16 (expresion -> expresion DIVIDE expresion .)
+    MINUS           reduce using rule 16 (expresion -> expresion DIVIDE expresion .)
+    POR             reduce using rule 16 (expresion -> expresion DIVIDE expresion .)
+    DIVIDE          reduce using rule 16 (expresion -> expresion DIVIDE expresion .)
+    MODULATE        reduce using rule 16 (expresion -> expresion DIVIDE expresion .)
+    EQUALIZATIONSIGN reduce using rule 16 (expresion -> expresion DIVIDE expresion .)
+    DIFFERENTIATIONSIGN reduce using rule 16 (expresion -> expresion DIVIDE expresion .)
+    SMALLERTHAN     reduce using rule 16 (expresion -> expresion DIVIDE expresion .)
+    GREATERTHAN     reduce using rule 16 (expresion -> expresion DIVIDE expresion .)
+    LESSEQUAL       reduce using rule 16 (expresion -> expresion DIVIDE expresion .)
+    GREATEREQUAL    reduce using rule 16 (expresion -> expresion DIVIDE expresion .)
     PARDER          reduce using rule 16 (expresion -> expresion DIVIDE expresion .)
     COMA            reduce using rule 16 (expresion -> expresion DIVIDE expresion .)
     SALTOLINEA      reduce using rule 16 (expresion -> expresion DIVIDE expresion .)
@@ -1375,17 +1416,17 @@ state 52
     LESSEQUAL       shift and go to state 44
     GREATEREQUAL    shift and go to state 45
 
-  ! PLUS            [ reduce using rule 16 (expresion -> expresion DIVIDE expresion .) ]
-  ! MINUS           [ reduce using rule 16 (expresion -> expresion DIVIDE expresion .) ]
-  ! POR             [ reduce using rule 16 (expresion -> expresion DIVIDE expresion .) ]
-  ! DIVIDE          [ reduce using rule 16 (expresion -> expresion DIVIDE expresion .) ]
-  ! MODULATE        [ reduce using rule 16 (expresion -> expresion DIVIDE expresion .) ]
-  ! EQUALIZATIONSIGN [ reduce using rule 16 (expresion -> expresion DIVIDE expresion .) ]
-  ! DIFFERENTIATIONSIGN [ reduce using rule 16 (expresion -> expresion DIVIDE expresion .) ]
-  ! SMALLERTHAN     [ reduce using rule 16 (expresion -> expresion DIVIDE expresion .) ]
-  ! GREATERTHAN     [ reduce using rule 16 (expresion -> expresion DIVIDE expresion .) ]
-  ! LESSEQUAL       [ reduce using rule 16 (expresion -> expresion DIVIDE expresion .) ]
-  ! GREATEREQUAL    [ reduce using rule 16 (expresion -> expresion DIVIDE expresion .) ]
+  ! PLUS            [ shift and go to state 36 ]
+  ! MINUS           [ shift and go to state 37 ]
+  ! POR             [ shift and go to state 38 ]
+  ! DIVIDE          [ shift and go to state 39 ]
+  ! MODULATE        [ shift and go to state 40 ]
+  ! EQUALIZATIONSIGN [ shift and go to state 41 ]
+  ! DIFFERENTIATIONSIGN [ shift and go to state 42 ]
+  ! SMALLERTHAN     [ shift and go to state 43 ]
+  ! GREATERTHAN     [ shift and go to state 44 ]
+  ! LESSEQUAL       [ shift and go to state 45 ]
+  ! GREATEREQUAL    [ shift and go to state 46 ]
 
 
 state 53
@@ -1396,24 +1437,24 @@ state 53
     (15) expresion -> expresion . POR expresion
     (16) expresion -> expresion . DIVIDE expresion
     (17) expresion -> expresion . MODULATE expresion
-    (18) expresion -> expresion . EQUALIZATIONSIGN expresion
-    (19) expresion -> expresion . DIFFERENTIATIONSIGN expresion
-    (20) expresion -> expresion . SMALLERTHAN expresion
-    (21) expresion -> expresion . GREATERTHAN expresion
-    (22) expresion -> expresion . LESSEQUAL expresion
-    (23) expresion -> expresion . GREATEREQUAL expresion
+    (19) expresion -> expresion . EQUALIZATIONSIGN expresion
+    (20) expresion -> expresion . DIFFERENTIATIONSIGN expresion
+    (21) expresion -> expresion . SMALLERTHAN expresion
+    (22) expresion -> expresion . GREATERTHAN expresion
+    (23) expresion -> expresion . LESSEQUAL expresion
+    (24) expresion -> expresion . GREATEREQUAL expresion
 
-  ! shift/reduce conflict for PLUS resolved as shift
-  ! shift/reduce conflict for MINUS resolved as shift
-  ! shift/reduce conflict for POR resolved as shift
-  ! shift/reduce conflict for DIVIDE resolved as shift
-  ! shift/reduce conflict for MODULATE resolved as shift
-  ! shift/reduce conflict for EQUALIZATIONSIGN resolved as shift
-  ! shift/reduce conflict for DIFFERENTIATIONSIGN resolved as shift
-  ! shift/reduce conflict for SMALLERTHAN resolved as shift
-  ! shift/reduce conflict for GREATERTHAN resolved as shift
-  ! shift/reduce conflict for LESSEQUAL resolved as shift
-  ! shift/reduce conflict for GREATEREQUAL resolved as shift
+    PLUS            reduce using rule 17 (expresion -> expresion MODULATE expresion .)
+    MINUS           reduce using rule 17 (expresion -> expresion MODULATE expresion .)
+    POR             reduce using rule 17 (expresion -> expresion MODULATE expresion .)
+    DIVIDE          reduce using rule 17 (expresion -> expresion MODULATE expresion .)
+    MODULATE        reduce using rule 17 (expresion -> expresion MODULATE expresion .)
+    EQUALIZATIONSIGN reduce using rule 17 (expresion -> expresion MODULATE expresion .)
+    DIFFERENTIATIONSIGN reduce using rule 17 (expresion -> expresion MODULATE expresion .)
+    SMALLERTHAN     reduce using rule 17 (expresion -> expresion MODULATE expresion .)
+    GREATERTHAN     reduce using rule 17 (expresion -> expresion MODULATE expresion .)
+    LESSEQUAL       reduce using rule 17 (expresion -> expresion MODULATE expresion .)
+    GREATEREQUAL    reduce using rule 17 (expresion -> expresion MODULATE expresion .)
     PARDER          reduce using rule 17 (expresion -> expresion MODULATE expresion .)
     COMA            reduce using rule 17 (expresion -> expresion MODULATE expresion .)
     SALTOLINEA      reduce using rule 17 (expresion -> expresion MODULATE expresion .)
@@ -1433,33 +1474,33 @@ state 53
     LESSEQUAL       shift and go to state 44
     GREATEREQUAL    shift and go to state 45
 
-  ! PLUS            [ reduce using rule 17 (expresion -> expresion MODULATE expresion .) ]
-  ! MINUS           [ reduce using rule 17 (expresion -> expresion MODULATE expresion .) ]
-  ! POR             [ reduce using rule 17 (expresion -> expresion MODULATE expresion .) ]
-  ! DIVIDE          [ reduce using rule 17 (expresion -> expresion MODULATE expresion .) ]
-  ! MODULATE        [ reduce using rule 17 (expresion -> expresion MODULATE expresion .) ]
-  ! EQUALIZATIONSIGN [ reduce using rule 17 (expresion -> expresion MODULATE expresion .) ]
-  ! DIFFERENTIATIONSIGN [ reduce using rule 17 (expresion -> expresion MODULATE expresion .) ]
-  ! SMALLERTHAN     [ reduce using rule 17 (expresion -> expresion MODULATE expresion .) ]
-  ! GREATERTHAN     [ reduce using rule 17 (expresion -> expresion MODULATE expresion .) ]
-  ! LESSEQUAL       [ reduce using rule 17 (expresion -> expresion MODULATE expresion .) ]
-  ! GREATEREQUAL    [ reduce using rule 17 (expresion -> expresion MODULATE expresion .) ]
+  ! PLUS            [ shift and go to state 36 ]
+  ! MINUS           [ shift and go to state 37 ]
+  ! POR             [ shift and go to state 38 ]
+  ! DIVIDE          [ shift and go to state 39 ]
+  ! MODULATE        [ shift and go to state 40 ]
+  ! EQUALIZATIONSIGN [ shift and go to state 41 ]
+  ! DIFFERENTIATIONSIGN [ shift and go to state 42 ]
+  ! SMALLERTHAN     [ shift and go to state 43 ]
+  ! GREATERTHAN     [ shift and go to state 44 ]
+  ! LESSEQUAL       [ shift and go to state 45 ]
+  ! GREATEREQUAL    [ shift and go to state 46 ]
 
 
 state 54
 
-    (18) expresion -> expresion EQUALIZATIONSIGN expresion .
+    (19) expresion -> expresion EQUALIZATIONSIGN expresion .
     (13) expresion -> expresion . PLUS expresion
     (14) expresion -> expresion . MINUS expresion
     (15) expresion -> expresion . POR expresion
     (16) expresion -> expresion . DIVIDE expresion
     (17) expresion -> expresion . MODULATE expresion
-    (18) expresion -> expresion . EQUALIZATIONSIGN expresion
-    (19) expresion -> expresion . DIFFERENTIATIONSIGN expresion
-    (20) expresion -> expresion . SMALLERTHAN expresion
-    (21) expresion -> expresion . GREATERTHAN expresion
-    (22) expresion -> expresion . LESSEQUAL expresion
-    (23) expresion -> expresion . GREATEREQUAL expresion
+    (19) expresion -> expresion . EQUALIZATIONSIGN expresion
+    (20) expresion -> expresion . DIFFERENTIATIONSIGN expresion
+    (21) expresion -> expresion . SMALLERTHAN expresion
+    (22) expresion -> expresion . GREATERTHAN expresion
+    (23) expresion -> expresion . LESSEQUAL expresion
+    (24) expresion -> expresion . GREATEREQUAL expresion
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
@@ -1491,33 +1532,33 @@ state 54
     LESSEQUAL       shift and go to state 44
     GREATEREQUAL    shift and go to state 45
 
-  ! PLUS            [ reduce using rule 18 (expresion -> expresion EQUALIZATIONSIGN expresion .) ]
-  ! MINUS           [ reduce using rule 18 (expresion -> expresion EQUALIZATIONSIGN expresion .) ]
-  ! POR             [ reduce using rule 18 (expresion -> expresion EQUALIZATIONSIGN expresion .) ]
-  ! DIVIDE          [ reduce using rule 18 (expresion -> expresion EQUALIZATIONSIGN expresion .) ]
-  ! MODULATE        [ reduce using rule 18 (expresion -> expresion EQUALIZATIONSIGN expresion .) ]
-  ! EQUALIZATIONSIGN [ reduce using rule 18 (expresion -> expresion EQUALIZATIONSIGN expresion .) ]
-  ! DIFFERENTIATIONSIGN [ reduce using rule 18 (expresion -> expresion EQUALIZATIONSIGN expresion .) ]
-  ! SMALLERTHAN     [ reduce using rule 18 (expresion -> expresion EQUALIZATIONSIGN expresion .) ]
-  ! GREATERTHAN     [ reduce using rule 18 (expresion -> expresion EQUALIZATIONSIGN expresion .) ]
-  ! LESSEQUAL       [ reduce using rule 18 (expresion -> expresion EQUALIZATIONSIGN expresion .) ]
-  ! GREATEREQUAL    [ reduce using rule 18 (expresion -> expresion EQUALIZATIONSIGN expresion .) ]
+  ! PLUS            [ reduce using rule 19 (expresion -> expresion EQUALIZATIONSIGN expresion .) ]
+  ! MINUS           [ reduce using rule 19 (expresion -> expresion EQUALIZATIONSIGN expresion .) ]
+  ! POR             [ reduce using rule 19 (expresion -> expresion EQUALIZATIONSIGN expresion .) ]
+  ! DIVIDE          [ reduce using rule 19 (expresion -> expresion EQUALIZATIONSIGN expresion .) ]
+  ! MODULATE        [ reduce using rule 19 (expresion -> expresion EQUALIZATIONSIGN expresion .) ]
+  ! EQUALIZATIONSIGN [ reduce using rule 19 (expresion -> expresion EQUALIZATIONSIGN expresion .) ]
+  ! DIFFERENTIATIONSIGN [ reduce using rule 19 (expresion -> expresion EQUALIZATIONSIGN expresion .) ]
+  ! SMALLERTHAN     [ reduce using rule 19 (expresion -> expresion EQUALIZATIONSIGN expresion .) ]
+  ! GREATERTHAN     [ reduce using rule 19 (expresion -> expresion EQUALIZATIONSIGN expresion .) ]
+  ! LESSEQUAL       [ reduce using rule 19 (expresion -> expresion EQUALIZATIONSIGN expresion .) ]
+  ! GREATEREQUAL    [ reduce using rule 19 (expresion -> expresion EQUALIZATIONSIGN expresion .) ]
 
 
 state 55
 
-    (19) expresion -> expresion DIFFERENTIATIONSIGN expresion .
+    (20) expresion -> expresion DIFFERENTIATIONSIGN expresion .
     (13) expresion -> expresion . PLUS expresion
     (14) expresion -> expresion . MINUS expresion
     (15) expresion -> expresion . POR expresion
     (16) expresion -> expresion . DIVIDE expresion
     (17) expresion -> expresion . MODULATE expresion
-    (18) expresion -> expresion . EQUALIZATIONSIGN expresion
-    (19) expresion -> expresion . DIFFERENTIATIONSIGN expresion
-    (20) expresion -> expresion . SMALLERTHAN expresion
-    (21) expresion -> expresion . GREATERTHAN expresion
-    (22) expresion -> expresion . LESSEQUAL expresion
-    (23) expresion -> expresion . GREATEREQUAL expresion
+    (19) expresion -> expresion . EQUALIZATIONSIGN expresion
+    (20) expresion -> expresion . DIFFERENTIATIONSIGN expresion
+    (21) expresion -> expresion . SMALLERTHAN expresion
+    (22) expresion -> expresion . GREATERTHAN expresion
+    (23) expresion -> expresion . LESSEQUAL expresion
+    (24) expresion -> expresion . GREATEREQUAL expresion
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
@@ -1549,33 +1590,33 @@ state 55
     LESSEQUAL       shift and go to state 44
     GREATEREQUAL    shift and go to state 45
 
-  ! PLUS            [ reduce using rule 19 (expresion -> expresion DIFFERENTIATIONSIGN expresion .) ]
-  ! MINUS           [ reduce using rule 19 (expresion -> expresion DIFFERENTIATIONSIGN expresion .) ]
-  ! POR             [ reduce using rule 19 (expresion -> expresion DIFFERENTIATIONSIGN expresion .) ]
-  ! DIVIDE          [ reduce using rule 19 (expresion -> expresion DIFFERENTIATIONSIGN expresion .) ]
-  ! MODULATE        [ reduce using rule 19 (expresion -> expresion DIFFERENTIATIONSIGN expresion .) ]
-  ! EQUALIZATIONSIGN [ reduce using rule 19 (expresion -> expresion DIFFERENTIATIONSIGN expresion .) ]
-  ! DIFFERENTIATIONSIGN [ reduce using rule 19 (expresion -> expresion DIFFERENTIATIONSIGN expresion .) ]
-  ! SMALLERTHAN     [ reduce using rule 19 (expresion -> expresion DIFFERENTIATIONSIGN expresion .) ]
-  ! GREATERTHAN     [ reduce using rule 19 (expresion -> expresion DIFFERENTIATIONSIGN expresion .) ]
-  ! LESSEQUAL       [ reduce using rule 19 (expresion -> expresion DIFFERENTIATIONSIGN expresion .) ]
-  ! GREATEREQUAL    [ reduce using rule 19 (expresion -> expresion DIFFERENTIATIONSIGN expresion .) ]
+  ! PLUS            [ reduce using rule 20 (expresion -> expresion DIFFERENTIATIONSIGN expresion .) ]
+  ! MINUS           [ reduce using rule 20 (expresion -> expresion DIFFERENTIATIONSIGN expresion .) ]
+  ! POR             [ reduce using rule 20 (expresion -> expresion DIFFERENTIATIONSIGN expresion .) ]
+  ! DIVIDE          [ reduce using rule 20 (expresion -> expresion DIFFERENTIATIONSIGN expresion .) ]
+  ! MODULATE        [ reduce using rule 20 (expresion -> expresion DIFFERENTIATIONSIGN expresion .) ]
+  ! EQUALIZATIONSIGN [ reduce using rule 20 (expresion -> expresion DIFFERENTIATIONSIGN expresion .) ]
+  ! DIFFERENTIATIONSIGN [ reduce using rule 20 (expresion -> expresion DIFFERENTIATIONSIGN expresion .) ]
+  ! SMALLERTHAN     [ reduce using rule 20 (expresion -> expresion DIFFERENTIATIONSIGN expresion .) ]
+  ! GREATERTHAN     [ reduce using rule 20 (expresion -> expresion DIFFERENTIATIONSIGN expresion .) ]
+  ! LESSEQUAL       [ reduce using rule 20 (expresion -> expresion DIFFERENTIATIONSIGN expresion .) ]
+  ! GREATEREQUAL    [ reduce using rule 20 (expresion -> expresion DIFFERENTIATIONSIGN expresion .) ]
 
 
 state 56
 
-    (20) expresion -> expresion SMALLERTHAN expresion .
+    (21) expresion -> expresion SMALLERTHAN expresion .
     (13) expresion -> expresion . PLUS expresion
     (14) expresion -> expresion . MINUS expresion
     (15) expresion -> expresion . POR expresion
     (16) expresion -> expresion . DIVIDE expresion
     (17) expresion -> expresion . MODULATE expresion
-    (18) expresion -> expresion . EQUALIZATIONSIGN expresion
-    (19) expresion -> expresion . DIFFERENTIATIONSIGN expresion
-    (20) expresion -> expresion . SMALLERTHAN expresion
-    (21) expresion -> expresion . GREATERTHAN expresion
-    (22) expresion -> expresion . LESSEQUAL expresion
-    (23) expresion -> expresion . GREATEREQUAL expresion
+    (19) expresion -> expresion . EQUALIZATIONSIGN expresion
+    (20) expresion -> expresion . DIFFERENTIATIONSIGN expresion
+    (21) expresion -> expresion . SMALLERTHAN expresion
+    (22) expresion -> expresion . GREATERTHAN expresion
+    (23) expresion -> expresion . LESSEQUAL expresion
+    (24) expresion -> expresion . GREATEREQUAL expresion
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
@@ -1607,33 +1648,33 @@ state 56
     LESSEQUAL       shift and go to state 44
     GREATEREQUAL    shift and go to state 45
 
-  ! PLUS            [ reduce using rule 20 (expresion -> expresion SMALLERTHAN expresion .) ]
-  ! MINUS           [ reduce using rule 20 (expresion -> expresion SMALLERTHAN expresion .) ]
-  ! POR             [ reduce using rule 20 (expresion -> expresion SMALLERTHAN expresion .) ]
-  ! DIVIDE          [ reduce using rule 20 (expresion -> expresion SMALLERTHAN expresion .) ]
-  ! MODULATE        [ reduce using rule 20 (expresion -> expresion SMALLERTHAN expresion .) ]
-  ! EQUALIZATIONSIGN [ reduce using rule 20 (expresion -> expresion SMALLERTHAN expresion .) ]
-  ! DIFFERENTIATIONSIGN [ reduce using rule 20 (expresion -> expresion SMALLERTHAN expresion .) ]
-  ! SMALLERTHAN     [ reduce using rule 20 (expresion -> expresion SMALLERTHAN expresion .) ]
-  ! GREATERTHAN     [ reduce using rule 20 (expresion -> expresion SMALLERTHAN expresion .) ]
-  ! LESSEQUAL       [ reduce using rule 20 (expresion -> expresion SMALLERTHAN expresion .) ]
-  ! GREATEREQUAL    [ reduce using rule 20 (expresion -> expresion SMALLERTHAN expresion .) ]
+  ! PLUS            [ reduce using rule 21 (expresion -> expresion SMALLERTHAN expresion .) ]
+  ! MINUS           [ reduce using rule 21 (expresion -> expresion SMALLERTHAN expresion .) ]
+  ! POR             [ reduce using rule 21 (expresion -> expresion SMALLERTHAN expresion .) ]
+  ! DIVIDE          [ reduce using rule 21 (expresion -> expresion SMALLERTHAN expresion .) ]
+  ! MODULATE        [ reduce using rule 21 (expresion -> expresion SMALLERTHAN expresion .) ]
+  ! EQUALIZATIONSIGN [ reduce using rule 21 (expresion -> expresion SMALLERTHAN expresion .) ]
+  ! DIFFERENTIATIONSIGN [ reduce using rule 21 (expresion -> expresion SMALLERTHAN expresion .) ]
+  ! SMALLERTHAN     [ reduce using rule 21 (expresion -> expresion SMALLERTHAN expresion .) ]
+  ! GREATERTHAN     [ reduce using rule 21 (expresion -> expresion SMALLERTHAN expresion .) ]
+  ! LESSEQUAL       [ reduce using rule 21 (expresion -> expresion SMALLERTHAN expresion .) ]
+  ! GREATEREQUAL    [ reduce using rule 21 (expresion -> expresion SMALLERTHAN expresion .) ]
 
 
 state 57
 
-    (21) expresion -> expresion GREATERTHAN expresion .
+    (22) expresion -> expresion GREATERTHAN expresion .
     (13) expresion -> expresion . PLUS expresion
     (14) expresion -> expresion . MINUS expresion
     (15) expresion -> expresion . POR expresion
     (16) expresion -> expresion . DIVIDE expresion
     (17) expresion -> expresion . MODULATE expresion
-    (18) expresion -> expresion . EQUALIZATIONSIGN expresion
-    (19) expresion -> expresion . DIFFERENTIATIONSIGN expresion
-    (20) expresion -> expresion . SMALLERTHAN expresion
-    (21) expresion -> expresion . GREATERTHAN expresion
-    (22) expresion -> expresion . LESSEQUAL expresion
-    (23) expresion -> expresion . GREATEREQUAL expresion
+    (19) expresion -> expresion . EQUALIZATIONSIGN expresion
+    (20) expresion -> expresion . DIFFERENTIATIONSIGN expresion
+    (21) expresion -> expresion . SMALLERTHAN expresion
+    (22) expresion -> expresion . GREATERTHAN expresion
+    (23) expresion -> expresion . LESSEQUAL expresion
+    (24) expresion -> expresion . GREATEREQUAL expresion
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
@@ -1665,33 +1706,33 @@ state 57
     LESSEQUAL       shift and go to state 44
     GREATEREQUAL    shift and go to state 45
 
-  ! PLUS            [ reduce using rule 21 (expresion -> expresion GREATERTHAN expresion .) ]
-  ! MINUS           [ reduce using rule 21 (expresion -> expresion GREATERTHAN expresion .) ]
-  ! POR             [ reduce using rule 21 (expresion -> expresion GREATERTHAN expresion .) ]
-  ! DIVIDE          [ reduce using rule 21 (expresion -> expresion GREATERTHAN expresion .) ]
-  ! MODULATE        [ reduce using rule 21 (expresion -> expresion GREATERTHAN expresion .) ]
-  ! EQUALIZATIONSIGN [ reduce using rule 21 (expresion -> expresion GREATERTHAN expresion .) ]
-  ! DIFFERENTIATIONSIGN [ reduce using rule 21 (expresion -> expresion GREATERTHAN expresion .) ]
-  ! SMALLERTHAN     [ reduce using rule 21 (expresion -> expresion GREATERTHAN expresion .) ]
-  ! GREATERTHAN     [ reduce using rule 21 (expresion -> expresion GREATERTHAN expresion .) ]
-  ! LESSEQUAL       [ reduce using rule 21 (expresion -> expresion GREATERTHAN expresion .) ]
-  ! GREATEREQUAL    [ reduce using rule 21 (expresion -> expresion GREATERTHAN expresion .) ]
+  ! PLUS            [ reduce using rule 22 (expresion -> expresion GREATERTHAN expresion .) ]
+  ! MINUS           [ reduce using rule 22 (expresion -> expresion GREATERTHAN expresion .) ]
+  ! POR             [ reduce using rule 22 (expresion -> expresion GREATERTHAN expresion .) ]
+  ! DIVIDE          [ reduce using rule 22 (expresion -> expresion GREATERTHAN expresion .) ]
+  ! MODULATE        [ reduce using rule 22 (expresion -> expresion GREATERTHAN expresion .) ]
+  ! EQUALIZATIONSIGN [ reduce using rule 22 (expresion -> expresion GREATERTHAN expresion .) ]
+  ! DIFFERENTIATIONSIGN [ reduce using rule 22 (expresion -> expresion GREATERTHAN expresion .) ]
+  ! SMALLERTHAN     [ reduce using rule 22 (expresion -> expresion GREATERTHAN expresion .) ]
+  ! GREATERTHAN     [ reduce using rule 22 (expresion -> expresion GREATERTHAN expresion .) ]
+  ! LESSEQUAL       [ reduce using rule 22 (expresion -> expresion GREATERTHAN expresion .) ]
+  ! GREATEREQUAL    [ reduce using rule 22 (expresion -> expresion GREATERTHAN expresion .) ]
 
 
 state 58
 
-    (22) expresion -> expresion LESSEQUAL expresion .
+    (23) expresion -> expresion LESSEQUAL expresion .
     (13) expresion -> expresion . PLUS expresion
     (14) expresion -> expresion . MINUS expresion
     (15) expresion -> expresion . POR expresion
     (16) expresion -> expresion . DIVIDE expresion
     (17) expresion -> expresion . MODULATE expresion
-    (18) expresion -> expresion . EQUALIZATIONSIGN expresion
-    (19) expresion -> expresion . DIFFERENTIATIONSIGN expresion
-    (20) expresion -> expresion . SMALLERTHAN expresion
-    (21) expresion -> expresion . GREATERTHAN expresion
-    (22) expresion -> expresion . LESSEQUAL expresion
-    (23) expresion -> expresion . GREATEREQUAL expresion
+    (19) expresion -> expresion . EQUALIZATIONSIGN expresion
+    (20) expresion -> expresion . DIFFERENTIATIONSIGN expresion
+    (21) expresion -> expresion . SMALLERTHAN expresion
+    (22) expresion -> expresion . GREATERTHAN expresion
+    (23) expresion -> expresion . LESSEQUAL expresion
+    (24) expresion -> expresion . GREATEREQUAL expresion
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
@@ -1723,33 +1764,33 @@ state 58
     LESSEQUAL       shift and go to state 44
     GREATEREQUAL    shift and go to state 45
 
-  ! PLUS            [ reduce using rule 22 (expresion -> expresion LESSEQUAL expresion .) ]
-  ! MINUS           [ reduce using rule 22 (expresion -> expresion LESSEQUAL expresion .) ]
-  ! POR             [ reduce using rule 22 (expresion -> expresion LESSEQUAL expresion .) ]
-  ! DIVIDE          [ reduce using rule 22 (expresion -> expresion LESSEQUAL expresion .) ]
-  ! MODULATE        [ reduce using rule 22 (expresion -> expresion LESSEQUAL expresion .) ]
-  ! EQUALIZATIONSIGN [ reduce using rule 22 (expresion -> expresion LESSEQUAL expresion .) ]
-  ! DIFFERENTIATIONSIGN [ reduce using rule 22 (expresion -> expresion LESSEQUAL expresion .) ]
-  ! SMALLERTHAN     [ reduce using rule 22 (expresion -> expresion LESSEQUAL expresion .) ]
-  ! GREATERTHAN     [ reduce using rule 22 (expresion -> expresion LESSEQUAL expresion .) ]
-  ! LESSEQUAL       [ reduce using rule 22 (expresion -> expresion LESSEQUAL expresion .) ]
-  ! GREATEREQUAL    [ reduce using rule 22 (expresion -> expresion LESSEQUAL expresion .) ]
+  ! PLUS            [ reduce using rule 23 (expresion -> expresion LESSEQUAL expresion .) ]
+  ! MINUS           [ reduce using rule 23 (expresion -> expresion LESSEQUAL expresion .) ]
+  ! POR             [ reduce using rule 23 (expresion -> expresion LESSEQUAL expresion .) ]
+  ! DIVIDE          [ reduce using rule 23 (expresion -> expresion LESSEQUAL expresion .) ]
+  ! MODULATE        [ reduce using rule 23 (expresion -> expresion LESSEQUAL expresion .) ]
+  ! EQUALIZATIONSIGN [ reduce using rule 23 (expresion -> expresion LESSEQUAL expresion .) ]
+  ! DIFFERENTIATIONSIGN [ reduce using rule 23 (expresion -> expresion LESSEQUAL expresion .) ]
+  ! SMALLERTHAN     [ reduce using rule 23 (expresion -> expresion LESSEQUAL expresion .) ]
+  ! GREATERTHAN     [ reduce using rule 23 (expresion -> expresion LESSEQUAL expresion .) ]
+  ! LESSEQUAL       [ reduce using rule 23 (expresion -> expresion LESSEQUAL expresion .) ]
+  ! GREATEREQUAL    [ reduce using rule 23 (expresion -> expresion LESSEQUAL expresion .) ]
 
 
 state 59
 
-    (23) expresion -> expresion GREATEREQUAL expresion .
+    (24) expresion -> expresion GREATEREQUAL expresion .
     (13) expresion -> expresion . PLUS expresion
     (14) expresion -> expresion . MINUS expresion
     (15) expresion -> expresion . POR expresion
     (16) expresion -> expresion . DIVIDE expresion
     (17) expresion -> expresion . MODULATE expresion
-    (18) expresion -> expresion . EQUALIZATIONSIGN expresion
-    (19) expresion -> expresion . DIFFERENTIATIONSIGN expresion
-    (20) expresion -> expresion . SMALLERTHAN expresion
-    (21) expresion -> expresion . GREATERTHAN expresion
-    (22) expresion -> expresion . LESSEQUAL expresion
-    (23) expresion -> expresion . GREATEREQUAL expresion
+    (19) expresion -> expresion . EQUALIZATIONSIGN expresion
+    (20) expresion -> expresion . DIFFERENTIATIONSIGN expresion
+    (21) expresion -> expresion . SMALLERTHAN expresion
+    (22) expresion -> expresion . GREATERTHAN expresion
+    (23) expresion -> expresion . LESSEQUAL expresion
+    (24) expresion -> expresion . GREATEREQUAL expresion
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
@@ -1781,17 +1822,17 @@ state 59
     LESSEQUAL       shift and go to state 44
     GREATEREQUAL    shift and go to state 45
 
-  ! PLUS            [ reduce using rule 23 (expresion -> expresion GREATEREQUAL expresion .) ]
-  ! MINUS           [ reduce using rule 23 (expresion -> expresion GREATEREQUAL expresion .) ]
-  ! POR             [ reduce using rule 23 (expresion -> expresion GREATEREQUAL expresion .) ]
-  ! DIVIDE          [ reduce using rule 23 (expresion -> expresion GREATEREQUAL expresion .) ]
-  ! MODULATE        [ reduce using rule 23 (expresion -> expresion GREATEREQUAL expresion .) ]
-  ! EQUALIZATIONSIGN [ reduce using rule 23 (expresion -> expresion GREATEREQUAL expresion .) ]
-  ! DIFFERENTIATIONSIGN [ reduce using rule 23 (expresion -> expresion GREATEREQUAL expresion .) ]
-  ! SMALLERTHAN     [ reduce using rule 23 (expresion -> expresion GREATEREQUAL expresion .) ]
-  ! GREATERTHAN     [ reduce using rule 23 (expresion -> expresion GREATEREQUAL expresion .) ]
-  ! LESSEQUAL       [ reduce using rule 23 (expresion -> expresion GREATEREQUAL expresion .) ]
-  ! GREATEREQUAL    [ reduce using rule 23 (expresion -> expresion GREATEREQUAL expresion .) ]
+  ! PLUS            [ reduce using rule 24 (expresion -> expresion GREATEREQUAL expresion .) ]
+  ! MINUS           [ reduce using rule 24 (expresion -> expresion GREATEREQUAL expresion .) ]
+  ! POR             [ reduce using rule 24 (expresion -> expresion GREATEREQUAL expresion .) ]
+  ! DIVIDE          [ reduce using rule 24 (expresion -> expresion GREATEREQUAL expresion .) ]
+  ! MODULATE        [ reduce using rule 24 (expresion -> expresion GREATEREQUAL expresion .) ]
+  ! EQUALIZATIONSIGN [ reduce using rule 24 (expresion -> expresion GREATEREQUAL expresion .) ]
+  ! DIFFERENTIATIONSIGN [ reduce using rule 24 (expresion -> expresion GREATEREQUAL expresion .) ]
+  ! SMALLERTHAN     [ reduce using rule 24 (expresion -> expresion GREATEREQUAL expresion .) ]
+  ! GREATERTHAN     [ reduce using rule 24 (expresion -> expresion GREATEREQUAL expresion .) ]
+  ! LESSEQUAL       [ reduce using rule 24 (expresion -> expresion GREATEREQUAL expresion .) ]
+  ! GREATEREQUAL    [ reduce using rule 24 (expresion -> expresion GREATEREQUAL expresion .) ]
 
 
 state 60
@@ -1802,12 +1843,12 @@ state 60
     (15) expresion -> expresion . POR expresion
     (16) expresion -> expresion . DIVIDE expresion
     (17) expresion -> expresion . MODULATE expresion
-    (18) expresion -> expresion . EQUALIZATIONSIGN expresion
-    (19) expresion -> expresion . DIFFERENTIATIONSIGN expresion
-    (20) expresion -> expresion . SMALLERTHAN expresion
-    (21) expresion -> expresion . GREATERTHAN expresion
-    (22) expresion -> expresion . LESSEQUAL expresion
-    (23) expresion -> expresion . GREATEREQUAL expresion
+    (19) expresion -> expresion . EQUALIZATIONSIGN expresion
+    (20) expresion -> expresion . DIFFERENTIATIONSIGN expresion
+    (21) expresion -> expresion . SMALLERTHAN expresion
+    (22) expresion -> expresion . GREATERTHAN expresion
+    (23) expresion -> expresion . LESSEQUAL expresion
+    (24) expresion -> expresion . GREATEREQUAL expresion
 
     SALTOLINEA      reduce using rule 12 (definicion_asignacion_instr -> ID DOSPUNTOS tipo EQUALS expresion .)
     error           reduce using rule 12 (definicion_asignacion_instr -> ID DOSPUNTOS tipo EQUALS expresion .)
