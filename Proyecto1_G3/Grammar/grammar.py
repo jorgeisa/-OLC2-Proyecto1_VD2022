@@ -7,7 +7,8 @@ import os
 import re 
 
 reserved = {
-    'print' :   'RPRINT',    
+    'print' :   'RPRINT',  
+    'println':  'RPRINTLN',  
     # Comienzan Tipos Basico
     'None'  :   'RNONE',
     'int'   :   'RINT',
@@ -19,8 +20,14 @@ reserved = {
     # Terminan Tipos Basicos
     # Comienzan Tipos Compuestos
     'list'  :   'RLIST',
-    'struct':   'RSTRUCT'
+    'struct':   'RSTRUCT',
     # Terminan Tipos Compuestos
+    # Empizan bucles y condicionales 
+    "if": "RIF",
+    "in": "RIN",
+    "elif": "RELIF",
+    "else": "RELSE",
+    "end" : "REND",
 }
 
 tokens = [
@@ -71,13 +78,14 @@ t_PARIZQ = r'\('
 t_PARDER = r'\)'
 t_COMA = r'\,'
 # Empiezan Aritmeticas
+t_POT      = r'\*\*'
 t_EQUALS    = r'\='
 t_PLUS      = r'\+'
 t_MINUS     = r'\-'
 t_POR       = r'\*'
 t_DIVIDE    = r'\/'
 t_MODULATE  = r'\%'
-t_POT      = r'\*\*'
+
 # Terminan Aritmeticas
 
 # Empiezan Operadores Relacionales
@@ -166,6 +174,7 @@ from Proyecto1_G3.Expression.Literal import Literal
 from Proyecto1_G3.Instruction.Native.Declaration import Declaration
 from Proyecto1_G3.Expression.Relational import Relational, RelationalOption
 from Proyecto1_G3.Expression.Arithmetic import Arithmetic,ArithmeticOption
+from Proyecto1_G3.Instruction.Statements import Statement
 # Terminan Imports Gramatica
 
 # Empieza Precedencia
@@ -200,9 +209,11 @@ def p_instrucciones_instruccion(t):
 # Instructions 
 
 def p_instruccion(t):
-    '''instruccion      : print_instr finins
+    '''instruccion      : print_instrln finins
                         | asignacion_instr  finins
                         | definicion_asignacion_instr
+                        | print_instr finins
+                        | if_instr finins
     '''
     t[0] = t[1]
 
@@ -218,6 +229,10 @@ def p_instruccion_error(t):
     t[0] = ""
 
 # Empieza Print
+def p_print_instrln(t):
+    'print_instrln  : RPRINTLN PARIZQ expres_lista PARDER'
+    t[0] = Print(t[3], t.lineno(1), find_column(input, t.slice[1]), True)
+
 def p_print_instr(t):
     'print_instr  : RPRINT PARIZQ expres_lista PARDER'
     t[0] = Print(t[3], t.lineno(1), find_column(input, t.slice[1]), False)
@@ -231,15 +246,35 @@ def p_definicion_asginacion(t):
     'definicion_asignacion_instr  : ID  DOSPUNTOS tipo EQUALS expresion'
     t[0] = Declaration(t[1], t[5], t.lineno(1), t.lexpos(0))
 
+# Empieza Statement
 
+def p_statement(t):
+    ''' statement : instrucciones '''
+    t[0] = Statement(t[1],t.lineno(1),t.lexpos(0))
+
+# Empieza IF 
+def p_if_instr(t):
+    '''
+    if_instr    : RIF expresion statement REND
+                | RIF expresion DOSPUNTOS statement RELSE DOSPUNTOS statement REND
+                | RIF expresion DOSPUNTOS statement else_list REND
+    '''
+
+def p_else_list(t):
+    '''
+    else_list   : RELIF expresion DOSPUNTOS statement
+                | RELIF expresion DOSPUNTOS statement RELSE statement
+                | RELIF expresion DOSPUNTOS statement else_list
+    '''
 # Empieza Expresion Binaria Aritmetica
 def p_expresion_binaria(t):
     '''
     expresion   :   expresion PLUS      expresion
                 |   expresion MINUS     expresion
+                |   expresion POT       expresion
                 |   expresion POR       expresion
                 |   expresion DIVIDE    expresion
-                |   expresion MODULATE  expresion
+                |   expresion MODULATE  expresion                
                 |   expresion_number
     '''
     if(len(t)==2):
@@ -249,10 +284,11 @@ def p_expresion_binaria(t):
     else:
         if   t[2] == '+': t[0] = Arithmetic(t[1], t[3], ArithmeticOption.PLUS,t.lineno(1), t.lexpos(0))
         elif t[2] == '-': t[0] = Arithmetic(t[1], t[3], ArithmeticOption.MINUS,t.lineno(1), t.lexpos(0))
+        elif t[2] == "**": t[0] = Arithmetic(t[1], t[3], ArithmeticOption.RAISED, t.lineno(1), t.lexpos(0))
         elif t[2] == '*': t[0] = Arithmetic(t[1], t[3], ArithmeticOption.TIMES,t.lineno(1), t.lexpos(0))
         elif t[2] == '/': t[0] = Arithmetic(t[1], t[3], ArithmeticOption.DIV,t.lineno(1), t.lexpos(0))  
         elif t[2] == '%': t[0] = Arithmetic(t[1], t[3], ArithmeticOption.MODULE,t.lineno(1), t.lexpos(0))
-        elif t[2] == "^": t[0] = Arithmetic(t[1], t[3], ArithmeticOption.RAISED, t.lineno(1), t.lexpos(0))
+        
     
 
 # Empieza Expresion Binaria Relacional

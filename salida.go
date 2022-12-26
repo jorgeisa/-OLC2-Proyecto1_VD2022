@@ -14,8 +14,8 @@ var heap [30101999]float64;
 
 func main(){
 	/* Print - Comienzo */
-	t0=3.14+3.174;
-	fmt.Printf("%f", t0);
+	t0=3+3;
+	fmt.Printf("%d", int(t0));
 	fmt.Printf("%c", int(32));
 	/* Print - Final */
 
